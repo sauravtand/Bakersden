@@ -4,21 +4,11 @@ import {
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { RouteData } from '../Helpers/NavMenuData';
 import MainRoute from '../Routes/MainRoute';
 const { Header, Sider, Content } = Layout;
 
-const routeData = [
-  {
-    id: 1,
-    name: 'DashBoard',
-    pathName: '/',
-  },
-  {
-    id: 2,
-    name: 'Product Entry',
-    pathName: '/ProductionEntry',
-  }
-]
+
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -35,19 +25,16 @@ const MainLayout = () => {
           defaultSelectedKeys={['1']}
         >
           {
-            routeData.map(e => (
+            RouteData.map(e => (
               <Menu.Item>
                 <NavLink to={e.pathName}>
-                  <UserOutlined />
+                  <e.icon />
                   <span>{e.name}</span>
                 </NavLink>
 
               </Menu.Item>
             ))
           }
-
-
-
         </Menu>
       </Sider>
       <Layout className="site-layout">
