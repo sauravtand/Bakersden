@@ -1,17 +1,28 @@
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import MainRoute from '../Routes/MainRoute';
 const { Header, Sider, Content } = Layout;
 
+const routeData = [
+  {
+    id: 1,
+    name: 'DashBoard',
+    pathName: '/',
+  },
+  {
+    id: 2,
+    name: 'Product Entry',
+    pathName: '/ProductionEntry',
+  }
+]
+
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
+  // const history = use
   return (
     <Layout style={{
       height: '100Vh'
@@ -22,24 +33,22 @@ const MainLayout = () => {
           theme='dark'
           mode="inline"
           defaultSelectedKeys={['1']}
-          items={[
-            {
-              key: '1',
-              icon: <UserOutlined />,
-              label: 'Dashbord',
-            },
-            {
-              key: '2',
-              icon: <VideoCameraOutlined />,
-              label: 'nav 2',
-            },
-            {
-              key: '3',
-              icon: <UploadOutlined />,
-              label: 'nav 3',
-            },
-          ]}
-        />
+        >
+          {
+            routeData.map(e => (
+              <Menu.Item>
+                <NavLink to={e.pathName}>
+                  <UserOutlined />
+                  <span>{e.name}</span>
+                </NavLink>
+
+              </Menu.Item>
+            ))
+          }
+
+
+
+        </Menu>
       </Sider>
       <Layout className="site-layout">
         <Content
