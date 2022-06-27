@@ -1,13 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import ProductionEntry from './Pages/Production/ProductionEntry';
-import Dashboard from './Pages/Dashboard';
+import MainLayout from './Layouts/Layout';
+import 'antd/dist/antd.css';
 
 function App() {
   return (
-  <>
-  <Dashboard/>
-  </>
+    <MainLayout />
   );
 }
 
