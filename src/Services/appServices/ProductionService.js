@@ -2,17 +2,17 @@ import { GetProductionDetailsByDate, InsertUpdateDayWiseProductionDetails } from
 // import { GenerateUrlEncodedData } from "../Helpers/GenerateUrlEncodedData";
 // import { fetch, store } from "../Helpers/HttpUtil";
 import { generateUrlEncodedData } from "../utils/generateUrlEncodedData";
-import { fetch } from "../utils/httpUtil";
+import { fetch, store } from "../utils/httpUtil";
 
 export const InsertUpdateDayWiseProductionDetail = async (data, successCallback) => {
     let formData = generateUrlEncodedData(data);
     // return
     try {
-        const response = await fetch(`${InsertUpdateDayWiseProductionDetails}`, data);
+        const response = await store(`${InsertUpdateDayWiseProductionDetails}`, formData);
         if (response?.status === 200) {
-            console.log('sucessfull')
+           successCallback(response?.data)
         } else
-            console.log('error')
+            successCallback([])
     } catch (error) {
         successCallback([])
     }
@@ -22,9 +22,9 @@ export const GetProductionDetailsDate = async (data, successCallback) => {
     try {
         const response = await fetch(`${GetProductionDetailsByDate}?fromdate=${data.fromdate}&todate=${data.todate}`);
         if (response?.status === 200) {
-            console.log("sucess");
+            successCallback(response?.data)
         } else {
-            console.log("error")
+            successCallback([])
         }
     } catch (errror) {
         successCallback([])

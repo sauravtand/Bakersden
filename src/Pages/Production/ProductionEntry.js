@@ -4,6 +4,7 @@ import moment from 'moment';
 import { dateFormat, todaydate, todaydateISO } from '../../Helpers/TodayDate';
 import { InsertUpdateDayWiseProductionDetail } from '../../Services/appServices/ProductionService';
 import Header from '../../Components/Common/Header';
+import TextArea from 'antd/lib/input/TextArea';
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -92,10 +93,18 @@ const ProductionEntry = () => {
             ]}
           >
             {/* <Input /> */}
-            <Select showSearch>
+            <Select
+              showSearch
+              filterOption={(input, option) => {
+                return (
+                  option.key.toLowerCase().indexOf(input.toLowerCase()) >= 0 ||
+                  option.title.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                );
+              }}
+            >
               {
                 dummydata.map(e => (
-                  <Option value={e.id} key={e.id}>{e.name}</Option>
+                  <Option title={e.name} value={e.id} key={e.id}>{e.name}</Option>
                 ))
               }
             </Select>
@@ -109,36 +118,13 @@ const ProductionEntry = () => {
               },
             ]}
           >
-            <InputNumber />
+            <InputNumber style={{width: "100%"}}/>
           </Form.Item>
-          {/* <Form.Item
-          name="Net Price"
-          label="Net Price"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item> */}
-          {/* <Form.Item
-          name="Date"
-          label="Date"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <DatePicker format={dateFormat} />
-          
-        </Form.Item> */}
           <Form.Item
             name="remarks"
             label="remarks"
           >
-            <Input />
+            <TextArea />
           </Form.Item>
           <Form.Item
             name="isActive"

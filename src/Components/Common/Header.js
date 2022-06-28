@@ -7,7 +7,7 @@ const Header = ({ title }) => {
 
 
   const pathSnippets = location.pathname.split('/').filter((i) => i);
-  console.log("location", pathSnippets);
+  // console.log("location", pathSnippets);
 
   const extraBreadcrumbItems = pathSnippets.map((_, index) => {
     const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
