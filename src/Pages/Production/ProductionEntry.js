@@ -1,10 +1,12 @@
-import ProductionTable from './ProductionTable';
-import { Button, Form, Input, InputNumber, Select, DatePicker, Switch } from 'antd';
-import moment from 'moment';
-import { dateFormat, todaydate, todaydateISO } from '../../Helpers/TodayDate';
+// import ProductionTable from './ProductionTable';
+import { Button, Form, InputNumber, Select, Switch } from 'antd';
+// import {Input} from 'antd'
+// import moment from 'moment';
+// import { dateFormat, todaydate, todaydateISO } from '../../Helpers/TodayDate';
 import { InsertUpdateDayWiseProductionDetail } from '../../Services/appServices/ProductionService';
 import Header from '../../Components/Common/Header';
 import TextArea from 'antd/lib/input/TextArea';
+import { useState } from 'react';
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -47,9 +49,12 @@ const dummydata = [
 const ProductionEntry = () => {
   const [form] = Form.useForm();
   const date = new Date().toISOString();
+  const [isbutdis, setisbutdis] = useState(false)
+
 
   const onFinish = (values) => {
-    // console.log("value", values);
+    setisbutdis(true)
+
     let data = {
       "PId": 0,
       "ItemId": values.ProductionName,
@@ -57,20 +62,31 @@ const ProductionEntry = () => {
       "Remarks": values.remarks,
       "UserId": 5,
       "EntryDate": date,
-      "IsActive": values.isActive === undefined ? true : 'values.isActive'
+      "IsActive": values.isActive === undefined || values.isActive === true ? true : false
     }
 
     // console.log("data", data)
-
+    // setisbutdis(false)
     InsertUpdateDayWiseProductionDetail(data, (res) => {
-
+      if (res?.SuccessMsg === true) {
+        alert("The data is saved")
+        setisbutdis(false)
+        onReset()
+      } else {
+        alert("Error!")
+        setisbutdis(false)
+      }
     })
 
   };
 
   const onReset = () => {
     form.resetFields();
-  };
+  }
+
+
+
+
 
 
 
@@ -82,10 +98,12 @@ const ProductionEntry = () => {
 
         <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}
           style={{ marginTop: '50px' }}
+          id="productionEntry"
         >
           <Form.Item
             name="ProductionName"
             label="Production Name"
+            id="productionName"
             rules={[
               {
                 required: true,
@@ -112,17 +130,19 @@ const ProductionEntry = () => {
           <Form.Item
             name="ProductionQuantity"
             label="Production Quantity"
+            id="productQuantity"
             rules={[
               {
                 required: true,
               },
             ]}
           >
-            <InputNumber style={{width: "100%"}}/>
+            <InputNumber style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
             name="remarks"
             label="remarks"
+            id="remark"
           >
             <TextArea />
           </Form.Item>
@@ -138,7 +158,9 @@ const ProductionEntry = () => {
 
           <Form.Item >
             <Button type="primary" htmlType="submit"
-              style={{ marginLeft: '515px' }}>
+              style={{ marginLeft: '515px' }} id="saveBtn" disabled={isbutdis} loading={isbutdis}
+            // onClick={(onclick)}
+            >
               Save
             </Button>
           </Form.Item>
@@ -147,7 +169,7 @@ const ProductionEntry = () => {
       </div>
 
     </>
-  );
+  )
 };
 
 export default ProductionEntry;

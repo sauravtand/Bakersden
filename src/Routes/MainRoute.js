@@ -13,8 +13,8 @@ const MainRoute = () => {
   return (
     <Routes>
       <Route exact path='/' element={<Dashboard />} />
-      <Route exact path="/ProductionEntry" element={<ProductionEntry />}> </Route>
-      <Route exact path="/ProductionTable" element={<ProductionTable />}></Route>
+      <Route exact path="/ProductionEntry" element={<ProductionEntry />} />
+      <Route exact path="/ProductionTable" element={<ProductionTable />} />
 
     </Routes>
   )
