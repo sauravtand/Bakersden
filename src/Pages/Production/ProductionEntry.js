@@ -159,7 +159,7 @@ const ProductionEntry = () => {
           <Form.Item >
             <Button type="primary" htmlType="submit"
               style={{ marginLeft: '515px' }} id="saveBtn" disabled={isbutdis} loading={isbutdis}
-            // onClick={(onclick)}
+
             >
               Save
             </Button>

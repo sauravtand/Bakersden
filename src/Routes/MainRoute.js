@@ -3,6 +3,7 @@ import {
   Route,
 } from "react-router-dom";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+
 import ProductionEntry from "../Pages/Production/ProductionEntry";
 import ProductionTable from "../Pages/Production/ProductionTable";
 /**
@@ -15,6 +16,7 @@ const MainRoute = () => {
       <Route exact path='/' element={<Dashboard />} />
       <Route exact path="/ProductionEntry" element={<ProductionEntry />} />
       <Route exact path="/ProductionTable" element={<ProductionTable />} />
+
 
     </Routes>
   )
