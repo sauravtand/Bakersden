@@ -7,7 +7,8 @@ import DeliveryChalaniReceipt from './Pages/Chalani/DeliveryChalaniReceipt';
 
 function App() {
   return (
-    <DeliveryChalaniReceipt/>
+    // <DeliveryChalaniReceipt/>
+    <MainLayout/>
   );
 }
 

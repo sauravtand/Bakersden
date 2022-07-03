@@ -1,20 +1,17 @@
-
-
-
-import { Space, Table, Button, Tag, Modal, Input, Switch } from 'antd';
+import { Space, Table, Button, Tag, Modal, Input, Switch, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { FcPrint } from 'react-icons/fc';
 import Header from '../../Components/Common/Header';
 import { GetProductionDetailsDate, InsertUpdateDayWiseProductionDetail } from '../../Services/appServices/ProductionService';
 import { EditOutlined } from '@ant-design/icons';
+import { CSVLink } from 'react-csv';
+import { newTableStyles } from '../../Components/Common/TableStyles';
 // import { generateUrlEncodedData } from '../../Services/utils/generateUrlEncodedData';
 
 const ProductionTable = () => {
   const [isEditing, setisEditing] = useState(false);
   const [ProductList, setProductList] = useState();
   const [editingProduct, setEditingProduct] = useState();
-
-
   const dummydata = [
     {
       name: "Dark Forest",
@@ -42,10 +39,7 @@ const ProductionTable = () => {
       id: 5,
     }
   ]
-
   // console.log("data", editingProduct)
-
-
   const onFinish = (values) => {
     // setisbutdis(true)
 
@@ -85,9 +79,6 @@ const ProductionTable = () => {
     })
 
   };
-
-
-
   const columns = [
     {
       title: 'PId',
@@ -167,10 +158,6 @@ const ProductionTable = () => {
       },
     },
   ];
-
-
-
-
   const data = [
     {
       key: '1',
@@ -195,15 +182,6 @@ const ProductionTable = () => {
     },
 
   ];
-
-  // EntryDate: "2022-06-28T10:53:33.1"
-  // IsActive: true
-  // ItemId: 2
-  // PId: 3
-  // Quantity: 12
-  // Remarks: "123asa"
-  // UserId: 5
-
   useEffect(() => {
     // const date = new Date().toISOString();
     const date = {
@@ -221,10 +199,7 @@ const ProductionTable = () => {
       }
 
     })
-  }, [])
-  // console.log("res", ProductList)
-
-
+  }, [ProductList])
   const editProduct = (record) => {
     setisEditing(true);
     setEditingProduct({ ...record })
@@ -234,11 +209,83 @@ const ProductionTable = () => {
     setisEditing(false);
     setEditingProduct(null);
   }
+//CSV
+const headers = [
+  {label: 'UserId', key:'UserId'},
+  {label: 'PId', key:'PId'},
+  {label: 'ItemId', key:'ItemId'},
+  {label: 'Quantity', key:'Quantity'},
+  {label: 'EntryDate', key:'EntryDate'},
+  {label: 'Remarks', key:'Remarks'},
+] 
+// handel print
+const printHandle = () => {
+  if(ProductList!==0){
+    let newWindow = window.open()
+
+    let newStyle = ``
+    
+      newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
+      display: none;
+     }tbody > tr:last-child{
+  background-color: #f0f0f2;
+  }
+  tbody > tr:last-child > td{
+      font-size: 12px;
+      font-weight: 500;
+  }</style>`
+  
+    let refName = `
+    <div style='text-align:center;'>
+        <h1>Baker's Den Pvt.ltd<h1>
+        <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
+        <h5>Production Data<h5>
+    </div>
+  
+    `;
+  
+    let tableBody = '';
+    let tableHeadHtml = '<thead>';
+    let columns = [];
+  
+    headers.forEach(ele => {
+      tableHeadHtml += `<th>${ele?.label}</th>`;
+      columns.push(ele.label);
+    })
+    tableHeadHtml += '</thead>';
+  
+    ProductList.forEach(ele => {
+      tableBody = tableBody + '<tr>'
+      columns.forEach(cell => {
+        tableBody = tableBody + '<td>' + ele[cell] + '</td>'
+      })
+      tableBody = tableBody + '</tr>'
+    })
+  
+    let allTable = `<table>${tableHeadHtml}${tableBody}</table>`
+  
+    newWindow.document.body.innerHTML = newTableStyles + newStyle + refName + allTable
+  
+    setTimeout(function () {
+      newWindow.print();
+      newWindow.close();
+    }, 300);
+  } 
+  else {
+    message.info('select some data')
+  }
+
+
+} 
   return (
     <>
       <Header title={'Products'}></Header>
+      {/* //CSV */}
+      <Button type='primary' style={{margin:'20px'}}><CSVLink data={ProductList!== undefined ?ProductList : '' } filename={'ProductionData.csv'}>Export to CSV</CSVLink>
+      </Button>
+      <Button type='primary' style={{margin:'20px'}} onClick={printHandle}>Print</Button>
       <div className="mainContainer">
-        <Table columns={columns} dataSource={ProductList} />
+        <Table columns={columns} dataSource={ProductList!== undefined ?ProductList : ''} />
         <Modal
           title="Edit Product"
           okText="Save"
@@ -292,9 +339,6 @@ const ProductionTable = () => {
   )
 
 }
-
-
-
 export default ProductionTable;
 
 
