@@ -1,4 +1,4 @@
-import { Space, Table, Button, Tag, Modal, Input, Switch, message } from 'antd';
+import { Space, Table, Button, Tag, Modal, Input, Switch, message, DatePicker } from 'antd';
 import { useEffect, useState } from 'react';
 import { FcPrint } from 'react-icons/fc';
 import Header from '../../Components/Common/Header';
@@ -6,12 +6,32 @@ import { GetProductionDetailsDate, InsertUpdateDayWiseProductionDetail } from '.
 import { EditOutlined } from '@ant-design/icons';
 import { CSVLink } from 'react-csv';
 import { newTableStyles } from '../../Components/Common/TableStyles';
+
 // import { generateUrlEncodedData } from '../../Services/utils/generateUrlEncodedData';
 
 const ProductionTable = () => {
   const [isEditing, setisEditing] = useState(false);
   const [ProductList, setProductList] = useState();
   const [editingProduct, setEditingProduct] = useState();
+
+  useEffect(() => {
+    // const date = new Date().toISOString();
+    const date = {
+      fromdate: new Date().toISOString(),
+      todate: new Date().toISOString(),
+    }
+    GetProductionDetailsDate(date, (res) => {
+
+
+      if (res?.ItemList.length > 0) {
+
+
+
+        setProductList(res?.ItemList)
+      }
+
+    })
+  }, [])
   const dummydata = [
     {
       name: "Dark Forest",
@@ -29,7 +49,7 @@ const ProductionTable = () => {
       id: 3,
     },
     {
-      name: "Butter Scothc Cake",
+      name: "Butter Scotch Cake",
       price: '2500',
       id: 4,
     },
@@ -39,18 +59,7 @@ const ProductionTable = () => {
       id: 5,
     }
   ]
-  // console.log("data", editingProduct)
   const onFinish = (values) => {
-    // setisbutdis(true)
-
-    //     EntryDate: "2022-07-01T11:18:14.713"
-    // IsActive: true
-    // ItemId: 1
-    // PId: 36
-    // Quantity: 500
-    // Remarks: "hello"
-    // UserId: 5
-
     let data = {
       "PId": editingProduct.PId,
       "ItemId": editingProduct.ItemId,
@@ -60,12 +69,6 @@ const ProductionTable = () => {
       "EntryDate": editingProduct.EntryDate,
       "IsActive": editingProduct.IsActive
     }
-
-    console.log("data", data)
-    // return
-
-
-
     InsertUpdateDayWiseProductionDetail(data, (res) => {
       // setisbutdis(false)
       if (res?.SuccessMsg === true) {
@@ -100,13 +103,11 @@ const ProductionTable = () => {
 
       }
     },
-
     {
       title: 'Quantity',
       dataIndex: 'Quantity',
       key: 'Quantity',
     },
-
     {
       title: 'UserId',
       dataIndex: 'UserId',
@@ -135,8 +136,6 @@ const ProductionTable = () => {
         </>
       )
     },
-
-
     {
       title: 'Action',
       key: 'action',
@@ -158,48 +157,8 @@ const ProductionTable = () => {
       },
     },
   ];
-  const data = [
-    {
-      key: '1',
-      ProductionName: 'Cheese Cake',
-      ProductionQuantity: '500',
-      PricePerUnit: '150'
-
-    },
-    {
-      key: '1',
-      ProductionName: 'Blueberry Muffin',
-      ProductionQuantity: '500',
-      PricePerUnit: '100'
-
-    },
-    {
-      key: '1',
-      ProductionName: 'Teramesu',
-      ProductionQuantity: '300',
-      PricePerUnit: '200'
-
-    },
-
-  ];
-  useEffect(() => {
-    // const date = new Date().toISOString();
-    const date = {
-      fromdate: new Date().toISOString(),
-      todate: new Date().toISOString(),
-    }
-    GetProductionDetailsDate(date, (res) => {
-
-
-      if (res?.ItemList.length > 0) {
-
-
-
-        setProductList(res?.ItemList)
-      }
-
-    })
-  }, [ProductList])
+  
+ 
   const editProduct = (record) => {
     setisEditing(true);
     setEditingProduct({ ...record })
@@ -277,13 +236,49 @@ const printHandle = () => {
 
 
 } 
+
+//Datepicker
+const { RangePicker } = DatePicker;
+// handle change
+
+function onDateRangeChange(data){
+  let newData = {
+    fromdate: data[0].format('YYYY-MM-DD'),
+    todate: data[1].format('YYYY-MM-DD')
+  }
+  callService(newData)
+  console.log(data);
+  
+}
+function callService(data){
+  // const date = new Date().toISOString();
+  const date = {
+    fromdate: data.fromdate,
+    todate: data.todate,
+  }
+  GetProductionDetailsDate(date, (res) => {
+
+
+    if (res?.ItemList.length > 0) {
+      setProductList(res?.ItemList)
+    }
+
+  })
+}
   return (
     <>
       <Header title={'Products'}></Header>
+
+      {/* start of buttons */}
       {/* //CSV */}
-      <Button type='primary' style={{margin:'20px'}}><CSVLink data={ProductList!== undefined ?ProductList : '' } filename={'ProductionData.csv'}>Export to CSV</CSVLink>
+      <Button type='primary' style={{margin:'20px 5px'}}><CSVLink data={ProductList!== undefined ?ProductList : '' } filename={'ProductionData.csv'}>Export to CSV</CSVLink>
       </Button>
       <Button type='primary' style={{margin:'20px'}} onClick={printHandle}>Print</Button>
+      {/* range picker */}
+      <RangePicker
+      onChange ={ (value) =>{onDateRangeChange(value)}}
+    />
+      {/* End-of-Buttons */}
       <div className="mainContainer">
         <Table columns={columns} dataSource={ProductList!== undefined ?ProductList : ''} />
         <Modal
@@ -337,7 +332,6 @@ const printHandle = () => {
       </div>
     </>
   )
-
 }
 export default ProductionTable;
 

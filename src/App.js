@@ -2,12 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import MainLayout from './Layouts/Layout';
 import 'antd/dist/antd.css';
-import DeliveryChalaniReceipt from './Pages/Chalani/DeliveryChalaniReceipt';
+import Chalani from './Pages/Chalani/ChalaniUI';
 
 
 function App() {
   return (
-    // <DeliveryChalaniReceipt/>
+  //  <Chalani/>
     <MainLayout/>
   );
 }

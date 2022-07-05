@@ -83,13 +83,6 @@ const ProductionEntry = () => {
   const onReset = () => {
     form.resetFields();
   }
-
-
-
-
-
-
-
   return (
     <>
       <Header title={'Add Product'}></Header>
