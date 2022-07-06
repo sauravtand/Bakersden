@@ -1,30 +1,14 @@
 import { Select, Button, InputNumber, Input, Form } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import { useState } from "react";
-
-
 
 const { Option } = Select;
-
-
-
 const AddProduct = (props) => {
-  
-  
-  // const handleProductChange = e =>{
-  //  setProduct( e);
-    
-  // }
-  // const handleQuantityChange = e => {
-  //   setQuantity(e);
-  // }
-
 const handleSubmit = (e) => {
   props.onSubmit({
     key: e.ProductionName,
     productionName: e.ProductionName,
-    productionQuantity: e.ProductionQuantity
+    productionQuantity: e.ProductionQuantity,
   })
  
 }
@@ -56,11 +40,12 @@ const dummydata = [
   }
 ]
     return (
+      
        <Addproduct>
           <h2>Add Products:</h2>
           <Form 
            labelCol={{
-            span: 5,
+            span: 3,
           }}
           wrapperCol={{
             span: 10,
@@ -75,6 +60,7 @@ const dummydata = [
              name="ProductionName"
              label="Product"
              id="productionName"
+             
              rules={[
               {
                 required: true,
@@ -112,28 +98,31 @@ const dummydata = [
                 min={1}
               />
             </Form.Item>
-            <Form.Item style={{marginLeft:'150px'}}>
+            <Form.Item style={{marginLeft:'90px'}}>
                 <Button type='primary' style={{marginTop:'15px'}} htmlType='submit'>Add</Button>
             </Form.Item>
         </Form>
        </Addproduct>
-     
-       
     )
 }
 
 export default AddProduct;
 const Addproduct = styled.div`
-margin-bottom: 10%;
-::after{
-  content:"";
-  display: block;
-  height: 1.5px;
-  background: #c8cacb;
-  width: 100%;
-  position: relative;
-  margin: 20px;
-  margin-left:auto;
-  margin-right: auto;
+margin-bottom: 2%;
+border: 2px solid white;
+border-radius: 8px;
+box-shadow: -5px 5px 23px -2px rgba(0,0,0,0.3);
+-webkit-box-shadow: -5px 5px 23px -2px rgba(0,0,0,0.3);
+-moz-box-shadow: -5px 5px 23px -2px rgba(0,0,0,0.3);
+padding: 1%;
+// ::after{
+//   content:"";
+//   display: block;
+//   height: 1.5px;
+//   background: #c8cacb;
+//   width: 100%;
+//   position: relative;
+//   margin-left:auto;
+//   margin-right: auto;
 }
 `

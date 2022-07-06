@@ -1,8 +1,8 @@
-import { GetProductionDetailsByDate, InsertUpdateDayWiseProductionDetails } from "../constants/url";
+import { GetProductionDetailsByDate, InsertChalanWithItemDetails, InsertUpdateDayWiseProductionDetails } from "../constants/url";
 // import { GenerateUrlEncodedData } from "../Helpers/GenerateUrlEncodedData";
 // import { fetch, store } from "../Helpers/HttpUtil";
 import { generateUrlEncodedData } from "../utils/generateUrlEncodedData";
-import { fetch, store } from "../utils/httpUtil";
+import { fetch, store, storeJson } from "../utils/httpUtil";
 
 export const InsertUpdateDayWiseProductionDetail = async (data, successCallback) => {
     let formData = generateUrlEncodedData(data);
@@ -27,6 +27,21 @@ export const GetProductionDetailsDate = async (data, successCallback) => {
             successCallback([])
         }
     } catch (errror) {
+        successCallback([])
+    }
+}
+
+export const InsertChalanWithItemDetail = async (data, successCallback) => {
+    console.log('new');
+    try {
+        console.log('fgf', data);
+        const response = await storeJson(`${InsertChalanWithItemDetails}`,data)
+        if (response?.status === 200) {
+            successCallback(response?.data)
+        } else {
+            successCallback([])
+        }
+    } catch (error) {
         successCallback([])
     }
 }

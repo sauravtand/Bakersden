@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Header from "../../Components/Common/Header";
-import ChalaniClient from "./ChalaniClient";
 import ItemList from "./ItemList";
 
 const Chalani = () => {
@@ -10,7 +9,6 @@ const Chalani = () => {
        <Header title={'Chalani'}></Header>
       <div className="mainContainer">
        <ClientAndUser>
-        <ChalaniClient/>
         <ItemList/>
        </ClientAndUser>
        

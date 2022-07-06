@@ -1,4 +1,4 @@
-import { Space, Table, Button, Tag, Modal, Input, Switch, message, DatePicker } from 'antd';
+import { Space, Table, Button, Tag, Modal, Input, Switch, message, DatePicker, Alert } from 'antd';
 import { useEffect, useState } from 'react';
 import { FcPrint } from 'react-icons/fc';
 import Header from '../../Components/Common/Header';
@@ -72,11 +72,13 @@ const ProductionTable = () => {
     InsertUpdateDayWiseProductionDetail(data, (res) => {
       // setisbutdis(false)
       if (res?.SuccessMsg === true) {
-        alert("The data is saved")
+        <Alert message="The data is saved" type="success" showIcon />
+
         // setisbutdis(false)
         // onReset()
       } else {
-        alert("Error!")
+        <Alert message="Error" type="Error" showIcon />
+
         // setisbutdis(false)
       }
     })
