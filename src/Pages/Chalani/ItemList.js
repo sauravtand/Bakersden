@@ -91,7 +91,7 @@ setAllChalaniData(arrTemp);
 
         <FormStyled>
    
-    <Form
+     <Form
       name="basic"
       labelCol={{
         span: 10,
@@ -159,7 +159,7 @@ setAllChalaniData(arrTemp);
       <Button type='primary' htmlType="submit">Save</Button>
       </Form.Item>
 
-    </Form>
+    </Form> 
   </FormStyled>
 </>
     )
@@ -210,8 +210,9 @@ margin-left: 2%;
 //   ]
 // }
 const FormStyled = styled.div`
-margin: 2% 5%;
-padding: 2%;
+margin: 2% 2%;
+padding:2% 8%;
+height: 350px;
 border-left: 2px solid #c8cacb;
 border: 2px solid white;
 border-radius: 8px;

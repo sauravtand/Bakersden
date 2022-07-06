@@ -36,7 +36,16 @@ const EachItem = ( {items, removeProduct}) => {
       id: 5,
     }
   ]
+  const changeIdToName = (text)=>{
+    const a = dummydata.map(res => {
+      if (res.id === text)
+        return res.name
+      else
+        return ''
+    })
+    return a
 
+  }
 
  
     const columns = [
