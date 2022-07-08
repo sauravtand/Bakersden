@@ -29,12 +29,21 @@ const MainLayout = () => {
               <Menu.Item>
                 <NavLink to={e.pathName}>
                   <e.icon />
-                  <span>{e.name}</span>
+                  {
+                    collapsed ?
+                      null :
+                      <span style={{
+                        marginLeft: "8px"
+                      }}>{e.name}</span>
+
+                  }
+
                 </NavLink>
 
               </Menu.Item>
             ))
           }
+          <Menu.Item onClick={() => setCollapsed(!collapsed)}>collpse</Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -43,7 +52,10 @@ const MainLayout = () => {
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: 280,
+            minHeight: '90vh',
+            overflowY: 'scroll',
+
+
           }}
         >
           <MainRoute />
