@@ -58,10 +58,11 @@ const MainLayout = () => {
          style={{
           backgroundColor:'#7EC8E3',
           fontSize:'28px',
-          // paddingRight:'20px',
           textAlign:'center',
-          // position: 'absolute',
-          bottom: 0
+          position: 'absolute',
+          bottom: '-4px',
+          left: 0,
+          right: 0,
         }}
          onClick={() => setCollapsed(!collapsed)}>
           {collapsed?<TbLayoutSidebarRightCollapse/>:<TbLayoutSidebarLeftCollapse />}

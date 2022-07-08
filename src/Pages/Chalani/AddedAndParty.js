@@ -2,15 +2,15 @@
 import styled from "styled-components";
 import AddProduct from './AddProducts';
 import { useState } from "react";
-import EachItem from "./Item";
+import EachItem from "./EachItem";
 import { Button, Col, Row } from "antd";
-import { DatePicker, Form, Input } from 'antd';
+import {DatePicker, Form, Input } from 'antd';
 import { UpdateChalanItem, UpdateDeliveryChalani } from "../../Services/appServices/ProductionService";
 import { generateUrlEncodedData } from '../../Services/utils/generateUrlEncodedData'
 import { newTableStyles } from "../../Components/Common/TableStyles";
 
 
-const ItemList = () => {
+const AddedAndParty = () => {
 
 
   const [chalaniData, setChalaniData] = useState([]);
@@ -254,8 +254,8 @@ const ItemList = () => {
   )
 
 }
-
-export default ItemList;
+            
+export default AddedAndParty;
 
 
 
