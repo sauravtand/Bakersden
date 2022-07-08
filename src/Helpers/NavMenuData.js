@@ -19,9 +19,15 @@ export const RouteData = [
     icon: MdShoppingCart
   },
   {
-    id:3,
-    name: 'Chalani',
+    id:4,
+    name: 'Chalani Entry',
     pathName: '/Chalani',
+    icon: MdOutlineReceiptLong
+  },
+  {
+    id:5,
+    name: 'View Chalani',
+    pathName: '/ChalaniTable',
     icon: MdOutlineReceiptLong
   }
 ]

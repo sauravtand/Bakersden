@@ -124,11 +124,21 @@ export const InsertChalanDetailsWithSeparateItemsDetails = `InsertChalanDetailsW
   }
  */
 
-  // GetChalanDetailsByDate?fromdate={fromdate}&todate={todate}
+// GetChalanDetailsByDate?fromdate={fromdate}&todate={todate}
 
-  export const GetChalanDetailsByDate = `GetChalanDetailsByDate`
+export const GetChalanDetailsByDate = `GetChalanDetailsByDate`
 
-  /**
- * @desc: Insert ChalanDetails With Separate Items Details
- *  @param: ?fromdate={fromdate}&todate={todate}
- */
+/**
+* @desc: Get chaalani Details By Date
+*  @param: ?fromdate={fromdate}&todate={todate}
+*/
+
+// GetChalanItemDetailsByChalanId?chalanNo={chalanNo}
+
+export const GetChalanItemDetailsByChalanId = `GetChalanItemDetailsByChalanId`
+
+/**
+* @desc: Get chaalani Details By chalani Id
+*  @param: ?chalanNo={chalanNo}
+*/
+
