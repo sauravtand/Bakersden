@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import AddProduct from './AddProducts';
 import { useState } from "react";
-import EachItem from "./Item";
+import EachItem from "./EachItem";
 import { Button } from "antd";
 import {DatePicker, Form, Input } from 'antd';
 import { UpdateChalanItem, UpdateDeliveryChalani } from "../../Services/appServices/ProductionService";
@@ -10,7 +10,7 @@ import {generateUrlEncodedData} from '../../Services/utils/generateUrlEncodedDat
 import { newTableStyles } from "../../Components/Common/TableStyles";
 
 
-const ItemList = () => {
+const AddedAndParty = () => {
 
 
   const [chalaniData, setChalaniData] = useState([]);
@@ -248,7 +248,7 @@ const printHandle = () => {
 
             }
             
-export default ItemList;
+export default AddedAndParty;
 
 
 

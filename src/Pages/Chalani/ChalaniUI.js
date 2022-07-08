@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import Header from "../../Components/Common/Header";
-import ItemList from "./ItemList";
-
+import AddedAndParty from "./AddedAndParty";
 const Chalani = () => {
     return (
         <>
             <Header title={'Chalani'}></Header>
             {/* <div className="mainContainer"> */}
             <ClientAndUser>
-                <ItemList />
+                <AddedAndParty />
             </ClientAndUser>
 
             {/* </div> */}
