@@ -4,16 +4,16 @@ import ItemList from "./ItemList";
 
 const Chalani = () => {
     return (
-        <>
+        <div className="mainContainer">
             <Header title={'Chalani'}></Header>
             {/* <div className="mainContainer"> */}
-            <ClientAndUser>
+            {/* <ClientAndUser> */}
                 <ItemList />
-            </ClientAndUser>
+            {/* </ClientAndUser> */}
 
             {/* </div> */}
 
-        </>
+        </div>
     )
 }
 

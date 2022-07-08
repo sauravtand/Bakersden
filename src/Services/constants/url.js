@@ -122,13 +122,13 @@ export const InsertChalanDetailsWithSeparateItemsDetails = `InsertChalanDetailsW
     "ApprovedBy": 11,
     "IsActive": true
   }
+ */
 
-  
- * 
- * 
- * 
- * }
- * 
- * 
- * 
+  // GetChalanDetailsByDate?fromdate={fromdate}&todate={todate}
+
+  export const GetChalanDetailsByDate = `GetChalanDetailsByDate`
+
+  /**
+ * @desc: Insert ChalanDetails With Separate Items Details
+ *  @param: ?fromdate={fromdate}&todate={todate}
  */
