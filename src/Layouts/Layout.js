@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { RouteData } from '../Helpers/NavMenuData';
 import MainRoute from '../Routes/MainRoute';
+import {TbLayoutSidebarLeftCollapse,TbLayoutSidebarRightCollapse} from 'react-icons/tb'
 const { Header, Sider, Content } = Layout;
 
 
@@ -23,12 +24,16 @@ const MainLayout = () => {
           theme='dark'
           mode="inline"
           defaultSelectedKeys={['1']}
-        >
+        >         
+       
+
           {
             RouteData.map(e => (
               <Menu.Item>
                 <NavLink to={e.pathName}>
-                  <e.icon />
+                  <e.icon style={{
+                    fontSize: '20px'
+                  }} />
                   {
                     collapsed ?
                       null :
@@ -43,7 +48,19 @@ const MainLayout = () => {
               </Menu.Item>
             ))
           }
-          <Menu.Item onClick={() => setCollapsed(!collapsed)}>collpse</Menu.Item>
+            <Menu.Item 
+         style={{
+          backgroundColor:'#7EC8E3',
+          fontSize:'28px',
+          // paddingRight:'20px',
+          textAlign:'center',
+          // position: 'absolute',
+          bottom: 0
+        }}
+         onClick={() => setCollapsed(!collapsed)}>
+          {collapsed?<TbLayoutSidebarRightCollapse/>:<TbLayoutSidebarLeftCollapse />}
+          
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -54,6 +71,7 @@ const MainLayout = () => {
             padding: 24,
             minHeight: '90vh',
             overflowY: 'scroll',
+            overflowX:'hidden'
 
 
           }}

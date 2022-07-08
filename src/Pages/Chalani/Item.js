@@ -1,7 +1,4 @@
-import AddProduct from "./AddProducts";
-import styled from "styled-components";
 import { Table,Space, Button  } from 'antd';
-import {AiFillDelete} from 'react-icons/ai'
 import { useEffect } from "react";
 
 
@@ -64,7 +61,8 @@ const EachItem = ( {items, removeProduct, headersData}) => {
             })
             return a
     
-          }        },
+          }       
+         },
         {
           title: 'Quantity',
           dataIndex: 'productionQuantity',
@@ -82,13 +80,13 @@ const EachItem = ( {items, removeProduct, headersData}) => {
       ];
 
 
-      useEffect(() => {
-        head()
-      }, [])
+      // useEffect(() => {
+      //   head()
+      // }, [])
 
-      const head = () =>{
-        headersData(columns)
-      }
+      // const head = () =>{
+      //   headersData(columns)
+      // }
      
     return (<div  style={{width:'100%',height:'55vh'}}>
             <Table columns={columns} dataSource={items}

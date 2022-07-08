@@ -117,9 +117,10 @@ const Addproduct = styled.div`
 margin-bottom: 2%;
 border: 2px solid white;
 border-radius: 8px;
-box-shadow: -5px 5px 23px -2px rgba(0,0,0,0.3);
--webkit-box-shadow: -5px 5px 23px -2px rgba(0,0,0,0.3);
--moz-box-shadow: -5px 5px 23px -2px rgba(0,0,0,0.3);
+background-color: white;
+box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
+-webkit-box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
+-moz-box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
 /* padding: 1%; */
 padding: 8px;
 // ::after{
