@@ -1,12 +1,16 @@
 import {
+  AlignRightOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 import { RouteData } from '../Helpers/NavMenuData';
 import MainRoute from '../Routes/MainRoute';
-import {TbLayoutSidebarLeftCollapse,TbLayoutSidebarRightCollapse} from 'react-icons/tb'
+import Logo from '../Assets/images/logo.png'
+import {TbLayoutSidebarRightCollapse,TbLayoutSidebarLeftCollapse} from 'react-icons/tb'
+
 const { Header, Sider, Content } = Layout;
 
 
@@ -24,8 +28,10 @@ const MainLayout = () => {
           theme='dark'
           mode="inline"
           defaultSelectedKeys={['1']}
-        >         
-       
+        >
+          <SideBarTop>
+            <img src={Logo} />
+          </SideBarTop>
 
           {
             RouteData.map(e => (
@@ -84,3 +90,15 @@ const MainLayout = () => {
 };
 
 export default MainLayout;
+
+const SideBarTop = styled.div`
+  /* height: 100px; */
+  height: auto;
+  width: 100%;
+  padding: 8px;
+  position: relative;
+  margin-bottom: 8px;
+  img{
+    width: 100%;
+  }
+`

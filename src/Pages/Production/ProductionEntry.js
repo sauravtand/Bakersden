@@ -84,12 +84,13 @@ const ProductionEntry = () => {
     form.resetFields();
   }
   return (
-    <>
+    <div className="mainContainer">
       <Header title={'Add Product'}></Header>
       <Row>
         <Col span={9}>
-          <div className="mainContainer">
-
+          <div style={{
+            borderRight: "1px solid #888282"
+          }}>
             <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}
               style={{ marginTop: '50px' }}
               id="productionEntry"
@@ -160,13 +161,13 @@ const ProductionEntry = () => {
           </div>
         </Col>
         <Col span={14} offset={1}>
-          <div className="mainContainer">
+          <div >
             <ProductionEntryTab reloadTable={reloadTable} />
           </div>
 
         </Col>
       </Row>
-    </>
+    </div>
   )
 };
 
