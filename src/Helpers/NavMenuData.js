@@ -8,13 +8,13 @@ export const RouteData = [
   },
   {
     id: 2,
-    name: 'Product Entry',
+    name: 'Production Entry',
     pathName: '/ProductionEntry',
     icon: MdAddShoppingCart
   },
   {
     id: 3,
-    name: 'Products',
+    name: 'View Products',
     pathName: '/ProductionTable',
     icon: MdShoppingCart
   },

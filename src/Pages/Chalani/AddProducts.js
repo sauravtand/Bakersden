@@ -115,6 +115,8 @@ const dummydata = [
             <Form.Item style={{marginLeft:'150px'}}>
                 <Button type='primary' style={{marginTop:'15px'}} htmlType='submit'>Add</Button>
             </Form.Item>
+
+            
         </Form>
        </Addproduct>
      

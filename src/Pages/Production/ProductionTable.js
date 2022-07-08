@@ -267,7 +267,7 @@ function callService(data){
 }
   return (
     <>
-      <Header title={'Products'}></Header>
+      <Header title={'View Products'}></Header>
 
       {/* start of buttons */}
       {/* //CSV */}
