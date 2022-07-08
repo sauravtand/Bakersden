@@ -170,17 +170,14 @@ const ProductionEntryTab = (props) => {
     return (
         <>
 
-
-            {/* start of buttons */}
-            {/* //CSV */}
-            <Button type='primary' style={{ margin: '20px 5px' }}><CSVLink data={ProductList !== undefined ? ProductList : ''} filename={'ProductionData.csv'}>Export to CSV</CSVLink>
+            <Button type='primary' style={{ margin: '20px', float: 'right' }} onClick={printHandle}>Print</Button>
+            <Button type='primary' style={{ margin: '20px 5px', float: 'right' }}><CSVLink data={ProductList !== undefined ? ProductList : ''} filename={'ProductionData.csv'}>Export to CSV</CSVLink>
             </Button>
-            <Button type='primary' style={{ margin: '20px' }} onClick={printHandle}>Print</Button>
 
             <div >
                 <Table columns={columns} dataSource={ProductList !== undefined ? ProductList : ''} scroll={{
-      y: 340,
-    }}  />
+                    y: 340,
+                }} />
 
             </div>
         </>

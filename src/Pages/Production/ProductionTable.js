@@ -267,20 +267,20 @@ const ProductionTable = () => {
     })
   }
   return (
-    <>
+    <div className="mainContainer">
       <Header title={'View Products'}></Header>
 
       {/* start of buttons */}
       {/* //CSV */}
-      <Button type='primary' style={{ margin: '20px 5px' }}><CSVLink data={ProductList !== undefined ? ProductList : ''} filename={'ProductionData.csv'}>Export to CSV</CSVLink>
+      <Button type='primary' style={{marginLeft: '16px', float: 'right' }} onClick={printHandle}>Print</Button>
+      <Button type='primary' style={{ float: 'right' }}><CSVLink data={ProductList !== undefined ? ProductList : ''} filename={'ProductionData.csv'}>Export to CSV</CSVLink>
       </Button>
-      <Button type='primary' style={{ margin: '20px' }} onClick={printHandle}>Print</Button>
       {/* range picker */}
       <RangePicker
         onChange={(value) => { onDateRangeChange(value) }}
       />
       {/* End-of-Buttons */}
-      <div className="mainContainer">
+      <div >
         <Table columns={columns} dataSource={ProductList !== undefined ? ProductList : ''}
           scroll={{
             y: 340,
@@ -333,7 +333,7 @@ const ProductionTable = () => {
           IsActive:<Switch defaultChecked disabled="disabled" />
         </Modal>
       </div>
-    </>
+    </div>
   )
 }
 export default ProductionTable;
