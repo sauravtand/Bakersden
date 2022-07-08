@@ -10,7 +10,6 @@ const handleSubmit = (e) => {
     productionName: e.ProductionName,
     productionQuantity: e.ProductionQuantity,
   })
- 
 }
 const dummydata = [
   {
@@ -39,6 +38,10 @@ const dummydata = [
     id: 5,
   }
 ]
+
+
+
+
     return (
       
        <Addproduct>
@@ -107,6 +110,7 @@ const dummydata = [
 }
 
 export default AddProduct;
+
 const Addproduct = styled.div`
 margin-bottom: 2%;
 border: 2px solid white;

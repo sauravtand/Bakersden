@@ -1,8 +1,8 @@
-import { GetProductionDetailsByDate, InsertChalanWithItemDetails, InsertUpdateDayWiseProductionDetails } from "../constants/url";
+import { GetProductionDetailsByDate, InsertChalanDetailsWithSeparateItemsDetails, InsertChalanWithItemDetails, InsertUpdateDayWiseProductionDetails, UpdateChalanItems, UpdateDeliveryChalan } from "../constants/url";
 // import { GenerateUrlEncodedData } from "../Helpers/GenerateUrlEncodedData";
 // import { fetch, store } from "../Helpers/HttpUtil";
 import { generateUrlEncodedData } from "../utils/generateUrlEncodedData";
-import { fetch, store, storeJson } from "../utils/httpUtil";
+import { fetch, seperateStoreJson, store, storeJson } from "../utils/httpUtil";
 
 export const InsertUpdateDayWiseProductionDetail = async (data, successCallback) => {
     let formData = generateUrlEncodedData(data);
@@ -31,11 +31,24 @@ export const GetProductionDetailsDate = async (data, successCallback) => {
     }
 }
 
-export const InsertChalanWithItemDetail = async (data, successCallback) => {
-    console.log('new');
+// export const InsertChalanWithItemDetail = async (data, successCallback) => {
+//     console.log('new');
+//     try {
+//         console.log('fgf', data);
+//         const response = await storeJson(`${InsertChalanWithItemDetails}`,data)
+//         if (response?.status === 200) {
+//             successCallback(response?.data)
+//         } else {
+//             successCallback([])
+//         }
+//     } catch (error) {
+//         successCallback([])
+//     }
+// }
+export const InsertChalanDetailsWithSeparateItemsDetail = async (data, successCallback) => {
     try {
         console.log('fgf', data);
-        const response = await storeJson(`${InsertChalanWithItemDetails}`,data)
+        const response = await  seperateStoreJson(`${InsertChalanDetailsWithSeparateItemsDetails}`,data)
         if (response?.status === 200) {
             successCallback(response?.data)
         } else {
@@ -45,3 +58,29 @@ export const InsertChalanWithItemDetail = async (data, successCallback) => {
         successCallback([])
     }
 }
+export const UpdateDeliveryChalani = async (data, successCallback) => {
+    try {
+        
+        const response = await  store(`${UpdateDeliveryChalan}`,data)
+        if (response?.status === 200) {
+            successCallback(response?.data)
+        } else {
+            successCallback([])
+        }
+    } catch (error) {
+        successCallback([])
+    }
+}
+export const UpdateChalanItem = async (data, successCallback) => {
+    try {
+        const response = await  store(`${UpdateChalanItems}`,data)
+        if (response?.status === 200) {
+            successCallback(response?.data)
+        } else {
+            successCallback([])
+        }
+    } catch (error) {
+        successCallback([])
+    }
+}
+

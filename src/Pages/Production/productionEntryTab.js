@@ -97,9 +97,6 @@ const ProductionEntryTab = (props) => {
         },
 
     ];
-
-
-
     //CSV
     const headers = [
         { label: 'UserId', key: 'UserId' },
@@ -181,7 +178,9 @@ const ProductionEntryTab = (props) => {
             <Button type='primary' style={{ margin: '20px' }} onClick={printHandle}>Print</Button>
 
             <div >
-                <Table columns={columns} dataSource={ProductList !== undefined ? ProductList : ''} />
+                <Table columns={columns} dataSource={ProductList !== undefined ? ProductList : ''} scroll={{
+      y: 340,
+    }}  />
 
             </div>
         </>

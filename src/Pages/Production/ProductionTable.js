@@ -281,7 +281,10 @@ const ProductionTable = () => {
       />
       {/* End-of-Buttons */}
       <div className="mainContainer">
-        <Table columns={columns} dataSource={ProductList !== undefined ? ProductList : ''} />
+        <Table columns={columns} dataSource={ProductList !== undefined ? ProductList : ''}
+        scroll={{
+          y: 340,
+        }} />
         <Modal
           title="Edit Product"
           okText="Save"

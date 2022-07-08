@@ -2,12 +2,13 @@ import AddProduct from "./AddProducts";
 import styled from "styled-components";
 import { Table,Space, Button  } from 'antd';
 import {AiFillDelete} from 'react-icons/ai'
+import { useEffect } from "react";
 
 
 
 
 
-const EachItem = ( {items, removeProduct}) => {
+const EachItem = ( {items, removeProduct, headersData}) => {
 
   const dummydata = [
     {
@@ -46,6 +47,7 @@ const EachItem = ( {items, removeProduct}) => {
     return a
 
   }
+ 
 
  
     const columns = [
@@ -78,13 +80,27 @@ const EachItem = ( {items, removeProduct}) => {
           ),
         },
       ];
+
+
+      useEffect(() => {
+        head()
+      }, [])
+
+      const head = () =>{
+        headersData(columns)
+      }
      
-    return (<div  style={{width:'100%'}}>
-            <Table columns={columns} dataSource={items} />
+    return (<div  style={{width:'100%',height:'55vh'}}>
+            <Table columns={columns} dataSource={items}
+            style={{height:'250px'}}
+            scroll={{
+              y: 300,
+            }} />
            </div>
     )
     
 }
+
 
 export default EachItem;
 

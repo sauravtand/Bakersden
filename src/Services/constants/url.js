@@ -57,6 +57,22 @@ export const UpdateDeliveryChalan = `UpdateDeliveryChalan`
           "IsActive": true
           }
  */
+export const UpdateChalanItems = `UpdateChalanItems`
+/**
+ * @desc: Update Chalan Items
+ * @param:{
+  "CId": 1,
+  "ChalaniNo": 2,
+  "ItemId": 3,
+  "Quantity": 4.1,
+  "Remarks": "sample string 5",
+  "IsActive": true
+}
+ * 
+ * 
+ */
+
+
 export const InsertChalanWithItemDetails = "InsertChalanWithItemDetails"
 /**
  * @desc: Insert Chalani With Item Details.
@@ -87,4 +103,32 @@ export const InsertChalanWithItemDetails = "InsertChalanWithItemDetails"
   ]
 }
 
+ */
+export const InsertChalanDetailsWithSeparateItemsDetails = `InsertChalanDetailsWithSeparateItemsDetails`
+/**
+ * @desc: Insert ChalanDetails With Separate Items Details
+ *  @param:{
+  "
+    "DCId": 1,
+    "PartyId": 2,
+    "PartyName": "sample string 3",
+    "PartyAddress": "sample string 4",
+    "UserId": 5,
+    "EntryDate": "2022-07-06T11:27:55.5756515+05:45",
+    "DeliveryDate": "2022-07-06T11:27:55.5756515+05:45",
+    "Remarks": "sample string 8",
+    "IssuedBy": 9,
+    "ReceivedBy": 10,
+    "ApprovedBy": 11,
+    "IsActive": true
+  }
+
+  
+ * 
+ * 
+ * 
+ * }
+ * 
+ * 
+ * 
  */

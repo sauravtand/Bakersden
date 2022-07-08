@@ -5,14 +5,18 @@ import { useState } from "react";
 import EachItem from "./Item";
 import { Button } from "antd";
 import {DatePicker, Form, Input } from 'antd';
-import { InsertChalanWithItemDetail } from "../../Services/appServices/ProductionService";
+import { UpdateChalanItem, UpdateDeliveryChalani } from "../../Services/appServices/ProductionService";
+import {generateUrlEncodedData} from '../../Services/utils/generateUrlEncodedData'
+import { newTableStyles } from "../../Components/Common/TableStyles";
+
 
 const ItemList = () => {
 
 
-  const [allChalaniData, setAllChalaniData] = useState([]);
+  const [chalaniData, setChalaniData] = useState([]);
   const [items, setItems] = useState([]);
   const [partyData, setPartyData] = useState([]);
+  const [headData, setHeadData] = useState([]);
 
 
 
@@ -23,23 +27,8 @@ const ItemList = () => {
 // }
 
 const handleAllData = (e) =>{
-  let tempData;
-let arrTemp = [];
-
-items.map((e)=>{
-  tempData = {
-    "CId": 0,
-    "ChalaniNo": 2,
-    "ItemId": e.productionName,
-    "Quantity": e.productionQuantity,
-    "Remarks": "sample string 5",
-    "IsActive": true
-  }
-  arrTemp.push(tempData);
-})
-
-setAllChalaniData(arrTemp);
- let Party = {
+// console.log(items);
+let Party = {
   "DCId": 1,
   "PartyId": 2,
   "PartyName": e.PartyName,
@@ -53,23 +42,35 @@ setAllChalaniData(arrTemp);
   "ApprovedBy": 11,
   "IsActive": true
  }
-//  setPartyData(newParty)
-
-
- const Data = {
-  "_Chalan": Party,
-  "_chalanItemDetails": arrTemp
-
- }
- console.log(JSON.stringify(Data));
- InsertChalanWithItemDetail(JSON.stringify(Data), (res)=>{
+ setPartyData(Party);
+ let chalaniNo = 0;
+ UpdateDeliveryChalani(generateUrlEncodedData(partyData), (res)=>{
   console.log(res);
+  chalaniNo = res.CreatedId;
+
+  
+  for(let i= 0;i< items.length;i++){
+    
+    let ChalanItems = {
+      "CId":0,
+      "ChalaniNo": chalaniNo,
+      "ItemId": 3,
+      "Quantity": 4.1,
+      "Remarks": "sample string 5",
+      "IsActive": true
+      
+    }
+    console.log(ChalanItems);
+  //  console.log(ChalanItems);
+  //  setChalaniData(ChalanItems);
+   UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res)=>{
+     console.log(res);
+    })
+    }
+  
  })
 
- 
 }
-
-
   const addItems = item =>{
     const newItems = [ ...items, item]
     setItems(newItems);
@@ -78,6 +79,74 @@ setAllChalaniData(arrTemp);
     const remove = [...items].filter(item => item.productionName !== id)
     setItems(remove);
   }
+
+  console.log(items);
+// ======Print function=====//
+const headers = [
+  { label: 'Particulars', key:'productionName' },
+  { label: 'Quantity', key:'productionQuantity' },
+]
+
+const printHandle = () => {
+
+    let newWindow = window.open()
+
+    let newStyle = ``
+
+    newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
+      display: none;
+     }tbody > tr:last-child{
+  background-color: #f0f0f2;
+  }
+  tbody > tr:last-child > td{
+      font-size: 12px;
+      font-weight: 500;
+  }</style>`
+
+    let refName = `
+    <div style='text-align:center;'>
+        <h1>Baker's Den Pvt.ltd<h1>
+        <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
+        <p>Party Name: party name </p>
+        <p>Date: 2022/01/34</p>
+        <p>Delivery Date: 2022/01/35</p>
+    </div>
+  
+    `;
+
+    let tableBody = '';
+    let tableHeadHtml = '<thead>';
+    let columns = [];
+
+    headers.forEach(ele => {
+      tableHeadHtml += `<th>${ele?.label}</th>`;
+      columns.push(ele.label);
+    })
+    tableHeadHtml += '</thead>';
+
+   items.forEach(ele => {
+      tableBody = tableBody + '<tr>'
+      columns.forEach(cell => {
+        tableBody = tableBody + '<td>' + ele[cell] + '</td>'
+      })
+      tableBody = tableBody + '</tr>'
+    })
+
+    let allTable = `<table>${tableHeadHtml}${tableBody}</table>`
+
+    newWindow.document.body.innerHTML = newTableStyles + newStyle + refName + allTable
+
+    setTimeout(function () {
+      newWindow.print();
+      newWindow.close();
+    }, 300);
+  }
+
+  const headersData = (e) => {
+    setHeadData(e);
+   
+  }
+  console.log(headData)
   
  return (
   <>
@@ -85,7 +154,7 @@ setAllChalaniData(arrTemp);
           <AddProduct onSubmit={addItems}/>
           <AddedProducts>
           <h2>Added Products:</h2>
-          <EachItem items={items} removeProduct={removeProduct}/>
+          <EachItem items={items} removeProduct={removeProduct} headersData={headersData}/>
           </AddedProducts>
         </Itemlist>
 
@@ -103,7 +172,7 @@ setAllChalaniData(arrTemp);
         remember: true,
       }}
       autoComplete="off"
-      onFinish={handleAllData}
+      onFinish={printHandle}
     >
       <h2 style={{textAlign:'center'}}>Party Details:</h2>
       <Form.Item
@@ -156,14 +225,16 @@ setAllChalaniData(arrTemp);
               <Input />
       </Form.Item>
       <Form.Item style={{ margin:'20px 110px'}}>
-      <Button type='primary' htmlType="submit">Save</Button>
+      <Button type='primary' htmlType="submit">Save And Print</Button>
       </Form.Item>
 
     </Form> 
   </FormStyled>
 </>
     )
-}
+
+            }
+            
 export default ItemList;
 
 
@@ -219,16 +290,11 @@ border-radius: 8px;
 box-shadow: -3px 3px 36px -5px rgba(0,0,0,0.3);
 -webkit-box-shadow: -3px 3px 36px -5px rgba(0,0,0,0.3);
 -moz-box-shadow: -3px 3px 36px -5px rgba(0,0,0,0.3);
-
-
 `
-
-
 const AddedProducts = styled.div`
 border: 2px solid white;
 border-radius: 8px;
 box-shadow: -5px 5px 23px -2px rgba(0,0,0,0.3);
 -webkit-box-shadow: -5px 5px 23px -2px rgba(0,0,0,0.3);
 -moz-box-shadow: -5px 5px 23px -2px rgba(0,0,0,0.3);padding: 2%;
-
 `

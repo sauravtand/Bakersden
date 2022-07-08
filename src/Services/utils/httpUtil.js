@@ -1,4 +1,4 @@
-import { httpBase, httpBaseJson } from "./httpBaseUtil"
+import { httpBase, httpBaseJson, httpSeperateBaseJson } from "./httpBaseUtil"
 
 export const fetch = (url, params) => {
     return httpBase().get(`/${url}`, params)
@@ -16,6 +16,11 @@ export const destroy = (url, id = '') => {
     return httpBase().delete(`/${url}/${id}`);
 }
 
-export const storeJson = (url, data) => {
-    return httpBaseJson().post(`/${url}`, data)
+// export const storeJson = (url, data) => {
+//     return httpSeperateBaseJson().post(`/${url}`, data)
+// }
+export const seperateStoreJson = (url, data) => {
+    return httpSeperateBaseJson().post(`/${url}`, data)
 }
+
+

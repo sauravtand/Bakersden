@@ -49,3 +49,27 @@ export const httpBaseJson = () => {
 
   return instance;
 }
+export const httpSeperateBaseJson = () => {
+  const headers = {
+    'Content-Type': 'application/json',
+
+  }
+
+  const instance = axios.create({
+    baseURL: BASE_URL,
+    headers: headers,
+    mode: 'no-cors',
+    method: 'POST'
+  })
+
+  instance.interceptors.response.use(
+    response => {
+      return response
+    },
+    error => {
+      return error;
+    }
+  );
+
+  return instance;
+}
