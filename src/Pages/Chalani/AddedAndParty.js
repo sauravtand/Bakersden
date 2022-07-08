@@ -3,72 +3,76 @@ import styled from "styled-components";
 import AddProduct from './AddProducts';
 import { useState } from "react";
 import EachItem from "./EachItem";
-import { Button, Col, Row } from "antd";
+import { Button, Col, message, Row } from "antd";
 import {DatePicker, Form, Input } from 'antd';
 import { UpdateChalanItem, UpdateDeliveryChalani } from "../../Services/appServices/ProductionService";
 import { generateUrlEncodedData } from '../../Services/utils/generateUrlEncodedData'
 import { newTableStyles } from "../../Components/Common/TableStyles";
+import moment from "moment";
 
 
 const AddedAndParty = () => {
 
 
-  const [chalaniData, setChalaniData] = useState([]);
+  const [chalanData, setChalanData] = useState([]);
   const [items, setItems] = useState([]);
   const [partyData, setPartyData] = useState([]);
   const [headData, setHeadData] = useState([]);
+  const [form] = Form.useForm();
+  
 
-
-
-  // const ChalanData = ()=>{
-
-  //   // setAllChalaniData(tempData)
-
-  // }
+  const onReset = () => {
+    form.resetFields();
+  }
+     
+    
 
   const handleAllData = (e) => {
+    
     // console.log(items);
     let Party = {
-      "DCId": 1,
-      "PartyId": 2,
+      "DCId": 0,
+      "PartyId": 1,
       "PartyName": e.PartyName,
       "PartyAddress": e.PartyAddress,
-      "UserId": 5,
-      "EntryDate": "2022-07-06T11:27:55.5756515+05:45",
-      "DeliveryDate": "2022-07-06T11:27:55.5756515+05:45",
+      "UserId": 1,
+      "EntryDate": moment().format('YYYY-MM-DD'),
+      "DeliveryDate": moment().format('YYYY-MM-DD'),
       "Remarks": e.remarks,
-      "IssuedBy": 9,
-      "ReceivedBy": 10,
-      "ApprovedBy": 11,
+      "IssuedBy": 1,
+      "ReceivedBy": 1,
+      "ApprovedBy": 1,
       "IsActive": true
     }
     setPartyData(Party);
     let chalaniNo = 0;
-    UpdateDeliveryChalani(generateUrlEncodedData(partyData), (res) => {
-      console.log(res);
+    UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
+   
       chalaniNo = res.CreatedId;
-
-
       for (let i = 0; i < items.length; i++) {
-
         let ChalanItems = {
           "CId": 0,
           "ChalaniNo": chalaniNo,
-          "ItemId": 3,
-          "Quantity": 4.1,
-          "Remarks": "sample string 5",
+          "ItemId": items[i].productionName,
+          "Quantity": items[i].productionQuantity,
+          "Remarks": e.remarks,
           "IsActive": true
-
+         
         }
+        setChalanData(ChalanItems)
         console.log(ChalanItems);
         //  console.log(ChalanItems);
         //  setChalaniData(ChalanItems);
         UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
           console.log(res);
+          
         })
       }
 
     })
+    message.info('Data has been saved!');
+    onReset();
+   
 
   }
   const addItems = item => {
@@ -81,28 +85,7 @@ const AddedAndParty = () => {
   }
 
   console.log(items);
-  // ======Print function=====//
-  // const headersData = () => {
-  //   if (tableData.length !== 0) {
-  //     let tableKeys = Object.keys(tableData[0]);
-  //     let data = []
-  //     tableKeys.forEach(ele => {
-  //       data.push({
-  //         title: ele,
-  //         dataIndex: ele,
-  //         key: ele,
-  //       })
-  //     })
-
-  //     setHeadData(data);
-  //   }
-  // }
-  const headers = [
-    { label: 'UserId', key: 'id' },
-    { label: 'PId', key: 'PId' },
-
-  ]
-
+ const  headers ={}
   const printHandle = () => {
 
     let newWindow = window.open()

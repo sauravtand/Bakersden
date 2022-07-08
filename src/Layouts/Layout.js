@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { RouteData } from '../Helpers/NavMenuData';
 import MainRoute from '../Routes/MainRoute';
 import Logo from '../Assets/images/logo.png'
-import {TbLayoutSidebarRightCollapse,TbLayoutSidebarLeftCollapse} from 'react-icons/tb'
+import {AiOutlineMenuFold,AiOutlineMenuUnfold} from 'react-icons/ai'
 
 const { Header, Sider, Content } = Layout;
 
@@ -58,14 +58,19 @@ const MainLayout = () => {
          style={{
           backgroundColor:'#7EC8E3',
           fontSize:'28px',
+          // paddingRight:'20px',
           textAlign:'center',
           position: 'absolute',
-          bottom: '-4px',
-          left: 0,
-          right: 0,
+          bottom: 0,
+          left:0,
+          right:0,
+          marginBottom: '-4px',
+          color: 'black'
+         
+          
         }}
          onClick={() => setCollapsed(!collapsed)}>
-          {collapsed?<TbLayoutSidebarRightCollapse/>:<TbLayoutSidebarLeftCollapse />}
+          {collapsed?<AiOutlineMenuUnfold/>:<AiOutlineMenuFold/>}
           
           </Menu.Item>
         </Menu>
