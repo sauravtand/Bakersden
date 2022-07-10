@@ -220,8 +220,8 @@ const AddedAndParty = () => {
               >
                 <Input />
               </Form.Item>
-              <Form.Item style={{ margin: '20px 110px' }}>
-                <Button type='primary' htmlType="submit">Save And Print</Button>
+              <Form.Item style={{ margin: '20px 205px' }}>
+                <Button type='primary' htmlType="submit">Save</Button>
               </Form.Item>
 
             </Form>

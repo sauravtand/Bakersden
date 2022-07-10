@@ -56,7 +56,7 @@ const MainLayout = () => {
           }
             <Menu.Item 
          style={{
-          backgroundColor:'#7EC8E3',
+          backgroundColor:'black',
           fontSize:'28px',
           // paddingRight:'20px',
           textAlign:'center',
@@ -65,7 +65,7 @@ const MainLayout = () => {
           left:0,
           right:0,
           marginBottom: '-4px',
-          color: 'black'
+          color: 'white'
          
           
         }}
