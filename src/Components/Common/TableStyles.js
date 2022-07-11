@@ -35,6 +35,7 @@ tbody > tr > td {
     border-bottom: 1px solid #f0f0f1;
     transition: background 0.3s;
     font-size: 10px;
+    overflow-y:hidden;
 }
 
 

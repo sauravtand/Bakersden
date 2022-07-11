@@ -4,7 +4,7 @@ import AddProduct from './AddProducts';
 import { useState } from "react";
 import EachItem from "./EachItem";
 import { Button, Col, message, Row } from "antd";
-import {DatePicker, Form, Input } from 'antd';
+import { DatePicker, Form, Input } from 'antd';
 import { UpdateChalanItem, UpdateDeliveryChalani } from "../../Services/appServices/ProductionService";
 import { generateUrlEncodedData } from '../../Services/utils/generateUrlEncodedData'
 import { newTableStyles } from "../../Components/Common/TableStyles";
@@ -19,16 +19,16 @@ const AddedAndParty = () => {
   const [partyData, setPartyData] = useState([]);
   const [headData, setHeadData] = useState([]);
   const [form] = Form.useForm();
-  
+
 
   const onReset = () => {
     form.resetFields();
   }
-     
-    
+
+
 
   const handleAllData = (e) => {
-    
+
     // console.log(items);
     let Party = {
       "DCId": 0,
@@ -48,7 +48,7 @@ const AddedAndParty = () => {
     setPartyData(Party);
     let chalaniNo = 0;
     UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
-   
+
       chalaniNo = res.CreatedId;
       for (let i = 0; i < items.length; i++) {
         let ChalanItems = {
@@ -58,7 +58,7 @@ const AddedAndParty = () => {
           "Quantity": items[i].productionQuantity,
           "Remarks": e.remarks,
           "IsActive": true
-         
+
         }
         setChalanData(ChalanItems)
         console.log(ChalanItems);
@@ -66,14 +66,14 @@ const AddedAndParty = () => {
         //  setChalaniData(ChalanItems);
         UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
           console.log(res);
-          
+
         })
       }
 
     })
     message.info('Data has been saved!');
     onReset();
-   
+
 
   }
   const addItems = item => {
@@ -88,7 +88,7 @@ const AddedAndParty = () => {
   }
 
   console.log(items);
- const  headers ={}
+  const headers = {}
   const printHandle = () => {
 
     let newWindow = window.open()
@@ -237,9 +237,7 @@ const AddedAndParty = () => {
 
 
     </>
-  )
-
-              }
+  )}
             
 export default AddedAndParty;
 
@@ -290,7 +288,7 @@ const FormStyled = styled.div`
 /* margin: 2% 2%; */
 margin-left: 2%;
 padding:2% 8%;
-height: 350px;
+height: 360px;
 border-left: 2px solid #c8cacb;
 border: 2px solid white;
 border-radius: 8px;
@@ -299,6 +297,7 @@ box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
 -moz-box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
 `
 const AddedProducts = styled.div`
+height:470px;
 border: 2px solid white;
 border-radius: 8px;
 box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
