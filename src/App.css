@@ -5,30 +5,32 @@
 }
 
 .mainContainer {
+  position: absolute;
   background-color: #fefefe;
-  padding: 8px;
+  padding: 10px;
   box-shadow: 1px 2px 2px #b0bccea6;
   border-radius: 8px;
   overflow: hidden;
+
   margin-bottom: 8px;
-  box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
--webkit-box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
--moz-box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
+  box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
+  -webkit-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
+  -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
 }
+
 .header {
   font-size: 36px;
 }
 
 .icons-style {
   font-size: 18px;
-  color:rgb(131, 137, 137)
-
+  color: rgb(131, 137, 137)
 }
 
 .icons-style:hover {
-  color:black;
+  color: black;
 }
 
-.party-details{
+.party-details {
   border: 2px solid black;
 }

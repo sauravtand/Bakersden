@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { RouteData } from '../Helpers/NavMenuData';
 import MainRoute from '../Routes/MainRoute';
 import Logo from '../Assets/images/logo.png'
-import {AiOutlineMenuFold,AiOutlineMenuUnfold} from 'react-icons/ai'
+import { AiOutlineMenuFold, AiOutlineMenuUnfold } from 'react-icons/ai'
 
 const { Header, Sider, Content } = Layout;
 
@@ -19,10 +19,8 @@ const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   // const history = use
   return (
-    <Layout style={{
-      height: '100Vh'
-    }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+    <Layout>
+      <Sider trigger={null} collapsible collapsed={collapsed} >
         <div className="logo" />
         <Menu
           theme='dark'
@@ -54,37 +52,35 @@ const MainLayout = () => {
               </Menu.Item>
             ))
           }
-            <Menu.Item 
-         style={{
-          backgroundColor:'black',
-          fontSize:'28px',
-          // paddingRight:'20px',
-          textAlign:'center',
-          position: 'absolute',
-          bottom: 0,
-          left:0,
-          right:0,
-          marginBottom: '-4px',
-          color: 'white'
-         
-          
-        }}
-         onClick={() => setCollapsed(!collapsed)}>
-          {collapsed?<AiOutlineMenuUnfold/>:<AiOutlineMenuFold/>}
-          
+          <Menu.Item
+            style={{
+              backgroundColor: 'black',
+              fontSize: '28px',
+              // paddingRight:'20px',
+              textAlign: 'center',
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              marginBottom: '-4px',
+              color: 'white'
+
+
+            }}
+            onClick={() => setCollapsed(!collapsed)}>
+            {collapsed ? <AiOutlineMenuUnfold /> : <AiOutlineMenuFold />}
+
           </Menu.Item>
         </Menu>
       </Sider>
-      <Layout className="site-layout">
+      <Layout className="site-layout" style={{ overflowY: "hidden" }}>
         <Content
           className="site-layout-background"
           style={{
             margin: '24px 16px',
             padding: 24,
             minHeight: '90vh',
-            overflowY: 'scroll',
-            overflowX:'hidden'
-
+            overflowX: 'hidden'
 
           }}
         >

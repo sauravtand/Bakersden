@@ -94,7 +94,7 @@ const ChalaniTable = (props) => {
     setIsModalVisible(true);
     let tempArr = [];
     GetChalanItemDetailsByChalansId(e.DCId, (res) => {
-      console.log('res',res)
+      console.log('res', res)
       const Chalani = res.chalandetails
 
 
@@ -174,9 +174,9 @@ const ChalaniTable = (props) => {
   const columnsChalan = [
     {
       title: 'S.N',
-      dataIndex:'S.N',
+      dataIndex: 'S.N',
       key: 'S.N',
-      render:(text,record,index)=>`${index+1}`,
+      render: (text, record, index) => `${index + 1}`,
     },
     {
       title: "ItemId",
@@ -272,17 +272,17 @@ const ChalaniTable = (props) => {
   //===print and CSV for Modal===//
 
 
-    // modal headers
+  // modal headers
 
-    const modalHeaders = [
-      { label: "CId", key: "CId" },
-      { label: "S.N", key: "S.N" },
-      { label: "ItemId", key: "ItemId" },
-      { label: "Quantity", key: "Quantity" },
-      { label: "Remarks", key: "Remarks" },
-    ]
+  const modalHeaders = [
+    { label: "CId", key: "CId" },
+    { label: "S.N", key: "S.N" },
+    { label: "ItemId", key: "ItemId" },
+    { label: "Quantity", key: "Quantity" },
+    { label: "Remarks", key: "Remarks" },
+  ]
   const modalPrint = () => {
-    
+
     if (ChalaniItemList !== undefined) {
       let newWindow = window.open();
 
@@ -458,6 +458,7 @@ const CIcon = styled.div`
   border-radius: 4px;
   color: #84b0c9;
   display: flex;
+  
   justify-content: space-evenly;
   align-items: center;
 
