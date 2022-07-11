@@ -44,6 +44,7 @@ const AddedAndParty = () => {
       "ApprovedBy": 1,
       "IsActive": true
     }
+
     setPartyData(Party);
     let chalaniNo = 0;
     UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
@@ -76,9 +77,11 @@ const AddedAndParty = () => {
 
   }
   const addItems = item => {
-    const newItems = [...items, item]
-    setItems(newItems);
-  }
+      const newItems = [...items, item]
+        setItems(newItems);
+    }
+   
+  
   const removeProduct = id => {
     const remove = [...items].filter(item => item.productionName !== id)
     setItems(remove);
@@ -148,8 +151,8 @@ const AddedAndParty = () => {
     <>
       <Row>
         <Col span={12}>
-          <AddProduct onSubmit={addItems} />
-          <AddedProducts>
+          <AddProduct onSubmit={addItems} items={items}/>
+          <AddedProducts >
             <h2>Added Products:</h2>
             <EachItem items={items} removeProduct={removeProduct} />
           </AddedProducts>
@@ -197,8 +200,8 @@ const AddedAndParty = () => {
               </Form.Item>
 
               <Form.Item
-                label="Entry Date"
-                name="EntryDate"
+                label="Delivery Date"
+                name="Delivery"
                 rules={[
                   {
                     required: true,
@@ -236,7 +239,7 @@ const AddedAndParty = () => {
     </>
   )
 
-}
+              }
             
 export default AddedAndParty;
 

@@ -95,11 +95,25 @@ const ChalaniTable = (props) => {
     let tempArr = [];
     GetChalanItemDetailsByChalansId(e.DCId, (res) => {
       console.log('res',res)
-      const Chalani = res.chalandetails
+      // const Chalani = res.chalandetails
 
 
       if (res.chalandetails.length > 0) {
-        setChalaniItemList(Chalani);
+        // setChalaniItemList(res.chalandetails);
+
+        let tempArr= [];
+        let temp;
+        res.chalandetails.map((e, index) => {
+            temp = {
+              SN : index + 1,
+              ...e,
+              
+            }
+            tempArr.push(temp)
+        })
+
+        // console.log("temp arr", tempArr)
+        setChalaniItemList(tempArr)
 
       }
     });
@@ -173,10 +187,10 @@ const ChalaniTable = (props) => {
 
   const columnsChalan = [
     {
-      title: 'S.N',
-      dataIndex:'S.N',
-      key: 'S.N',
-      render:(text,record,index)=>`${index+1}`,
+      title: 'SN',
+      dataIndex:'SN',
+      key: 'SN',
+   
     },
     {
       title: "ItemId",
@@ -276,10 +290,11 @@ const ChalaniTable = (props) => {
 
     const modalHeaders = [
       { label: "CId", key: "CId" },
-      { label: "S.N", key: "S.N" },
+      { label: "SN", key: "SN" },
+      { label: "SN", key: "SN" },
       { label: "ItemId", key: "ItemId" },
       { label: "Quantity", key: "Quantity" },
-      { label: "Remarks", key: "Remarks" },
+      // { label: "Remarks", key: "Remarks" },
     ]
   const modalPrint = () => {
     
@@ -299,7 +314,7 @@ const ChalaniTable = (props) => {
     }</style>`;
 
       let refName = `
-      <h2 style='text-align:center' >Party Details</h2>
+     
       <div style='text-align:center;'>
           <h1>Baker's Den Pvt.ltd<h1>
           <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
@@ -313,9 +328,9 @@ const ChalaniTable = (props) => {
            '>
            
 
-          <p>Party Name: ${tempPartyDetails.PartyName}</p>
-          <p>Date:${tempPartyDetails.EntryDate}</p>
-          <p>Delivery Date:${tempPartyDetails.DeliveryDate}</p>
+          <p>Party Name:  ${tempPartyDetails.PartyName}</p>
+          <p>Date: ${tempPartyDetails.EntryDate}</p>
+          <p>Delivery Date: ${tempPartyDetails.DeliveryDate}</p>
           </div>
           <h2>Chalani Details<h2>
       </div>
@@ -324,7 +339,7 @@ const ChalaniTable = (props) => {
       <div 
       style='display: flex;
       justify-content: space-between;
-      margin-top: 80px;
+      margin-top: 50px;
       '
       >
       <p style='border-top:2px solid black; padding-top: 10px;'>Issued By</p>

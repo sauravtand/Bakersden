@@ -1,4 +1,5 @@
-import { MdDashboard, MdShoppingCart, MdAddShoppingCart,MdOutlineReceiptLong } from 'react-icons/md'
+import { MdDashboard, MdShoppingCart, MdAddShoppingCart,MdOutlineReceiptLong,  } from 'react-icons/md'
+import {RiBillLine} from 'react-icons/ri'
 export const RouteData = [
   {
     id: 1,
@@ -22,7 +23,7 @@ export const RouteData = [
     id:4,
     name: 'Chalani Entry',
     pathName: '/Chalani',
-    icon: MdOutlineReceiptLong
+    icon: RiBillLine
   },
   {
     id:5,

@@ -1,15 +1,27 @@
-import { Select, Button, InputNumber, Input, Form } from 'antd';
+import { Select, Button, InputNumber, Input, Form, message } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 
 const { Option } = Select;
 const AddProduct = (props) => {
+  const {onSubmit, items }=  props
 const handleSubmit = (e) => {
-  props.onSubmit({
-    key: e.ProductionName,
-    productionName: e.ProductionName,
-    productionQuantity: e.ProductionQuantity,
-  })
+  // const [form] = Form.useForm();
+  
+  
+  console.log('hellohellohello',items,e)
+  if(e.ProductionName!== items.productionName){
+    onSubmit({
+      key: e.ProductionName,
+      productionName: e.ProductionName,
+      productionQuantity: e.ProductionQuantity,
+ })
+  }
+  else{
+    message.alert('already added')
+  }
+
+
 }
 const dummydata = [
   {
