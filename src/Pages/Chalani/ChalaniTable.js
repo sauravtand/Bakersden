@@ -49,6 +49,7 @@ const ChalaniTable = (props) => {
   // const [modalHeaders, setModalHeaders] = useState([]);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [tempPartyDetails, setTempPartyDetails] = useState();
   useEffect(() => {
     if (reloadTable === true) {
       getTableData();
@@ -86,8 +87,10 @@ const ChalaniTable = (props) => {
       }
     });
   }
+  console.log(ProductList)
   const handlePreview = (e) => {
-    // console.log("e", e.DCId)
+    // console.log("e", e)
+    setTempPartyDetails(e);
     setIsModalVisible(true);
     let tempArr = [];
     GetChalanItemDetailsByChalansId(e.DCId, (res) => {
@@ -100,36 +103,9 @@ const ChalaniTable = (props) => {
 
       }
     });
-
-    const labelforModal = Object.keys(ChalaniItemList[0]); //headers
-    
-
-      for(let j=0; j<=ChalaniItemList.length;j++){
-        const valuesforModal = Object.values(ChalaniItemList[j]);
-console.log(valuesforModal);
-    for(let i=0;i<=valuesforModal.length; i++){
-      const headersForModal =  {
-        label: labelforModal,
-        key: valuesforModal[i]
-      }
-      console.log(headersForModal);
-      // setModalHeaders(headersForModal)
-    }
-      }
-      console.log('modal',modalHeaders);
   };
 
-  // modal headers
 
-  const modalHeaders = [
-    { label: "CId", key: "CId" },
-    { label: "ChalaniNo", key: "ChalaniNo" },
-    // { label: "IsActive", key: "IsActive" },
-    // { label: 'Quantity', key: 'Quantity' },
-    { label: "ItemId", key: "ItemId" },
-    { label: "Quantity", key: "Quantity" },
-    { label: "Remarks", key: "Remarks" },
-  ]
 
 
   const handleOk = () => {
@@ -196,6 +172,12 @@ console.log(valuesforModal);
   ];
 
   const columnsChalan = [
+    {
+      title: 'S.N',
+      dataIndex:'S.N',
+      key: 'S.N',
+      render:(text,record,index)=>`${index+1}`,
+    },
     {
       title: "ItemId",
       dataIndex: "ItemId",
@@ -288,7 +270,19 @@ console.log(valuesforModal);
   };
 
   //===print and CSV for Modal===//
+
+
+    // modal headers
+
+    const modalHeaders = [
+      { label: "CId", key: "CId" },
+      { label: "S.N", key: "S.N" },
+      { label: "ItemId", key: "ItemId" },
+      { label: "Quantity", key: "Quantity" },
+      { label: "Remarks", key: "Remarks" },
+    ]
   const modalPrint = () => {
+    
     if (ChalaniItemList !== undefined) {
       let newWindow = window.open();
 
@@ -305,13 +299,40 @@ console.log(valuesforModal);
     }</style>`;
 
       let refName = `
+      <h2 style='text-align:center' >Party Details</h2>
       <div style='text-align:center;'>
           <h1>Baker's Den Pvt.ltd<h1>
           <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
-          <h5>Production Data<h5>
+          <div 
+          // style='border: 1px solid black;
+          text-align: left;
+          padding-left: 2%;
+          margin:0 ;
+
+
+           '>
+           
+
+          <p>Party Name: ${tempPartyDetails.PartyName}</p>
+          <p>Date:${tempPartyDetails.EntryDate}</p>
+          <p>Delivery Date:${tempPartyDetails.DeliveryDate}</p>
+          </div>
+          <h2>Chalani Details<h2>
       </div>
-    
       `;
+      let footer = `
+      <div 
+      style='display: flex;
+      justify-content: space-between;
+      margin-top: 80px;
+      '
+      >
+      <p style='border-top:2px solid black; padding-top: 10px;'>Issued By</p>
+      <p style='border-top:2px solid black; padding-top: 10px;'>Received By</p>
+      <p style='border-top:2px solid black; padding-top: 10px;'>Approved By</p>
+      </div>
+      
+      `
 
       let tableBody = "";
       let tableHeadHtml = "<thead>";
@@ -334,7 +355,7 @@ console.log(valuesforModal);
       let allTable = `<table>${tableHeadHtml}${tableBody}</table>`;
 
       newWindow.document.body.innerHTML =
-        newTableStyles + newStyle + refName + allTable;
+        newTableStyles + newStyle + refName + allTable + footer;
 
       setTimeout(function () {
         newWindow.print();

@@ -16,6 +16,7 @@ table {
 thead > tr > th, tbody > tr > td {
     padding: 4px 4px;
     overflow-wrap: break-word;
+    border: 1px solid black;
     
     border-bottom: 1px solid #232325;
 }

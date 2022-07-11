@@ -92,7 +92,9 @@ const ProductionEntry = () => {
             borderRight: "1px solid #888282"
           }}>
             <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}
-              style={{ marginTop: '50px' }}
+              style={{ marginTop: '50px',
+
+             }}
               id="productionEntry"
             >
               <Form.Item
