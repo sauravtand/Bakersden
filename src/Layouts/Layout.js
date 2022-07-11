@@ -20,7 +20,7 @@ const MainLayout = () => {
   // const history = use
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed} >
+      <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" />
         <Menu
           theme='dark'
@@ -73,14 +73,16 @@ const MainLayout = () => {
           </Menu.Item>
         </Menu>
       </Sider>
-      <Layout className="site-layout" style={{ overflowY: "hidden" }}>
+      <Layout className="site-layout">
         <Content
           className="site-layout-background"
           style={{
             margin: '24px 16px',
             padding: 24,
             minHeight: '90vh',
+            overflowY: 'scroll',
             overflowX: 'hidden'
+
 
           }}
         >

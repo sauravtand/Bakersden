@@ -296,7 +296,7 @@ box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
 -moz-box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
 `
 const AddedProducts = styled.div`
-height:auto;
+height:470px;
 border: 2px solid white;
 border-radius: 8px;
 box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);

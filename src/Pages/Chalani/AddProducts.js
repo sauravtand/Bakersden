@@ -114,7 +114,7 @@ const AddProduct = (props) => {
 export default AddProduct;
 
 const Addproduct = styled.div`
-box-height
+
 margin-bottom: 2%;
 border: 2px solid white;
 border-radius: 8px;
