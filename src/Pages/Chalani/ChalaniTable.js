@@ -87,7 +87,7 @@ const ChalaniTable = (props) => {
       }
     });
   }
-  console.log(ProductList)
+  // console.log(ProductList)
   const handlePreview = (e) => {
     // console.log("e", e)
     setTempPartyDetails(e);
@@ -381,6 +381,9 @@ const ChalaniTable = (props) => {
   return (
     <div className="mainContainer">
       <Header title={"View Chalani"}></Header>
+      <div style={{
+        marginBottom: '8px'
+      }}>
       <Button
         type="primary"
         style={{ marginLeft: "16px", float: "right" }}
@@ -401,6 +404,7 @@ const ChalaniTable = (props) => {
           onDateRangeChange(value);
         }}
       />
+      </div>
 
       <div>
         <Table

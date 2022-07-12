@@ -7,6 +7,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { CSVLink } from 'react-csv';
 import { newTableStyles } from '../../Components/Common/TableStyles';
 import styled from 'styled-components';
+import DateTimeBAdge from '../../Components/Common/DateTimeBAdge';
 
 // import { generateUrlEncodedData } from '../../Services/utils/generateUrlEncodedData';
 
@@ -90,9 +91,11 @@ const ProductionTable = () => {
       title: 'PId',
       dataIndex: 'PId',
       key: 'PId',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.PId - b.PId,
     },
     {
-      title: 'ItemId',
+      title: 'Item Name',
       dataIndex: 'ItemId',
       key: 'ItemId',
       render: (text, record) => {
@@ -110,16 +113,24 @@ const ProductionTable = () => {
       title: 'Quantity',
       dataIndex: 'Quantity',
       key: 'Quantity',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.Quantity - b.Quantity,
     },
     {
-      title: 'UserId',
+      title: 'User Id',
       dataIndex: 'UserId',
       key: 'UserId',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.UserId - b.UserId,
     },
     {
-      title: 'EntryDate',
+      title: 'Entry Date',
       dataIndex: 'EntryDate',
       key: 'EntryDate',
+      render: ((val) =>
+      (
+        <DateTimeBAdge data={val} />
+      ))
     },
     {
       title: 'Remarks',
@@ -146,10 +157,10 @@ const ProductionTable = () => {
         return (
           <>
             <CIcon onClick={() => {
-                  editProduct(record);
-                }}>
-              <EditOutlined/>
-                <span>Edit</span>
+              editProduct(record);
+            }}>
+              <EditOutlined />
+              <span>Edit</span>
               {/* <Button >
                 <FcPrint style={{ marginRight: '5px', fontSize: '20px' }} /> Print
               </Button> */}
@@ -248,7 +259,7 @@ const ProductionTable = () => {
       todate: data[1].format('YYYY-MM-DD')
     }
     callService(newData)
-    console.log(data);
+    // console.log(data);
 
   }
   function callService(data) {
@@ -272,13 +283,18 @@ const ProductionTable = () => {
 
       {/* start of buttons */}
       {/* //CSV */}
-      <Button type='primary' style={{marginLeft: '16px', float: 'right' }} onClick={printHandle}>Print</Button>
-      <Button type='primary' style={{ float: 'right' }}><CSVLink data={ProductList !== undefined ? ProductList : ''} filename={'ProductionData.csv'}>Export to CSV</CSVLink>
-      </Button>
-      {/* range picker */}
-      <RangePicker
-        onChange={(value) => { onDateRangeChange(value) }}
-      />
+      <div style={{
+        marginBottom: '8px'
+      }}>
+        <Button type='primary' style={{ marginLeft: '16px', float: 'right' }} onClick={printHandle}>Print</Button>
+        <Button type='primary' style={{ float: 'right' }}><CSVLink data={ProductList !== undefined ? ProductList : ''} filename={'ProductionData.csv'}>Export to CSV</CSVLink>
+        </Button>
+        {/* range picker */}
+        <RangePicker
+          onChange={(value) => { onDateRangeChange(value) }}
+        />
+      </div>
+
       {/* End-of-Buttons */}
       <div >
         <Table columns={columns} dataSource={ProductList !== undefined ? ProductList : ''}

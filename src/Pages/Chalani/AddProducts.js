@@ -4,25 +4,16 @@ import styled from 'styled-components';
 
 const { Option } = Select;
 const AddProduct = (props) => {
-  const {onSubmit, items }=  props
-const handleSubmit = (e) => {
+  const { onSubmit, items } = props
   // const [form] = Form.useForm();
-  
-  
-  console.log('hellohellohello',items,e)
-  if(e.ProductionName!== items.productionName){
-    onSubmit({
+  const handleSubmit = async (e) => {
+    await onSubmit({
       key: e.ProductionName,
       productionName: e.ProductionName,
       productionQuantity: e.ProductionQuantity,
- })
+    })
+    // form.resetFields();
   }
-  else{
-    message.alert('already added')
-  }
-
-
-}
 
   const dummydata = [
     {
@@ -71,6 +62,7 @@ const handleSubmit = (e) => {
       //   handleProductChange(e);
       //   handleQuantityChange(e);
       // }}
+      // form={form} 
       >
         <Form.Item
           name="ProductionName"
@@ -129,7 +121,7 @@ export default AddProduct;
 const Addproduct = styled.div`
 
 margin-bottom: 2%;
-border: 2px solid white;
+/* border: 2px solid black; */
 border-radius: 8px;
 background-color: white;
 box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
