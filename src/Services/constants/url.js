@@ -1,22 +1,23 @@
 /**
  * @desc: api url
  */
-const API_URL = `https://lunivacare.ddns.net/bakeryProduction/`
+const API_URL = `https://lunivacare.ddns.net/bakeryProduction/`;
 
 /**
  * @desc: api base url with route
- * 
+ *
  */
-export const BASE_URL = `${API_URL}LunivaproductionApi/`
+export const BASE_URL = `${API_URL}LunivaproductionApi/`;
 
-export const GetItemList = 'GetItemList'
+export const GetItemList = "GetItemList";
 
 /**
  * @desc: get list of items
- * 
+ *
  */
 
-export const InsertUpdateDayWiseProductionDetails = 'InsertUpdateDayWiseProductionDetails'
+export const InsertUpdateDayWiseProductionDetails =
+  "InsertUpdateDayWiseProductionDetails";
 
 /**
  * @desc: Insert Update Daywise Production Details
@@ -31,14 +32,14 @@ export const InsertUpdateDayWiseProductionDetails = 'InsertUpdateDayWiseProducti
       }
  */
 
-export const GetProductionDetailsByDate = `GetProductionDetailsByDate`
+export const GetProductionDetailsByDate = `GetProductionDetailsByDate`;
 
 /**
  * @desc: Get production Details By Date
  * @param: ?fromdate={fromdate}&todate={todate}
  */
 
-export const UpdateDeliveryChalan = `UpdateDeliveryChalan`
+export const UpdateDeliveryChalan = `UpdateDeliveryChalan`;
 
 /**
  * @desc: Update Delivery Chalan
@@ -57,7 +58,7 @@ export const UpdateDeliveryChalan = `UpdateDeliveryChalan`
           "IsActive": true
           }
  */
-export const UpdateChalanItems = `UpdateChalanItems`
+export const UpdateChalanItems = `UpdateChalanItems`;
 /**
  * @desc: Update Chalan Items
  * @param:{
@@ -72,8 +73,7 @@ export const UpdateChalanItems = `UpdateChalanItems`
  * 
  */
 
-
-export const InsertChalanWithItemDetails = "InsertChalanWithItemDetails"
+export const InsertChalanWithItemDetails = "InsertChalanWithItemDetails";
 /**
  * @desc: Insert Chalani With Item Details.
  * @param:{
@@ -104,7 +104,7 @@ export const InsertChalanWithItemDetails = "InsertChalanWithItemDetails"
 }
 
  */
-export const InsertChalanDetailsWithSeparateItemsDetails = `InsertChalanDetailsWithSeparateItemsDetails`
+export const InsertChalanDetailsWithSeparateItemsDetails = `InsertChalanDetailsWithSeparateItemsDetails`;
 /**
  * @desc: Insert ChalanDetails With Separate Items Details
  *  @param:{
@@ -126,19 +126,18 @@ export const InsertChalanDetailsWithSeparateItemsDetails = `InsertChalanDetailsW
 
 // GetChalanDetailsByDate?fromdate={fromdate}&todate={todate}
 
-export const GetChalanDetailsByDate = `GetChalanDetailsByDate`
+export const GetChalanDetailsByDate = `GetChalanDetailsByDate`;
 
 /**
-* @desc: Get chaalani Details By Date
-*  @param: ?fromdate={fromdate}&todate={todate}
-*/
+ * @desc: Get chaalani Details By Date
+ *  @param: ?fromdate={fromdate}&todate={todate}
+ */
 
 // GetChalanItemDetailsByChalanId?chalanNo={chalanNo}
 
-export const GetChalanItemDetailsByChalanId = `GetChalanItemDetailsByChalanId`
+export const GetChalanItemDetailsByChalanId = `GetChalanItemDetailsByChalanId`;
 
 /**
-* @desc: Get chaalani Details By chalani Id
-*  @param: ?chalanNo={chalanNo}
-*/
-
+ * @desc: Get chaalani Details By chalani Id
+ *  @param: ?chalanNo={chalanNo}
+ */
