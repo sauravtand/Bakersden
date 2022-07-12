@@ -15,8 +15,8 @@ import ChalaniTable from "../Pages/Chalani/ChalaniTable";
 const MainRoute = () => {
   return (
     <Routes>
-      <Route exact path='/' element={<Dashboard />} />
-      <Route exact path="/ProductionEntry" element={<ProductionEntry />} />
+      {/* <Route exact path='/' element={<Dashboard />} /> */}
+      <Route exact path="/" element={<ProductionEntry />} />
       <Route exact path="/ProductionTable" element={<ProductionTable />} />
       <Route exact path="/Chalani" element={<Chalani />} />
       <Route exact path="/ChalaniTable" element={<ChalaniTable />} />

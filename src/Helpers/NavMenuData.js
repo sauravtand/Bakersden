@@ -1,16 +1,16 @@
 import { MdDashboard, MdShoppingCart, MdAddShoppingCart,MdOutlineReceiptLong,  } from 'react-icons/md'
 import {RiBillLine} from 'react-icons/ri'
 export const RouteData = [
+  // {
+  //   id: 1,
+  //   name: 'DashBoard',
+  //   pathName: '/',
+  //   icon: MdDashboard
+  // },
   {
     id: 1,
-    name: 'DashBoard',
-    pathName: '/',
-    icon: MdDashboard
-  },
-  {
-    id: 2,
     name: 'Production Entry',
-    pathName: '/ProductionEntry',
+    pathName: '/',
     icon: MdAddShoppingCart
   },
   {
