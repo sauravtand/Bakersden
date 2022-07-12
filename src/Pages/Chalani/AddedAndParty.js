@@ -7,29 +7,14 @@ import { Button, Col, message, Row } from "antd";
 import { DatePicker, Form, Input } from 'antd';
 import { UpdateChalanItem, UpdateDeliveryChalani } from "../../Services/appServices/ProductionService";
 import { generateUrlEncodedData } from '../../Services/utils/generateUrlEncodedData'
-import { newTableStyles } from "../../Components/Common/TableStyles";
 import moment from "moment";
 
 
 const AddedAndParty = () => {
-
-
-  const [chalanData, setChalanData] = useState([]);
   const [items, setItems] = useState();
-  const [partyData, setPartyData] = useState([]);
-  const [headData, setHeadData] = useState([]);
   const [form] = Form.useForm();
 
-
-  const onReset = () => {
-    form.resetFields();
-  }
-
-  console.log("Check ", items)
-
   const handleAllData = (e) => {
-
-    // console.log(items);
     let Party = {
       "DCId": 0,
       "PartyId": 1,
@@ -45,7 +30,6 @@ const AddedAndParty = () => {
       "IsActive": true
     }
 
-    setPartyData(Party);
     let chalaniNo = 0;
     UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
 
@@ -60,21 +44,17 @@ const AddedAndParty = () => {
           "IsActive": true
 
         }
-        setChalanData(ChalanItems)
-        // console.log(ChalanItems);
-        //  console.log(ChalanItems);
-        //  setChalaniData(ChalanItems);
         UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
-          // console.log(res);
-
+          if (res.SuccessMsg === true) {
+            message.info('Data has been saved!');
+            form.resetFields();
+            setItems()
+          } else {
+            message.warning('Error, saving data!')
+          }
         })
       }
-
     })
-    message.info('Data has been saved!');
-    onReset();
-
-
   }
   const addItems = item => {
     if (items === undefined) {
@@ -90,75 +70,12 @@ const AddedAndParty = () => {
         }
       })
     }
-
-
   }
-
 
   const removeProduct = id => {
     const remove = [...items].filter(item => item.productionName !== id)
     setItems(remove);
   }
-
-  // console.log(items);
-  const headers = {}
-  const printHandle = () => {
-
-    let newWindow = window.open()
-
-    let newStyle = ``
-
-    newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
-      display: none;
-     }tbody > tr:last-child{
-  background-color: #f0f0f2;
-  }
-  tbody > tr:last-child > td{
-      font-size: 12px;
-      font-weight: 500;
-  }</style>`
-
-    let refName = `
-    <div style='text-align:center;'>
-        <h1>Baker's Den Pvt.ltd<h1>
-        <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
-        <p>Party Name: party name </p>
-        <p>Date: 2022/01/34</p>
-        <p>Delivery Date: 2022/01/35</p>
-    </div>
-  
-    `;
-
-    let tableBody = '';
-    let tableHeadHtml = '<thead>';
-    let columns = [];
-
-    headers.forEach(ele => {
-      tableHeadHtml += `<th>${ele?.label}</th>`;
-      columns.push(ele.label);
-    })
-    tableHeadHtml += '</thead>';
-
-    items.forEach(ele => {
-      tableBody = tableBody + '<tr>'
-      columns.forEach(cell => {
-        tableBody = tableBody + '<td>' + ele[cell] + '</td>'
-      })
-      tableBody = tableBody + '</tr>'
-    })
-
-    let allTable = `<table>${tableHeadHtml}${tableBody}</table>`
-
-    newWindow.document.body.innerHTML = newTableStyles + newStyle + refName + allTable
-
-    setTimeout(function () {
-      newWindow.print();
-      newWindow.close();
-    }, 300);
-  }
-
-
-  // console.log(headData)
 
   return (
     <>
@@ -185,6 +102,7 @@ const AddedAndParty = () => {
               }}
               autoComplete="off"
               onFinish={handleAllData}
+              form={form}
             >
               <h2 style={{ textAlign: 'center' }}>Party Details:</h2>
               <Form.Item
