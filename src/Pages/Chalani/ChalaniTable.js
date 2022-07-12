@@ -95,30 +95,24 @@ const ChalaniTable = (props) => {
     setIsModalVisible(true);
     let tempArr = [];
     GetChalanItemDetailsByChalansId(e.DCId, (res) => {
-
       if (res.chalandetails.length > 0) {
         // setChalaniItemList(res.chalandetails);
 
-        let tempArr= [];
+        let tempArr = [];
         let temp;
         res.chalandetails.map((e, index) => {
-            temp = {
-              SN : index + 1,
-              ...e,
-              
-            }
-            tempArr.push(temp)
-        })
+          temp = {
+            SN: index + 1,
+            ...e,
+          };
+          tempArr.push(temp);
+        });
 
         // console.log("temp arr", tempArr)
-        setChalaniItemList(tempArr)
-
+        setChalaniItemList(tempArr);
       }
     });
   };
-
-
-
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -133,9 +127,8 @@ const ChalaniTable = (props) => {
       title: "DCId",
       dataIndex: "DCId",
       key: "DCId",
-      defaultSortOrder: 'ascend',
+      defaultSortOrder: "ascend",
       sorter: (a, b) => a.DCId - b.DCId,
-
     },
     {
       title: "PartyName",
@@ -151,19 +144,13 @@ const ChalaniTable = (props) => {
       title: "EntryDate",
       dataIndex: "EntryDate",
       key: "EntryDate",
-      render: ((val) =>
-      (
-        <DateTimeBAdge data={val} />
-      ))
+      render: (val) => <DateTimeBAdge data={val} />,
     },
     {
       title: "DeliveryDate",
       dataIndex: "DeliveryDate",
       key: "DeliveryDate",
-      render: ((val) =>
-      (
-        <DateTimeBAdge data={val} />
-      ))
+      render: (val) => <DateTimeBAdge data={val} />,
     },
 
     {
@@ -196,13 +183,11 @@ const ChalaniTable = (props) => {
 
   const columnsChalan = [
     {
-      title: 'SN',
-      dataIndex:'SN',
-      key: 'SN',
-      defaultSortOrder: 'ascend',
+      title: "SN",
+      dataIndex: "SN",
+      key: "SN",
+      defaultSortOrder: "ascend",
       sorter: (a, b) => a.SN - b.SN,
-
-   
     },
     {
       title: "ItemId",
@@ -220,9 +205,8 @@ const ChalaniTable = (props) => {
       title: "Quantity",
       dataIndex: "Quantity",
       key: "Quantity",
-      defaultSortOrder: 'descend',
+      defaultSortOrder: "descend",
       sorter: (a, b) => a.Quantity - b.Quantity,
-
     },
     {
       title: "Remarks",
@@ -300,19 +284,17 @@ const ChalaniTable = (props) => {
 
   //===print and CSV for Modal===//
 
-
   // modal headers
 
-    const modalHeaders = [
-      { label: "CId", key: "CId" },
-      { label: "SN", key: "SN" },
-      { label: "SN", key: "SN" },
-      { label: "ItemId", key: "ItemId" },
-      { label: "Quantity", key: "Quantity" },
-      // { label: "Remarks", key: "Remarks" },
-    ]
+  const modalHeaders = [
+    { label: "CId", key: "CId" },
+    { label: "SN", key: "SN" },
+    { label: "SN", key: "SN" },
+    { label: "ItemId", key: "ItemId" },
+    { label: "Quantity", key: "Quantity" },
+    // { label: "Remarks", key: "Remarks" },
+  ];
   const modalPrint = () => {
-
     if (ChalaniItemList !== undefined) {
       let newWindow = window.open();
 
@@ -357,12 +339,12 @@ const ChalaniTable = (props) => {
       margin-top: 50px;
       '
       >
-      <p style='border-top:2px solid black; padding-top: 10px;'>Issued By</p>
-      <p style='border-top:2px solid black; padding-top: 10px;'>Received By</p>
-      <p style='border-top:2px solid black; padding-top: 10px;'>Approved By</p>
+      <p style='border-top:1px solid black; padding-top: 10px;'>Issued By</p>
+      <p style='border-top:1px solid black; padding-top: 10px;'>Received By</p>
+      <p style='border-top:1px solid black; padding-top: 10px;'>Approved By</p>
       </div>
       
-      `
+      `;
 
       let tableBody = "";
       let tableHeadHtml = "<thead>";
@@ -399,29 +381,31 @@ const ChalaniTable = (props) => {
   return (
     <div className="mainContainer">
       <Header title={"View Chalani"}></Header>
-      <div style={{
-        marginBottom: '8px'
-      }}>
-      <Button
-        type="primary"
-        style={{ marginLeft: "16px", float: "right" }}
-        onClick={printHandle}
-      >
-        Print
-      </Button>
-      <Button type="primary" style={{ float: "right" }}>
-        <CSVLink
-          data={ProductList !== undefined ? ProductList : ""}
-          filename={"chalaniData.csv"}
-        >
-          Export to CSV
-        </CSVLink>
-      </Button>
-      <RangePicker
-        onChange={(value) => {
-          onDateRangeChange(value);
+      <div
+        style={{
+          marginBottom: "8px",
         }}
-      />
+      >
+        <Button
+          type="primary"
+          style={{ marginLeft: "16px", float: "right" }}
+          onClick={printHandle}
+        >
+          Print
+        </Button>
+        <Button type="primary" style={{ float: "right" }}>
+          <CSVLink
+            data={ProductList !== undefined ? ProductList : ""}
+            filename={"chalaniData.csv"}
+          >
+            Export to CSV
+          </CSVLink>
+        </Button>
+        <RangePicker
+          onChange={(value) => {
+            onDateRangeChange(value);
+          }}
+        />
       </div>
 
       <div>
@@ -492,7 +476,7 @@ const CIcon = styled.div`
   border-radius: 4px;
   color: #84b0c9;
   display: flex;
-  
+
   justify-content: space-evenly;
   align-items: center;
 

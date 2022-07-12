@@ -1,75 +1,73 @@
-import axios from 'axios';
-import { BASE_URL } from '../constants/url';
+import axios from "axios";
+import { BASE_URL } from "../constants/url";
 // import { BASE_URL } from './url';
 
 export const httpBase = () => {
   const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-  }
+    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+  };
 
   const instance = axios.create({
     baseURL: BASE_URL,
     headers: headers,
-    mode: 'no-cors',
-  })
+    mode: "no-cors",
+  });
 
   instance.interceptors.response.use(
-    response => {
-      return response
+    (response) => {
+      return response;
     },
-    error => {
+    (error) => {
       return error;
     }
   );
 
   return instance;
-}
+};
 
 export const httpBaseJson = () => {
   const headers = {
-    'Content-Type': 'application/json',
-
-  }
+    "Content-Type": "application/json",
+  };
 
   const instance = axios.create({
     baseURL: BASE_URL,
     headers: headers,
-    mode: 'no-cors',
-    method: 'POST'
-  })
+    mode: "no-cors",
+    method: "POST",
+  });
 
   instance.interceptors.response.use(
-    response => {
-      return response
+    (response) => {
+      return response;
     },
-    error => {
+    (error) => {
       return error;
     }
   );
 
   return instance;
-}
+};
 export const httpSeperateBaseJson = () => {
   const headers = {
-    'Content-Type': 'application/json',
-
-  }
+    "Content-Type": "application/json",
+  };
 
   const instance = axios.create({
     baseURL: BASE_URL,
     headers: headers,
-    mode: 'no-cors',
-    method: 'POST'
-  })
+    mode: "no-cors",
+    method: "POST",
+  });
 
   instance.interceptors.response.use(
-    response => {
-      return response
+    (response) => {
+      return response;
     },
-    error => {
+    (error) => {
       return error;
     }
   );
 
   return instance;
-}
+};
