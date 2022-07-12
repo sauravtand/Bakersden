@@ -3,6 +3,7 @@ import { Button, DatePicker, message, Modal, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import styled from "styled-components";
+import DateTimeBAdge from "../../Components/Common/DateTimeBAdge";
 import Header from "../../Components/Common/Header";
 import { newTableStyles } from "../../Components/Common/TableStyles";
 import {
@@ -87,7 +88,7 @@ const ChalaniTable = (props) => {
       }
     });
   }
-  console.log(ProductList)
+  // console.log(ProductList)
   const handlePreview = (e) => {
     // console.log("e", e)
     setTempPartyDetails(e);
@@ -132,6 +133,9 @@ const ChalaniTable = (props) => {
       title: "DCId",
       dataIndex: "DCId",
       key: "DCId",
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.DCId - b.DCId,
+
     },
     {
       title: "PartyName",
@@ -147,11 +151,19 @@ const ChalaniTable = (props) => {
       title: "EntryDate",
       dataIndex: "EntryDate",
       key: "EntryDate",
+      render: ((val) =>
+      (
+        <DateTimeBAdge data={val} />
+      ))
     },
     {
       title: "DeliveryDate",
       dataIndex: "DeliveryDate",
       key: "DeliveryDate",
+      render: ((val) =>
+      (
+        <DateTimeBAdge data={val} />
+      ))
     },
 
     {
@@ -187,6 +199,9 @@ const ChalaniTable = (props) => {
       title: 'SN',
       dataIndex:'SN',
       key: 'SN',
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.SN - b.SN,
+
    
     },
     {
@@ -205,6 +220,9 @@ const ChalaniTable = (props) => {
       title: "Quantity",
       dataIndex: "Quantity",
       key: "Quantity",
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.Quantity - b.Quantity,
+
     },
     {
       title: "Remarks",
@@ -381,6 +399,9 @@ const ChalaniTable = (props) => {
   return (
     <div className="mainContainer">
       <Header title={"View Chalani"}></Header>
+      <div style={{
+        marginBottom: '8px'
+      }}>
       <Button
         type="primary"
         style={{ marginLeft: "16px", float: "right" }}
@@ -401,6 +422,7 @@ const ChalaniTable = (props) => {
           onDateRangeChange(value);
         }}
       />
+      </div>
 
       <div>
         <Table

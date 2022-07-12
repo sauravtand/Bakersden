@@ -15,7 +15,7 @@ const AddedAndParty = () => {
 
 
   const [chalanData, setChalanData] = useState([]);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState();
   const [partyData, setPartyData] = useState([]);
   const [headData, setHeadData] = useState([]);
   const [form] = Form.useForm();
@@ -25,7 +25,7 @@ const AddedAndParty = () => {
     form.resetFields();
   }
 
-
+  console.log("Check ", items)
 
   const handleAllData = (e) => {
 
@@ -61,11 +61,11 @@ const AddedAndParty = () => {
 
         }
         setChalanData(ChalanItems)
-        console.log(ChalanItems);
+        // console.log(ChalanItems);
         //  console.log(ChalanItems);
         //  setChalaniData(ChalanItems);
         UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
-          console.log(res);
+          // console.log(res);
 
         })
       }
@@ -77,17 +77,30 @@ const AddedAndParty = () => {
 
   }
   const addItems = item => {
-      const newItems = [...items, item]
-        setItems(newItems);
+    if (items === undefined) {
+      const newItems = [item]
+      setItems(newItems);
+    } else {
+      items.map(e => {
+        if (e.productionName !== item.productionName) {
+          let temp = [...items, item]
+          setItems(temp);
+        } else {
+          message.warning("item already added")
+        }
+      })
     }
-   
-  
+
+
+  }
+
+
   const removeProduct = id => {
     const remove = [...items].filter(item => item.productionName !== id)
     setItems(remove);
   }
 
-  console.log(items);
+  // console.log(items);
   const headers = {}
   const printHandle = () => {
 
@@ -149,9 +162,9 @@ const AddedAndParty = () => {
 
   return (
     <>
-      <Row>
+      <Row gutter={16}>
         <Col span={12}>
-          <AddProduct onSubmit={addItems} items={items}/>
+          <AddProduct onSubmit={addItems} items={items} />
           <AddedProducts >
             <h2>Added Products:</h2>
             <EachItem items={items} removeProduct={removeProduct} />
@@ -162,10 +175,10 @@ const AddedAndParty = () => {
             <Form
               name="basic"
               labelCol={{
-                span: 10,
+                span: 8,
               }}
               wrapperCol={{
-                span: 18,
+                span: 24,
               }}
               initialValues={{
                 remember: true,
@@ -223,13 +236,18 @@ const AddedAndParty = () => {
               >
                 <Input />
               </Form.Item>
+
               <Form.Item style={{ margin: '20px 205px' }}>
                 <Button type='primary' htmlType="submit">Save</Button>
               </Form.Item>
 
             </Form>
           </FormStyled>
+
+
         </Col>
+
+
       </Row>
       <Itemlist>
 
@@ -237,8 +255,9 @@ const AddedAndParty = () => {
 
 
     </>
-  )}
-            
+  )
+}
+
 export default AddedAndParty;
 
 
@@ -250,57 +269,23 @@ width: 60%;
 margin-left: 2%;
 `
 
-// {
-//   "_Chalan": {
-//     "DCId": 1,
-//     "PartyId": 2,
-//     "PartyName": "sample string 3",
-//     "PartyAddress": "sample string 4",
-//     "UserId": 5,
-//     "EntryDate": "2022-07-05T17:23:58.1651819+05:45",
-//     "DeliveryDate": "2022-07-05T17:23:58.1651819+05:45",
-//     "Remarks": "sample string 8",
-//     "IssuedBy": 9,
-//     "ReceivedBy": 10,
-//     "ApprovedBy": 11,
-//     "IsActive": true
-//   },
-//   "_chalanItemDetails": [
-//     {
-//       "CId": 1,
-//       "ChalaniNo": 2,
-//       "ItemId": 3,
-//       "Quantity": 4.1,
-//       "Remarks": "sample string 5",
-//       "IsActive": true
-//     },
-//     {
-//       "CId": 1,
-//       "ChalaniNo": 2,
-//       "ItemId": 3,
-//       "Quantity": 4.1,
-//       "Remarks": "sample string 5",
-//       "IsActive": true
-//     }
-//   ]
-// }
 const FormStyled = styled.div`
-/* margin: 2% 2%; */
-margin-left: 2%;
-padding:2% 8%;
-height: 360px;
+padding: 8px 16px;
 border-left: 2px solid #c8cacb;
 border: 2px solid white;
 border-radius: 8px;
 box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
 -webkit-box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
 -moz-box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
+background-color: #fefefe;
 `
 const AddedProducts = styled.div`
-height:470px;
-border: 2px solid white;
+padding: 8px 16px;
+height:460px;
+border: 2px solid '#c8cacb';
 border-radius: 8px;
 box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
 -webkit-box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
 -moz-box-shadow: -1px 1px 6px 2px rgba(186,186,186,0.75);
+background-color: #fefefe;
 `
