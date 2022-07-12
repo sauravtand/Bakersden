@@ -23,7 +23,7 @@ const AddedAndParty = () => {
       "UserId": 1,
       "EntryDate": moment().format('YYYY-MM-DD'),
       "DeliveryDate": moment().format('YYYY-MM-DD'),
-      "Remarks": e.remarks,
+      "Remarks": e.Remarks !== undefined ? e.Remarks : '',
       "IssuedBy": 1,
       "ReceivedBy": 1,
       "ApprovedBy": 1,

@@ -47,7 +47,7 @@ const MainLayout = () => {
                       collapsed ?
                         null :
                         <span style={{
-                          marginLeft: "8px"
+                          marginLeft: "8px",
                         }}>{e.name}</span>
 
                     }
@@ -72,6 +72,7 @@ const MainLayout = () => {
               className: 'trigger',
               onClick: () => setCollapsed(!collapsed),
             })}
+
           </Header>
           <Content
             className="site-layout-background"
