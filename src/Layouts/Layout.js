@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { RouteData } from "../Helpers/NavMenuData";
 import MainRoute from "../Routes/MainRoute";
 import Logo from "../Assets/images/logo.png";
+import { FaUserAlt } from 'react-icons/fa'
 
 const { Header, Sider, Content } = Layout;
 
@@ -61,10 +62,27 @@ const MainLayout = () => {
               backgroundColor: "#fefefe",
             }}
           >
-            {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-              className: 'trigger',
-              onClick: () => setCollapsed(!collapsed),
-            })}
+            <HeaderComponent>
+              <div>
+                {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                  className: 'trigger',
+                  onClick: () => setCollapsed(!collapsed),
+                })}
+                <span className="title">Luniva Bakery Product Entry</span>
+              </div>
+
+
+              <div style={{
+                cursor: "pointer"
+              }}>
+                <FaUserAlt style={{
+                  color: "#3869c4fd",
+                }}/>
+                <span className="user">admin</span>
+              </div>
+            </HeaderComponent>
+
+
 
           </Header>
           <Content
@@ -95,6 +113,7 @@ const MenuContainer = styled.div`
     &:hover {
       color: #1890ff;
     }
+    /* cursor: pointer; */
   }
 `;
 
@@ -109,3 +128,20 @@ const SideBarTop = styled.div`
     width: 100%;
   }
 `;
+
+const HeaderComponent = styled.div`
+display: flex;
+justify-content: space-between;
+  .title{
+    font-size: 24px;
+    font-weight: 600;
+    /* letter-spacing: 0.2rem; */
+  }
+
+  .user{
+    font-size: 16px;
+    font-weight: 600;
+    margin:0 24px 0px 8px; 
+    color: #3869c4fd;
+  }
+`
