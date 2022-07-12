@@ -9,17 +9,14 @@ const handleSubmit = (e) => {
   // const [form] = Form.useForm();
   
   
-  console.log('hellohellohello',items,e)
-  if(e.ProductionName!== items.productionName){
+  console.log('hellohellohello',items)
+  
     onSubmit({
       key: e.ProductionName,
       productionName: e.ProductionName,
       productionQuantity: e.ProductionQuantity,
  })
-  }
-  else{
-    message.alert('already added')
-  }
+ 
 
 
 }
