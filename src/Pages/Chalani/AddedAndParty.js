@@ -81,13 +81,6 @@ const AddedAndParty = () => {
     <>
       <Row gutter={16}>
         <Col span={12}>
-          <AddProduct onSubmit={addItems} items={items} />
-          <AddedProducts>
-            <h2>Added Products:</h2>
-            <EachItem items={items} removeProduct={removeProduct} />
-          </AddedProducts>
-        </Col>
-        <Col span={12}>
           <FormStyled>
             <Form
               name="basic"
@@ -153,6 +146,13 @@ const AddedAndParty = () => {
               </Form.Item>
             </Form>
           </FormStyled>
+        </Col>
+        <Col span={12}>
+          <AddProduct onSubmit={addItems} items={items} />
+          <AddedProducts>
+            <h2>Added Products:</h2>
+            <EachItem items={items} removeProduct={removeProduct} />
+          </AddedProducts>
         </Col>
       </Row>
       <Itemlist></Itemlist>
