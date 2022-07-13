@@ -33,7 +33,10 @@ const MainLayout = () => {
             {
               RouteData.map(e => (
                 <Menu.Item>
-                  <NavLink to={e.pathName}>
+                  <NavLink to={e.pathName} style={{
+                    display: "flex",
+                    alignItems: 'center'
+                  }}>
                     <e.icon style={{
                       fontSize: '20px'
                     }} />
@@ -60,6 +63,7 @@ const MainLayout = () => {
             style={{
               padding: 0,
               backgroundColor: "#fefefe",
+              boxShadow: "1px 4px 16px #d6d2d2"
             }}
           >
             <HeaderComponent>
