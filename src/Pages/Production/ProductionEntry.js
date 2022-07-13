@@ -16,10 +16,10 @@ import ProductionEntryTab from "./productionEntryTab";
 const { Option } = Select;
 const layout = {
   labelCol: {
-    span: 10,
+    span: 8,
   },
   wrapperCol: {
-    span: 12,
+    span: 15,
   },
 };
 
