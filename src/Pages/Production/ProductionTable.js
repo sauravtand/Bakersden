@@ -312,7 +312,7 @@ const ProductionTable = () => {
           columns={columns}
           dataSource={ProductList !== undefined ? ProductList : ""}
           scroll={{
-            y: 340,
+            y: 310,
           }}
         />
         <Modal
