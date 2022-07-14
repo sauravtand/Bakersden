@@ -155,7 +155,6 @@ const AddedAndParty = () => {
           </AddedProducts>
         </Col>
       </Row>
-      <Itemlist></Itemlist>
     </>
   );
 };
