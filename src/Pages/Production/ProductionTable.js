@@ -274,7 +274,7 @@ const ProductionTable = () => {
   }
   return (
     <div className="mainContainer">
-      <Header title={"View Products"}></Header>
+      <Header title={"View Production"}></Header>
 
       {/* start of buttons */}
       {/* //CSV */}

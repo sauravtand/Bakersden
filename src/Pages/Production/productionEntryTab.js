@@ -178,6 +178,7 @@ const ProductionEntryTab = (props) => {
         <Table
           columns={columns}
           dataSource={ProductList !== undefined ? ProductList : ""}
+          style={{ height: "450px" }}
           scroll={{
             y: 340,
           }}

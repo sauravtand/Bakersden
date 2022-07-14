@@ -72,13 +72,13 @@ const EachItem = ({ items, removeProduct }) => {
   // }
 
   return (
-    <div style={{ width: "100%", height: "55vh" }}>
+    <div style={{ width: "100%" }}>
       <Table
         columns={columns}
         dataSource={items}
-        style={{ height: "250px" }}
+        style={{ height: "220px" }}
         scroll={{
-          y: 300,
+          y: 240,
         }}
       />
     </div>

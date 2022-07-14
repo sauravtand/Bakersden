@@ -44,16 +44,17 @@ const AddProduct = (props) => {
   ];
 
   return (
-    <Addproduct>
+    <AddStyle>
       <h2>Add Products:</h2>
       <Form
         labelCol={{
           span: 4,
         }}
         wrapperCol={{
-          span: 16,
+          span: 18,
         }}
         onFinish={handleSubmit}
+        style={{ display: "flex" }}
         // onValuesChange={(e)=>{
         //   handleProductChange(e);
         //   handleQuantityChange(e);
@@ -62,7 +63,6 @@ const AddProduct = (props) => {
       >
         <Form.Item
           name="ProductionName"
-          label="Product"
           id="productionName"
           rules={[
             {
@@ -71,6 +71,8 @@ const AddProduct = (props) => {
           ]}
         >
           <Select
+            style={{ width: "250px", marginRight: "10px" }}
+            placeholder="Products"
             showSearch
             filterOption={(input, option) => {
               return (
@@ -90,7 +92,6 @@ const AddProduct = (props) => {
         </Form.Item>
         <Form.Item
           name="ProductionQuantity"
-          label="Quantity"
           id="productionQuantity"
           rules={[
             {
@@ -98,26 +99,27 @@ const AddProduct = (props) => {
             },
           ]}
         >
-          <InputNumber style={{ width: "100%" }} min={1} />
+          <InputNumber
+            style={{ width: "250px", marginRight: "10px" }}
+            placeholder="Quantity"
+            min={1}
+          />
         </Form.Item>
-        <Form.Item style={{ marginLeft: "90px" }}>
-          <Button
-            type="primary"
-            style={{ marginTop: "15px" }}
-            htmlType="submit"
-          >
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
             Add
           </Button>
         </Form.Item>
       </Form>
-    </Addproduct>
+    </AddStyle>
   );
 };
 
 export default AddProduct;
 
-const Addproduct = styled.div`
+const AddStyle = styled.div`
   margin-bottom: 2%;
+
   /* border: 2px solid black; */
   border-radius: 8px;
   background-color: white;

@@ -1,6 +1,9 @@
 export const newTableStyles = `
 <style>
 body {
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     color: rgba(0, 0, 0, 0.85);

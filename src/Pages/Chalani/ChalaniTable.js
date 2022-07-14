@@ -317,12 +317,9 @@ const ChalaniTable = (props) => {
           <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
           <div 
           // style='border: 1px solid black;
-          text-align: left;
+          text-align: center;
           padding-left: 2%;
-          margin:0 ;
-
-
-           '>
+          margin:0 ;'>
            
 
           <p>Party Name:  ${tempPartyDetails.PartyName}</p>
@@ -381,6 +378,7 @@ const ChalaniTable = (props) => {
   return (
     <div className="mainContainer">
       <Header title={"View Chalani"}></Header>
+
       <div
         style={{
           marginBottom: "8px",

@@ -85,7 +85,7 @@ const AddedAndParty = () => {
             <Form
               name="basic"
               labelCol={{
-                span: 8,
+                span: 5,
               }}
               wrapperCol={{
                 span: 24,
@@ -97,7 +97,7 @@ const AddedAndParty = () => {
               onFinish={handleAllData}
               form={form}
             >
-              <h2 style={{ textAlign: "center" }}>Party Details:</h2>
+              <h2 style={{ marginBottom: "30px" }}>Party Details:</h2>
               <Form.Item
                 label="Party Name"
                 name="PartyName"
@@ -136,12 +136,12 @@ const AddedAndParty = () => {
                 <DatePicker style={{ width: "100%" }} />
               </Form.Item>
               <Form.Item label="Remarks" name="Remarks">
-                <TextArea />
+                <TextArea rows={6} />
               </Form.Item>
 
               <Form.Item style={{ margin: "20px 205px" }}>
                 <Button type="primary" htmlType="submit">
-                  Save
+                  Save Chalani
                 </Button>
               </Form.Item>
             </Form>
@@ -180,7 +180,7 @@ const FormStyled = styled.div`
 `;
 const AddedProducts = styled.div`
   padding: 8px 16px;
-  height: 460px;
+  height: 405px;
   border: 2px solid "#c8cacb";
   border-radius: 8px;
   box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
