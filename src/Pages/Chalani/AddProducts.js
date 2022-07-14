@@ -71,7 +71,7 @@ const AddProduct = (props) => {
           ]}
         >
           <Select
-            style={{ width: "250px", marginRight: "10px" }}
+            style={{ width: "200px", marginRight: "10px" }}
             placeholder="Products"
             showSearch
             filterOption={(input, option) => {
@@ -100,7 +100,7 @@ const AddProduct = (props) => {
           ]}
         >
           <InputNumber
-            style={{ width: "250px", marginRight: "10px" }}
+            style={{ width: "200px", marginRight: "10px" }}
             placeholder="Quantity"
             min={1}
           />
