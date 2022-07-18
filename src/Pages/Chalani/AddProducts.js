@@ -1,17 +1,28 @@
-import { Select, Button, InputNumber, Form, Row, Col } from "antd";
-import React from "react";
+import { Select, Button, InputNumber, Form, Row, Col, message } from "antd";
+import moment from "moment";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import { GetProductionDetailsDate } from "../../Services/appServices/ProductionService";
 
 const { Option } = Select;
 const AddProduct = (props) => {
   const { onSubmit, items } = props;
+  const [ProductList, setProductList] = useState();
+  const [MaxCount, setMaxCount] = useState();
   // const [form] = Form.useForm();
   const handleSubmit = async (e) => {
-    await onSubmit({
-      key: e.ProductionName,
-      productionName: e.ProductionName,
-      productionQuantity: e.ProductionQuantity,
-    });
+
+    if (e.ProductionQuantity <= MaxCount && e.ProductionQuantity > 0) {
+      await onSubmit({
+        key: e.ProductionName,
+        productionName: e.ProductionName,
+        productionQuantity: e.ProductionQuantity,
+      });
+    }else{
+      message.error("Pliz fill the qunatitiy in required range")
+    }
+
     // form.resetFields();
   };
 
@@ -43,82 +54,119 @@ const AddProduct = (props) => {
     },
   ];
 
+  const handleSelected = (e) => {
+    console.log("selected", e)
+
+    if (ProductList !== undefined) {
+      console.log("poor", ProductList)
+      const found = ProductList.find(el => {
+        if (el.ItemId === e) {
+          return e
+        }
+      })
+      setMaxCount(found.Quantity);
+    }
+    console.log("max count", MaxCount)
+
+  }
+  useEffect(() => {
+    const date = {
+      fromdate: moment().format("YYYY-MM-DD"),
+      todate: moment().format("YYYY-MM-DD"),
+    };
+    GetProductionDetailsDate(date, (res) => {
+      if (res?.ItemList.length > 0) {
+        setProductList(res?.ItemList);
+      }
+    });
+  }, [])
+
   return (
     <AddStyle>
       <h2>Add Products:</h2>
-      <Row span={24}>
-        <Form
-          labelCol={{
-            span: 1,
-          }}
+
+      <Form
+        onFinish={handleSubmit}
+      // style={{ display: "flex", justifyContent: "space-between" }}
+      // style={{ display: 'inline', width: "100%" }}
+      >
+
+        <Form.Item
+          name="ProductionName"
+          id="productionName"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          style={{ display: 'inline-block', width: "100%" }}
           wrapperCol={{
-            span: 18,
+            span: 24
           }}
-          onFinish={handleSubmit}
-          style={{ display: "flex", justifyContent: "space-between" }}
-        // onValuesChange={(e)=>{
-        //   handleProductChange(e);
-        //   handleQuantityChange(e);
-        // }}
-        // form={form}
-        ><Col span={10} >
-            <Form.Item
-              name="ProductionName"
-              id="productionName"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
+        >
 
-              <Select
-                style={{ width: "155%", marginRight: "10px" }}
-                placeholder="Products"
-                showSearch
-                filterOption={(input, option) => {
-                  return (
-                    option.key.toLowerCase().indexOf(input.toLowerCase()) >= 0 ||
-                    option.title.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                  );
-                }}
+          <Select
+            placeholder="Products"
+            showSearch
+            filterOption={(input, option) => {
+              return (
+                option.key.toLowerCase().indexOf(input.toLowerCase()) >= 0 ||
+                option.title.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              );
+            }}
+            onSelect={(e) => handleSelected(e)}
 
-              // value={product}
-              >
-                {dummydata.map((e) => (
-                  <Option title={e.name} value={e.id} key={e.id}>
-                    {e.name}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={10} >
-            <Form.Item
-              name="ProductionQuantity"
-              id="productionQuantity"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <InputNumber
-                style={{ width: "150%", marginLeft: "40px" }}
-                placeholder="Quantity"
-                min={1}
-              />
-            </Form.Item></Col>
+          // value={product}
+          >
+            {dummydata.map((e) => (
+              <Option title={e.name} value={e.id} key={e.id}>
+                {e.name}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="ProductionQuantity"
+          id="productionQuantity"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          style={{ display: 'inline-block', width: "100%" }}
+          wrapperCol={{
+            span: 24
+          }}
+          // label={`max count: ${MaxCount}`}
+          label={`${MaxCount !== undefined ? `max count : ${MaxCount}` : ''}`}
 
-          <Col span={4} >
-            <Form.Item>
-              <Button type="primary" htmlType="submit" style={{ width: "", marginLeft: "75px" }}>
-                Add
-              </Button>
-            </Form.Item>
-          </Col>
-        </Form>
-      </Row>
+        >
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <InputNumber
+              style={{ width: "100%" }}
+              placeholder="Quantity"
+              min={1}
+              max={MaxCount !== undefined ? MaxCount : 1}
+              type='number'
+              disabled={MaxCount === undefined ? true : false}
+            />
+          </div>
+
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{
+            span: 24
+          }}
+        >
+          <Button type="primary" htmlType="submit">
+            Add
+          </Button>
+        </Form.Item>
+      </Form >
+
     </AddStyle >
   );
 };

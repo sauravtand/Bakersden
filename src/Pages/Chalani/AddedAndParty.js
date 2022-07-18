@@ -2,7 +2,7 @@ import styled from "styled-components";
 import AddProduct from "./AddProducts";
 import { useState } from "react";
 import EachItem from "./EachItem";
-import { Button, Col, message, Row } from "antd";
+import { Button, Col, message, Row, Select } from "antd";
 import { DatePicker, Form, Input } from "antd";
 import {
   UpdateChalanItem,
@@ -11,20 +11,49 @@ import {
 import { generateUrlEncodedData } from "../../Services/utils/generateUrlEncodedData";
 import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
+import { PartyDetail } from '../../Helpers/Dummydata'
 
+const { Option } = Select;
 const AddedAndParty = () => {
   const [items, setItems] = useState();
   const [form] = Form.useForm();
+  const [BakeryDetail, setBakeryDetail] = useState();
+  const [BakeryBranch, setBakeryBranch] = useState();
+  // console.log("PartyDetail", PartyDetail)
+
+
+
+  const handleSelected = (e) => {
+    // console.log("e", e)
+    const dataIndex = PartyDetail.find(el => el.id == e);
+    if (dataIndex.branch) {
+      // console.log("branches", dataIndex.branch)
+      setBakeryBranch(dataIndex.branch)
+    } else {
+      setBakeryDetail(dataIndex)
+      setBakeryBranch()
+    }
+  }
+
+  const handleSelectedBranch = (e, data) => {
+    // console.log(e, data)
+    let temp = {
+      name: data.title,
+      address: data.address,
+    }
+    setBakeryDetail(temp)
+  }
+  // console.log("bakerty detail",BakeryDetail)
 
   const handleAllData = (e) => {
     let Party = {
       DCId: 0,
       PartyId: 1,
-      PartyName: e.PartyName,
-      PartyAddress: e.PartyAddress,
+      PartyName: BakeryDetail.name,
+      PartyAddress: BakeryDetail.address,
       UserId: 1,
       EntryDate: moment().format("YYYY-MM-DD"),
-      DeliveryDate: moment().format("YYYY-MM-DD"),
+      DeliveryDate: e.Delivery.format('YYYY-MM-DD'),
       Remarks: e.Remarks !== undefined ? e.Remarks : "n/a",
       IssuedBy: 1,
       ReceivedBy: 1,
@@ -32,6 +61,8 @@ const AddedAndParty = () => {
       IsActive: true,
     };
 
+    // console.log(Party)
+    // return
     let chalaniNo = 0;
     UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
       chalaniNo = res.CreatedId;
@@ -60,15 +91,16 @@ const AddedAndParty = () => {
     if (items === undefined) {
       const newItems = [item];
       setItems(newItems);
-    } else {
-      items.map((e) => {
-        if (e.productionName !== item.productionName) {
-          let temp = [...items, item];
-          setItems(temp);
-        } else {
-          message.warning("item already added");
-        }
-      });
+    }
+    else {
+      let tempArr = [...items];
+      const found = items.some(e => e.productionName === item.productionName)
+      if (found) {
+        message.warning("item already added");
+      } else {
+        tempArr.push(item)
+      }
+      setItems(tempArr);
     }
   };
 
@@ -98,7 +130,7 @@ const AddedAndParty = () => {
               form={form}
             >
               <h2 style={{ marginBottom: "30px" }}>Party Details:</h2>
-              <Form.Item
+              {/* <Form.Item
                 label="Party Name"
                 name="PartyName"
                 rules={[
@@ -121,7 +153,78 @@ const AddedAndParty = () => {
                 ]}
               >
                 <Input />
+              </Form.Item> */}
+              {/* dmmy party */}
+              <Form.Item
+                label="Party Name"
+                name="PartyName"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input Party Name!",
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="Party Name"
+                  showSearch
+                  filterOption={(input, option) => {
+                    return (
+                      option.key.toLowerCase().indexOf(input.toLowerCase()) >= 0 ||
+                      option.title.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    );
+                  }}
+                  onSelect={(e) => handleSelected(e)}
+
+                // value={product}
+                >
+                  {PartyDetail.map((e) => (
+                    <Option title={e.name} value={e.id} key={e.id}>
+                      {e.name}
+                    </Option>
+                  ))}
+                </Select>
               </Form.Item>
+
+              {
+                BakeryBranch !== undefined &&
+
+                <Form.Item
+                  label="Branch Name"
+                  name="BranchName"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input Branch Name!",
+                    },
+                  ]}
+                >
+                  <Select
+                    placeholder="Branch Name"
+                    showSearch
+                    filterOption={(input, option) => {
+                      return (
+                        option.key.toLowerCase().indexOf(input.toLowerCase()) >= 0 ||
+                        option.title.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                      );
+                    }}
+                    onSelect={(e, _) => handleSelectedBranch(e, _)}
+
+                  // value={product}
+                  >
+                    {BakeryBranch.map((e) => (
+                      <Option title={e.name} value={e.BId} key={e.id} address={e.address}>
+                        {e.name}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              }
+
+
+              {/* dmmy party */}
+
+
 
               <Form.Item
                 label="Delivery Date"

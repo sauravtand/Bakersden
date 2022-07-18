@@ -432,9 +432,7 @@ const ChalaniTable = (props) => {
           <Button type="primary" onClick={modalPrint}>
             Print
           </Button>,
-          <Button type="danger" onClick={handleCancel}>
-            Cancel
-          </Button>,
+         
         ]}
       >
         {
