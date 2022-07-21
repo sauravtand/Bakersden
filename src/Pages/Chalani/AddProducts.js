@@ -1,4 +1,4 @@
-import { Select, Button, InputNumber, Form, Row, Col, message } from "antd";
+import { Select, Button, Input, Form, Row, Col, message } from "antd";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -12,15 +12,14 @@ const AddProduct = (props) => {
   const [MaxCount, setMaxCount] = useState();
   // const [form] = Form.useForm();
   const handleSubmit = async (e) => {
-
     if (e.ProductionQuantity <= MaxCount && e.ProductionQuantity > 0) {
       await onSubmit({
         key: e.ProductionName,
         productionName: e.ProductionName,
         productionQuantity: e.ProductionQuantity,
       });
-    }else{
-      message.error("Pliz fill the qunatitiy in required range")
+    } else {
+      message.error("Pliz fill the qunatitiy in required range");
     }
 
     // form.resetFields();
@@ -55,20 +54,19 @@ const AddProduct = (props) => {
   ];
 
   const handleSelected = (e) => {
-    console.log("selected", e)
+    console.log("selected", e);
 
     if (ProductList !== undefined) {
-      console.log("poor", ProductList)
-      const found = ProductList.find(el => {
+      console.log("poor", ProductList);
+      const found = ProductList.find((el) => {
         if (el.ItemId === e) {
-          return e
+          return e;
         }
-      })
+      });
       setMaxCount(found.Quantity);
     }
-    console.log("max count", MaxCount)
-
-  }
+    console.log("max count", MaxCount);
+  };
   useEffect(() => {
     const date = {
       fromdate: moment().format("YYYY-MM-DD"),
@@ -79,7 +77,7 @@ const AddProduct = (props) => {
         setProductList(res?.ItemList);
       }
     });
-  }, [])
+  }, []);
 
   return (
     <AddStyle>
@@ -87,10 +85,9 @@ const AddProduct = (props) => {
 
       <Form
         onFinish={handleSubmit}
-      // style={{ display: "flex", justifyContent: "space-between" }}
-      // style={{ display: 'inline', width: "100%" }}
+        // style={{ display: "flex", justifyContent: "space-between" }}
+        // style={{ display: 'inline', width: "100%" }}
       >
-
         <Form.Item
           name="ProductionName"
           id="productionName"
@@ -99,12 +96,11 @@ const AddProduct = (props) => {
               required: true,
             },
           ]}
-          style={{ display: 'inline-block', width: "100%" }}
+          style={{ display: "inline-block", width: "100%" }}
           wrapperCol={{
-            span: 24
+            span: 24,
           }}
         >
-
           <Select
             placeholder="Products"
             showSearch
@@ -116,7 +112,7 @@ const AddProduct = (props) => {
             }}
             onSelect={(e) => handleSelected(e)}
 
-          // value={product}
+            // value={product}
           >
             {dummydata.map((e) => (
               <Option title={e.name} value={e.id} key={e.id}>
@@ -133,41 +129,40 @@ const AddProduct = (props) => {
               required: true,
             },
           ]}
-          style={{ display: 'inline-block', width: "100%" }}
+          style={{ display: "inline-block", width: "100%" }}
           wrapperCol={{
-            span: 24
+            span: 24,
           }}
           // label={`max count: ${MaxCount}`}
-          label={`${MaxCount !== undefined ? `max count : ${MaxCount}` : ''}`}
-
+          label={`${MaxCount !== undefined ? `max count : ${MaxCount}` : ""}`}
         >
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-            <InputNumber
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Input
               style={{ width: "100%" }}
               placeholder="Quantity"
               min={1}
               max={MaxCount !== undefined ? MaxCount : 1}
-              type='number'
+              type="number"
               disabled={MaxCount === undefined ? true : false}
             />
           </div>
-
         </Form.Item>
         <Form.Item
           wrapperCol={{
-            span: 24
+            span: 24,
           }}
         >
           <Button type="primary" htmlType="submit">
             Add
           </Button>
         </Form.Item>
-      </Form >
-
-    </AddStyle >
+      </Form>
+    </AddStyle>
   );
 };
 
@@ -183,5 +178,4 @@ const AddStyle = styled.div`
   -webkit-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
   -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
   padding: 8px;
-
 `;
