@@ -1,4 +1,4 @@
-import { Select, Button, InputNumber, Form, Row, Col, message } from "antd";
+import { Select, Button, Input, Form, Row, Col, message } from "antd";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -55,10 +55,11 @@ const AddProduct = (props) => {
   ];
 
   const handleSelected = (e) => {
-    console.log("selected", e)
-
+    // console.log("selected", e)
+    setMaxCount()
+    console.log("max count", MaxCount)
     if (ProductList !== undefined) {
-      console.log("poor", ProductList)
+      // console.log("poor", ProductList)
       const found = ProductList.find(el => {
         if (el.ItemId === e) {
           return e
@@ -66,7 +67,10 @@ const AddProduct = (props) => {
       })
       setMaxCount(found.Quantity);
     }
-    console.log("max count", MaxCount)
+    // console.log("max count", MaxCount)
+    // if(MaxCount === undefined){
+    //   message.error("No data dound")
+    // }
 
   }
   useEffect(() => {
@@ -145,7 +149,7 @@ const AddProduct = (props) => {
             display: 'flex',
             flexDirection: 'column'
           }}>
-            <InputNumber
+            <Input
               style={{ width: "100%" }}
               placeholder="Quantity"
               min={1}

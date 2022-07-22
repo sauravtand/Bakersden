@@ -377,87 +377,75 @@ const ChalaniTable = (props) => {
 
   return (
     <div className="mainContainer">
-      <Header title={"View Chalani"}></Header>
+        <Header title={"View Chalani"}></Header>
 
-      <div
-        style={{
-          marginBottom: "8px",
-        }}
-      >
-        <Button
-          type="primary"
-          style={{ marginLeft: "16px", float: "right" }}
-          onClick={printHandle}
+        <div
+          style={{
+            marginBottom: "8px",
+          }}
         >
-          Print
-        </Button>
-        <Button type="primary" style={{ float: "right" }}>
-          <CSVLink
-            data={ProductList !== undefined ? ProductList : ""}
-            filename={"chalaniData.csv"}
+          <Button
+            type="primary"
+            style={{ marginLeft: "16px", float: "right" }}
+            onClick={printHandle}
           >
-            Export to CSV
-          </CSVLink>
-        </Button>
-        <RangePicker
-          onChange={(value) => {
-            onDateRangeChange(value);
-          }}
-        />
-      </div>
-
-      <div>
-        <Table
-          columns={columns}
-          dataSource={ProductList !== undefined ? ProductList : ""}
-          scroll={{
-            y: 340,
-          }}
-        />
-      </div>
-      <Modal
-        width={900}
-        title="Product List"
-        visible={isModalVisible}
-        onCancel={handleCancel}
-        footer={[
-          <Button key="submit" type="primary" onClick={handleOk}>
+            Print
+          </Button>
+          <Button type="primary" style={{ float: "right" }}>
             <CSVLink
-              data={ChalaniItemList !== undefined ? ChalaniItemList : ""}
-              filename={"chalaniItemData.csv"}
+              data={ProductList !== undefined ? ProductList : ""}
+              filename={"chalaniData.csv"}
             >
               Export to CSV
             </CSVLink>
-          </Button>,
-          <Button type="primary" onClick={modalPrint}>
-            Print
-          </Button>,
-         
-        ]}
-      >
-        {
-          // ChalaniItemList!== undefined &&
-          // <>
-          // {
-          //   ChalaniItemList.map(e => (
-          //     <>
-          //     <p>{e.ItemId}</p>
-          //     <p>{e.Quantity}</p>
-          //     <p>{e.Remarks}</p>
-          //     </>
-          //   ))
-          // }
-          // </>
-
-          <Table
-            columns={columnsChalan}
-            dataSource={ChalaniItemList}
-            scroll={{
-              y: 140,
+          </Button>
+          <RangePicker
+            onChange={(value) => {
+              onDateRangeChange(value);
             }}
           />
-        }
-      </Modal>
+        </div>
+
+        <div>
+          <Table
+            columns={columns}
+            dataSource={ProductList !== undefined ? ProductList : ""}
+            scroll={{
+              y: 340,
+            }}
+          />
+        </div>
+        <Modal
+          width={900}
+          title="Product List"
+          visible={isModalVisible}
+          onCancel={handleCancel}
+          // className='costomeStyle'
+          footer={[
+            <Button key="submit" type="primary" onClick={handleOk}>
+              <CSVLink
+                data={ChalaniItemList !== undefined ? ChalaniItemList : ""}
+                filename={"chalaniItemData.csv"}
+              >
+                Export to CSV
+              </CSVLink>
+            </Button>,
+            <Button type="primary" onClick={modalPrint}>
+              Print
+            </Button>,
+
+          ]}
+        >
+          {
+            <Table
+              columns={columnsChalan}
+              dataSource={ChalaniItemList}
+              scroll={{
+                y: 140,
+              }}
+            />
+          }
+        </Modal>
     </div>
   );
 };
@@ -485,3 +473,5 @@ const CIcon = styled.div`
     color: #fefefe;
   }
 `;
+
+
