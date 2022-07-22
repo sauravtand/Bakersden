@@ -32,14 +32,14 @@ const MainLayout = () => {
             <SideBarTop>
               <img src={Logo} />
             </SideBarTop>
-
             {RouteData.map((e) => (
-              <Menu.Item key={e.id}>
+              <Menu.Item key={e.id} item={e.label}>
                 <NavLink
                   to={e.pathName}
                   style={{
                     display: "flex",
                     alignItems: "center",
+                    marginTop: "8px",
                   }}
                 >
                   <e.icon
@@ -47,13 +47,14 @@ const MainLayout = () => {
                       fontSize: "20px",
                     }}
                   />
+
                   {collapsed ? null : (
                     <span
                       style={{
                         marginLeft: "8px",
                       }}
                     >
-                      {e.name}
+                      {e.label}
                     </span>
                   )}
                 </NavLink>
@@ -120,7 +121,7 @@ const MenuContainer = styled.div`
     font-size: 18px;
     line-height: 64px;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: color 0.4s;
 
     &:hover {
       color: #1890ff;
