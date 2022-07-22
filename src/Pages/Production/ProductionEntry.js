@@ -8,12 +8,13 @@ import {
   Col,
   message,
 } from "antd";
-import { InsertUpdateDayWiseProductionDetail } from "../../Services/appServices/ProductionService";
+import { GetItemLists, InsertUpdateDayWiseProductionDetail } from "../../Services/appServices/ProductionService";
 import Header from "../../Components/Common/Header";
 import TextArea from "antd/lib/input/TextArea";
 import { useState } from "react";
 import ProductionEntryTab from "./productionEntryTab";
 import styled from "styled-components";
+import { useEffect } from "react";
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -24,39 +25,13 @@ const layout = {
   },
 };
 
-const dummydata = [
-  {
-    name: "Dark Forest",
-    price: "20",
-    id: 1,
-  },
-  {
-    name: "Red valvet",
-    price: "110",
-    id: 2,
-  },
-  {
-    name: "White Forest",
-    price: "200",
-    id: 3,
-  },
-  {
-    name: "Butter Scothc Cake",
-    price: "2500",
-    id: 4,
-  },
-  {
-    name: "Banana Vake",
-    price: "2500",
-    id: 5,
-  },
-];
 
 const ProductionEntry = () => {
   const [form] = Form.useForm();
   const date = new Date().toISOString();
   const [isbutdis, setisbutdis] = useState(false);
   const [reloadTable, setreloadTable] = useState(false);
+  const [ItemLists, setItemLists] = useState()
 
   const onFinish = (values) => {
     setisbutdis(true);
@@ -95,6 +70,13 @@ const ProductionEntry = () => {
   const tableAfterReloaded = (e) => {
     setreloadTable(false);
   };
+
+  useEffect(() => {
+    GetItemLists((res) => {
+      // console.log("item list", res.ItemList);
+      setItemLists(res.ItemList)
+    })
+  }, [])
 
   return (
     <>
@@ -141,11 +123,19 @@ const ProductionEntry = () => {
                       );
                     }}
                   >
-                    {dummydata.map((e) => (
+                    {/* {dummydata.map((e) => (
                       <Option title={e.name} value={e.id} key={e.id}>
                         {e.name}
                       </Option>
-                    ))}
+                    ))} */}
+                    {
+                      ItemLists!== undefined &&
+                      ItemLists.map((e) => (
+                        <Option title={e.ItmName} value={e.itmId} key={e.itmId}>
+                          {e.ItmName}
+                        </Option>
+                      ))
+                    }
                   </Select>
                 </Form.Item>
                 <Form.Item

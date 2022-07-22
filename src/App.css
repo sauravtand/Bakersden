@@ -34,3 +34,12 @@
   border: 2px solid black;
 }
 
+/* fixed side bar */
+.two-hundred {
+  margin-left: 200px;
+  transition: all 0.3s ease;
+}
+.hundred {
+  margin-left:80px;
+  transition: all 0.3s ease;}
+

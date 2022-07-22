@@ -1,6 +1,6 @@
 import { Table, Button, message } from "antd";
 import { useEffect, useState } from "react";
-import { GetProductionDetailsDate } from "../../Services/appServices/ProductionService";
+import { GetItemLists, GetProductionDetailsDate } from "../../Services/appServices/ProductionService";
 import { CSVLink } from "react-csv";
 import { newTableStyles } from "../../Components/Common/TableStyles";
 
@@ -9,7 +9,9 @@ const ProductionEntryTab = (props) => {
   // const [isEditing, setisEditing] = useState(false);
   const [ProductList, setProductList] = useState();
   // const [editingProduct, setEditingProduct] = useState();
+  const [ItemLists, setItemLists] = useState();
   useEffect(() => {
+
     if (reloadTable === true) {
       getTableData();
       tableAfterReloaded(false);
@@ -18,6 +20,10 @@ const ProductionEntryTab = (props) => {
   useEffect(() => {
     // const date = new Date().toISOString();
     getTableData();
+    GetItemLists((res) => {
+      // console.log("item list", res.ItemList);
+      setItemLists(res.ItemList)
+    })
   }, []);
 
   function getTableData() {
@@ -31,33 +37,6 @@ const ProductionEntryTab = (props) => {
       }
     });
   }
-  const dummydata = [
-    {
-      name: "Dark Forest",
-      price: "20",
-      id: 1,
-    },
-    {
-      name: "Red velvet",
-      price: "110",
-      id: 2,
-    },
-    {
-      name: "White Forest",
-      price: "200",
-      id: 3,
-    },
-    {
-      name: "Butter Scotch Cake",
-      price: "2500",
-      id: 4,
-    },
-    {
-      name: "Banana Cake",
-      price: "2500",
-      id: 5,
-    },
-  ];
 
   const columns = [
     {
@@ -70,10 +49,13 @@ const ProductionEntryTab = (props) => {
       dataIndex: "ItemId",
       key: "ItemId",
       render: (text, record) => {
-        const a = dummydata.map((res) => {
-          if (res.id === text) return res.name;
-          else return "";
-        });
+        let a;
+        if (ItemLists !== undefined) {
+          a = ItemLists.map((res) => {
+            if (res.itmId === text) return res.ItmName;
+            else return "";
+          });
+        }
         return a;
       },
     },

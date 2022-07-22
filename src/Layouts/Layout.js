@@ -22,6 +22,9 @@ const MainLayout = () => {
           collapsed={collapsed}
           style={{
             minHeight: "100vh",
+            position: "fixed",
+            left: "0",
+            top: "0",
           }}
         >
           <div className="logo" />
@@ -58,7 +61,7 @@ const MainLayout = () => {
             ))}
           </Menu>
         </Sider>
-        <Layout className="site-layout">
+        <Layout className={collapsed ? "hundred" : "two-hundred"}>
           <Header
             className="site-layout-background"
             style={{
@@ -118,6 +121,7 @@ const MenuContainer = styled.div`
     line-height: 64px;
     cursor: pointer;
     transition: color 0.3s;
+
     &:hover {
       color: #1890ff;
     }

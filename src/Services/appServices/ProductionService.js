@@ -1,7 +1,10 @@
 import {
+  GetAvailableCountofProductForChalani,
   GetChalanDetailsByDate,
   GetChalanItemDetailsByChalanId,
+  GetItemList,
   GetProductionDetailsByDate,
+  GetRemainingProductionGoodsByDate,
   InsertChalanDetailsWithSeparateItemsDetails,
   InsertChalanWithItemDetails,
   InsertUpdateDayWiseProductionDetails,
@@ -127,6 +130,64 @@ export const GetChalanItemDetailsByChalansId = async (
   try {
     const response = await fetch(
       `${GetChalanItemDetailsByChalanId}?chalanNo=${data}`
+    );
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else {
+      successCallback([]);
+    }
+  } catch (error) {
+    successCallback([]);
+  }
+};
+
+// GetRemainingProductionGoodsByDate
+
+export const GetRemainingProductionGoodsByDatee = async (
+  data,
+  successCallback
+) => {
+  try {
+    const response = await fetch(
+      `${GetRemainingProductionGoodsByDate}?fromdate=${data.fromdate}&todate=${data.todate}`
+    );
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else {
+      successCallback([]);
+    }
+  } catch (error) {
+    successCallback([]);
+  }
+};
+
+// GetAvailableCountofProductForChalani
+export const GetAvailableCountofProductForChalanis = async (
+  data,
+  successCallback
+) => {
+  try {
+    const response = await fetch(
+      `${GetAvailableCountofProductForChalani}?itemId=${data.id}&prodDate=${data.fromdate}`
+    );
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else {
+      successCallback([]);
+    }
+  } catch (error) {
+    successCallback([]);
+  }
+};
+
+// GetItemList
+
+export const GetItemLists = async (
+  successCallback
+) => {
+  try {
+    const response = await fetch(
+      `${GetItemList}`
     );
     if (response?.status === 200) {
       successCallback(response?.data);
