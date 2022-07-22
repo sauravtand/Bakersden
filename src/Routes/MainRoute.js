@@ -4,11 +4,9 @@ import ProductionEntry from "../Pages/Production/ProductionEntry";
 import ProductionTable from "../Pages/Production/ProductionTable";
 import Chalani from "../Pages/Chalani/ChalaniUI";
 import ChalaniTable from "../Pages/Chalani/ChalaniTable";
+import BranchChalani from "../Pages/Chalani/BranchChalani";
 import Login from "../Pages/Login/Login";
-/**
- * @desc: define static routes here
- *
- */
+
 const MainRoute = () => {
   return (
     <Routes>
@@ -17,6 +15,7 @@ const MainRoute = () => {
       <Route exact path="/ProductionTable" element={<ProductionTable />} />
       <Route exact path="/Chalani" element={<Chalani />} />
       <Route exact path="/ChalaniTable" element={<ChalaniTable />} />
+      <Route exact path="/BranchChalani" element={<BranchChalani />} />
     </Routes>
   );
 };
