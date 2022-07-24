@@ -9,37 +9,10 @@ import { newTableStyles } from "../../Components/Common/TableStyles";
 import {
   GetChalanDetailByDate,
   GetChalanItemDetailsByChalansId,
+  GetItemLists,
 } from "../../Services/appServices/ProductionService";
 
 const { RangePicker } = DatePicker;
-
-const dummydata = [
-  {
-    name: "Dark Forest",
-    price: "20",
-    id: 1,
-  },
-  {
-    name: "Red velvet",
-    price: "110",
-    id: 2,
-  },
-  {
-    name: "White Forest",
-    price: "200",
-    id: 3,
-  },
-  {
-    name: "Butter Scotch Cake",
-    price: "2500",
-    id: 4,
-  },
-  {
-    name: "Banana Cake",
-    price: "2500",
-    id: 5,
-  },
-];
 
 const ChalaniTable = (props) => {
   const { reloadTable } = props;
@@ -51,6 +24,18 @@ const ChalaniTable = (props) => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [tempPartyDetails, setTempPartyDetails] = useState();
+  const [itemList, setItemList] = useState();
+  useEffect(() => {
+    // const date = new Date().toISOString();
+
+    GetItemLists((res) => {
+      // console.log("item list", res.ItemList);
+      if (res?.ItemList.length > 0) {
+        setItemList(res.ItemList);
+        console.log(itemList);
+      }
+    });
+  }, []);
   useEffect(() => {
     if (reloadTable === true) {
       getTableData();
@@ -101,14 +86,19 @@ const ChalaniTable = (props) => {
         let tempArr = [];
         let temp;
         res.chalandetails.map((e, index) => {
+          let newItemName = "";
+          itemList.forEach((res) => {
+            if (res.itmId === e.ItemId) newItemName = res.ItmName;
+          });
           temp = {
             SN: index + 1,
+            "Item Name": newItemName,
             ...e,
           };
           tempArr.push(temp);
         });
 
-        // console.log("temp arr", tempArr)
+        console.log("temp arr", tempArr);
         setChalaniItemList(tempArr);
       }
     });
@@ -190,12 +180,12 @@ const ChalaniTable = (props) => {
       sorter: (a, b) => a.SN - b.SN,
     },
     {
-      title: "ItemId",
+      title: "Name",
       dataIndex: "ItemId",
       key: "ItemId",
       render: (text, record) => {
-        const a = dummydata.map((res) => {
-          if (res.id === text) return res.name;
+        const a = itemList.map((res) => {
+          if (res.itmId === text) return res.ItmName;
           else return "";
         });
         return a;
@@ -290,7 +280,7 @@ const ChalaniTable = (props) => {
     { label: "CId", key: "CId" },
     { label: "SN", key: "SN" },
     { label: "SN", key: "SN" },
-    { label: "ItemId", key: "ItemId" },
+    { label: "Item Name", key: "ItemId" },
     { label: "Quantity", key: "Quantity" },
     // { label: "Remarks", key: "Remarks" },
   ];
@@ -356,6 +346,7 @@ const ChalaniTable = (props) => {
       ChalaniItemList.forEach((ele) => {
         tableBody = tableBody + "<tr>";
         columns.forEach((cell) => {
+          console.log(ele);
           tableBody = tableBody + "<td>" + ele[cell] + "</td>";
         });
         tableBody = tableBody + "</tr>";
@@ -366,10 +357,10 @@ const ChalaniTable = (props) => {
       newWindow.document.body.innerHTML =
         newTableStyles + newStyle + refName + allTable + footer;
 
-      setTimeout(function () {
-        newWindow.print();
-        newWindow.close();
-      }, 300);
+      // setTimeout(function () {
+      //   newWindow.print();
+      //   newWindow.close();
+      // }, 300);
     } else {
       message.info("select some data");
     }

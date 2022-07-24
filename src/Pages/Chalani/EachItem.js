@@ -1,45 +1,34 @@
 import { Table, Space, Button } from "antd";
+import { useEffect, useState } from "react";
+import { GetItemLists } from "../../Services/appServices/ProductionService";
 
 const EachItem = ({ items, removeProduct }) => {
-  const dummydata = [
-    {
-      name: "Dark Forest",
-      price: "20",
-      id: 1,
-    },
-    {
-      name: "Red valvet",
-      price: "110",
-      id: 2,
-    },
-    {
-      name: "White Forest",
-      price: "200",
-      id: 3,
-    },
-    {
-      name: "Butter Scothc Cake",
-      price: "2500",
-      id: 4,
-    },
-    {
-      name: "Banana Vake",
-      price: "2500",
-      id: 5,
-    },
-  ];
+  const [itemList, setItemList] = useState();
+  useEffect(() => {
+    // const date = new Date().toISOString();
+
+    GetItemLists((res) => {
+      // console.log("item list", res.ItemList);
+      if (res?.ItemList.length > 0) {
+        setItemList(res.ItemList);
+        console.log(itemList);
+      }
+    });
+  }, []);
 
   const columns = [
     {
-      title: "Name",
+      title: "Item Name",
       dataIndex: "productionName",
       key: "productionName",
       render: (text, record) => {
-        const a = dummydata.map((res) => {
-          if (res.id === text) return res.name;
-          else return "";
-        });
-        return a;
+        if (itemList !== undefined) {
+          const a = itemList.map((res) => {
+            if (res.itmId === text) return res.ItmName;
+            else return "";
+          });
+          return a;
+        }
       },
     },
     {

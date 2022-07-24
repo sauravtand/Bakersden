@@ -91,11 +91,13 @@ const ProductionTable = () => {
       dataIndex: "ItemId",
       key: "ItemId",
       render: (text, record) => {
-        const a = itemList.map((res) => {
-          if (res.itmId === text) return res.ItmName;
-          else return "";
-        });
-        return a;
+        if (itemList !== undefined) {
+          const a = itemList.map((res) => {
+            if (res.itmId === text) return res.ItmName;
+            else return "";
+          });
+          return a;
+        }
       },
     },
     {

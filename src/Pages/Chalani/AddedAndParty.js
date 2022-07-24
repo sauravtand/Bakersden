@@ -11,7 +11,7 @@ import {
 import { generateUrlEncodedData } from "../../Services/utils/generateUrlEncodedData";
 import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
-import { PartyDetail } from '../../Helpers/Dummydata'
+import { PartyDetail } from "../../Helpers/Dummydata";
 
 const { Option } = Select;
 const AddedAndParty = () => {
@@ -21,28 +21,26 @@ const AddedAndParty = () => {
   const [BakeryBranch, setBakeryBranch] = useState();
   // console.log("PartyDetail", PartyDetail)
 
-
-
   const handleSelected = (e) => {
     // console.log("e", e)
-    const dataIndex = PartyDetail.find(el => el.id == e);
+    const dataIndex = PartyDetail.find((el) => el.id == e);
     if (dataIndex.branch) {
       // console.log("branches", dataIndex.branch)
-      setBakeryBranch(dataIndex.branch)
+      setBakeryBranch(dataIndex.branch);
     } else {
-      setBakeryDetail(dataIndex)
-      setBakeryBranch()
+      setBakeryDetail(dataIndex);
+      setBakeryBranch();
     }
-  }
+  };
 
   const handleSelectedBranch = (e, data) => {
     // console.log(e, data)
     let temp = {
       name: data.title,
       address: data.address,
-    }
-    setBakeryDetail(temp)
-  }
+    };
+    setBakeryDetail(temp);
+  };
   // console.log("bakerty detail",BakeryDetail)
 
   const handleAllData = (e) => {
@@ -53,7 +51,7 @@ const AddedAndParty = () => {
       PartyAddress: BakeryDetail.address,
       UserId: 1,
       EntryDate: moment().format("YYYY-MM-DD"),
-      DeliveryDate: e.Delivery.format('YYYY-MM-DD'),
+      DeliveryDate: e.Delivery.format("YYYY-MM-DD"),
       Remarks: e.Remarks !== undefined ? e.Remarks : "n/a",
       IssuedBy: 1,
       ReceivedBy: 1,
@@ -91,14 +89,13 @@ const AddedAndParty = () => {
     if (items === undefined) {
       const newItems = [item];
       setItems(newItems);
-    }
-    else {
+    } else {
       let tempArr = [...items];
-      const found = items.some(e => e.productionName === item.productionName)
+      const found = items.some((e) => e.productionName === item.productionName);
       if (found) {
         message.warning("item already added");
       } else {
-        tempArr.push(item)
+        tempArr.push(item);
       }
       setItems(tempArr);
     }
@@ -170,13 +167,15 @@ const AddedAndParty = () => {
                   showSearch
                   filterOption={(input, option) => {
                     return (
-                      option.key.toLowerCase().indexOf(input.toLowerCase()) >= 0 ||
-                      option.title.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                      option.key.toLowerCase().indexOf(input.toLowerCase()) >=
+                        0 ||
+                      option.title.toLowerCase().indexOf(input.toLowerCase()) >=
+                        0
                     );
                   }}
                   onSelect={(e) => handleSelected(e)}
 
-                // value={product}
+                  // value={product}
                 >
                   {PartyDetail.map((e) => (
                     <Option title={e.name} value={e.id} key={e.id}>
@@ -186,9 +185,7 @@ const AddedAndParty = () => {
                 </Select>
               </Form.Item>
 
-              {
-                BakeryBranch !== undefined &&
-
+              {BakeryBranch !== undefined && (
                 <Form.Item
                   label="Branch Name"
                   name="BranchName"
@@ -203,28 +200,36 @@ const AddedAndParty = () => {
                     placeholder="Branch Name"
                     showSearch
                     filterOption={(input, option) => {
-                      return (
-                        option.key.toLowerCase().indexOf(input.toLowerCase()) >= 0 ||
-                        option.title.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                      );
+                      if (option.key !== null) {
+                        return (
+                          option.key
+                            .toLowerCase()
+                            .indexOf(input.toLowerCase()) >= 0 ||
+                          option.title
+                            .toLowerCase()
+                            .indexOf(input.toLowerCase()) >= 0
+                        );
+                      }
                     }}
                     onSelect={(e, _) => handleSelectedBranch(e, _)}
 
-                  // value={product}
+                    // value={product}
                   >
                     {BakeryBranch.map((e) => (
-                      <Option title={e.name} value={e.BId} key={e.id} address={e.address}>
+                      <Option
+                        title={e.name}
+                        value={e.BId}
+                        key={e.id}
+                        address={e.address}
+                      >
                         {e.name}
                       </Option>
                     ))}
                   </Select>
                 </Form.Item>
-              }
-
+              )}
 
               {/* dmmy party */}
-
-
 
               <Form.Item
                 label="Delivery Date"
