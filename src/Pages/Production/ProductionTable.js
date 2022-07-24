@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import Header from "../../Components/Common/Header";
 import {
+  GetItemLists,
   GetProductionDetailsDate,
   InsertUpdateDayWiseProductionDetail,
 } from "../../Services/appServices/ProductionService";
@@ -27,6 +28,7 @@ const ProductionTable = () => {
   const [isEditing, setisEditing] = useState(false);
   const [ProductList, setProductList] = useState();
   const [editingProduct, setEditingProduct] = useState();
+  const [itemList, setItemList] = useState();
 
   useEffect(() => {
     // const date = new Date().toISOString();
@@ -35,38 +37,23 @@ const ProductionTable = () => {
       todate: new Date().toISOString(),
     };
     GetProductionDetailsDate(date, (res) => {
+      console.log("hello", res);
       if (res?.ItemList.length > 0) {
         setProductList(res?.ItemList);
       }
     });
   }, []);
-  const dummydata = [
-    {
-      name: "Dark Forest",
-      price: "20",
-      id: 1,
-    },
-    {
-      name: "Red velvet",
-      price: "110",
-      id: 2,
-    },
-    {
-      name: "White Forest",
-      price: "200",
-      id: 3,
-    },
-    {
-      name: "Butter Scotch Cake",
-      price: "2500",
-      id: 4,
-    },
-    {
-      name: "Banana Cake",
-      price: "2500",
-      id: 5,
-    },
-  ];
+
+  useEffect(() => {
+    GetItemLists((res) => {
+      // console.log("item list", res.ItemList);
+      if (res?.ItemList.length > 0) {
+        setItemList(res?.ItemList);
+        // console.log(itemList);
+      }
+    });
+  }, []);
+
   const onFinish = (values) => {
     let data = {
       PId: editingProduct.PId,
@@ -104,8 +91,8 @@ const ProductionTable = () => {
       dataIndex: "ItemId",
       key: "ItemId",
       render: (text, record) => {
-        const a = dummydata.map((res) => {
-          if (res.id === text) return res.name;
+        const a = itemList.map((res) => {
+          if (res.itmId === text) return res.ItmName;
           else return "";
         });
         return a;
