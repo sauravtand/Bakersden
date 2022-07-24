@@ -1,9 +1,7 @@
 import { Table, DatePicker } from "antd";
 import React, { useEffect, useState } from "react";
-import {
-  GetAvailableCountofProductForChalanis,
-  GetRemainingProductionGoodsByDatee,
-} from "../../Services/appServices/ProductionService";
+import Header from "../../Components/Common/Header";
+import { GetRemainingProductionGoodsByDatee } from "../../Services/appServices/ProductionService";
 const { RangePicker } = DatePicker;
 
 export default function RemainingProduction() {
@@ -19,7 +17,7 @@ export default function RemainingProduction() {
     GetRemainingProductionGoodsByDatee(date, (res) => {
       console.log("hwllo world", res);
       if (res !== []) {
-        setRemainingProduction(res);
+        setRemainingProduction(res?.RemainingQuantity);
 
         console.log(remainingProduction);
       }
@@ -37,18 +35,18 @@ export default function RemainingProduction() {
 
   function getTableData(date) {
     GetRemainingProductionGoodsByDatee(date, (res) => {
-      //   if (res?.chalandetails.length > 0) {
-      //     // setProduc(res?.chalandetails);
-      //   }
+      if (res?.RemainingQuantity.length > 0) {
+        setRemainingProduction(res?.RemainingQuantity);
+      }
       console.log(res);
     });
   }
   // columns
   const columns = [
     {
-      title: "PId",
-      dataIndex: "PId",
-      key: "PId",
+      title: "Item Id",
+      dataIndex: "itemId",
+      key: "itemId",
     },
     {
       title: "Item Name",
@@ -56,33 +54,42 @@ export default function RemainingProduction() {
       key: "ItemName",
     },
     {
-      title: "Quantity",
-      dataIndex: "Quantity",
-      key: "Quantity",
+      title: "Production",
+      dataIndex: "Production",
+      key: "Production",
     },
     {
-      title: "Remarks",
-      dataIndex: "Remarks",
-      key: "Remarks",
+      title: "Consumption",
+      dataIndex: "Consumption",
+      key: "Consumption",
+    },
+    {
+      title: "Remaining",
+      dataIndex: "Remaining",
+      key: "Remaining",
     },
   ];
 
   return (
     <>
-      <RangePicker
-        onChange={(value) => {
-          onDateRangeChange(value);
-        }}
-      />
-      <Table
-        columns={columns}
-        dataSource={
-          remainingProduction !== undefined ? remainingProduction : ""
-        }
-        scroll={{
-          y: 340,
-        }}
-      />
+      <div className="mainContainer">
+        <Header title={"Remaining Production"}></Header>
+
+        <RangePicker
+          onChange={(value) => {
+            onDateRangeChange(value);
+          }}
+        />
+        <Table
+          columns={columns}
+          dataSource={
+            remainingProduction !== undefined ? remainingProduction : ""
+          }
+          scroll={{
+            y: 340,
+          }}
+        />
+      </div>
     </>
   );
 }
