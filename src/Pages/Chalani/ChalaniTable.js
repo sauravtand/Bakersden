@@ -377,75 +377,74 @@ const ChalaniTable = (props) => {
 
   return (
     <div className="mainContainer">
-        <Header title={"View Chalani"}></Header>
+      <Header title={"View Chalani"}></Header>
 
-        <div
-          style={{
-            marginBottom: "8px",
-          }}
+      <div
+        style={{
+          marginBottom: "8px",
+        }}
+      >
+        <Button
+          type="primary"
+          style={{ marginLeft: "16px", float: "right" }}
+          onClick={printHandle}
         >
-          <Button
-            type="primary"
-            style={{ marginLeft: "16px", float: "right" }}
-            onClick={printHandle}
+          Print
+        </Button>
+        <Button type="primary" style={{ float: "right" }}>
+          <CSVLink
+            data={ProductList !== undefined ? ProductList : ""}
+            filename={"chalaniData.csv"}
           >
-            Print
-          </Button>
-          <Button type="primary" style={{ float: "right" }}>
+            Export to CSV
+          </CSVLink>
+        </Button>
+        <RangePicker
+          onChange={(value) => {
+            onDateRangeChange(value);
+          }}
+        />
+      </div>
+
+      <div>
+        <Table
+          columns={columns}
+          dataSource={ProductList !== undefined ? ProductList : ""}
+          scroll={{
+            y: 340,
+          }}
+        />
+      </div>
+      <Modal
+        width={900}
+        title="Product List"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        // className='costomeStyle'
+        footer={[
+          <Button key="submit" type="primary" onClick={handleOk}>
             <CSVLink
-              data={ProductList !== undefined ? ProductList : ""}
-              filename={"chalaniData.csv"}
+              data={ChalaniItemList !== undefined ? ChalaniItemList : ""}
+              filename={"chalaniItemData.csv"}
             >
               Export to CSV
             </CSVLink>
-          </Button>
-          <RangePicker
-            onChange={(value) => {
-              onDateRangeChange(value);
-            }}
-          />
-        </div>
-
-        <div>
+          </Button>,
+          <Button type="primary" onClick={modalPrint}>
+            Print
+          </Button>,
+        ]}
+      >
+        {
           <Table
-            columns={columns}
-            dataSource={ProductList !== undefined ? ProductList : ""}
+            columns={columnsChalan}
+            dataSource={ChalaniItemList}
             scroll={{
-              y: 340,
+              y: 140,
             }}
           />
-        </div>
-        <Modal
-          width={900}
-          title="Product List"
-          visible={isModalVisible}
-          onCancel={handleCancel}
-          // className='costomeStyle'
-          footer={[
-            <Button key="submit" type="primary" onClick={handleOk}>
-              <CSVLink
-                data={ChalaniItemList !== undefined ? ChalaniItemList : ""}
-                filename={"chalaniItemData.csv"}
-              >
-                Export to CSV
-              </CSVLink>
-            </Button>,
-            <Button type="primary" onClick={modalPrint}>
-              Print
-            </Button>,
-
-          ]}
-        >
-          {
-            <Table
-              columns={columnsChalan}
-              dataSource={ChalaniItemList}
-              scroll={{
-                y: 140,
-              }}
-            />
-          }
-        </Modal>
+        }
+      </Modal>
     </div>
   );
 };
@@ -473,5 +472,3 @@ const CIcon = styled.div`
     color: #fefefe;
   }
 `;
-
-

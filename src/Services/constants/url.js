@@ -142,9 +142,8 @@ export const GetChalanItemDetailsByChalanId = `GetChalanItemDetailsByChalanId`;
  *  @param: ?chalanNo={chalanNo}
  */
 
-
 // GetRemainingProductionGoodsByDate?fromdate={fromdate}&todate={todate}
-export const GetRemainingProductionGoodsByDate = `GetRemainingProductionGoodsByDate`
+export const GetRemainingProductionGoodsByDate = `GetRemainingProductionGoodsByDate`;
 
 /**
  * @desc: Get remaninging production goods by date
@@ -153,10 +152,9 @@ export const GetRemainingProductionGoodsByDate = `GetRemainingProductionGoodsByD
 
 // GetAvailableCountofProductForChalani?itemId={itemId}&prodDate={prodDate}
 
-export const GetAvailableCountofProductForChalani = `GetAvailableCountofProductForChalani`
+export const GetAvailableCountofProductForChalani = `GetAvailableCountofProductForChalani`;
 
 /**
- * @desc: Get abailable count of porduct for chalanai
+ * @desc: Get abailable count of product for chalanai
  * @param: ?itemId={itemId}&prodDate={prodDate}
  */
-

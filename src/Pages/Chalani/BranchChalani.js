@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import AddProduct from "./AddProducts";
 import { useState } from "react";
@@ -6,8 +6,8 @@ import EachItem from "./EachItem";
 import { Button, Col, message, Row, Select } from "antd";
 import { DatePicker, Form } from "antd";
 import {
-  UpdateChalanItem,
-  UpdateDeliveryChalani,
+  GetAvailableCountofProductForChalanis,
+  GetRemainingProductionGoodsByDatee,
 } from "../../Services/appServices/ProductionService";
 import { generateUrlEncodedData } from "../../Services/utils/generateUrlEncodedData";
 import moment from "moment";
@@ -32,9 +32,7 @@ export default function BranchChalani() {
       setBakeryBranch();
     }
   };
-
   // console.log("bakerty detail",BakeryDetail)
-
   const handleAllData = (e) => {
     //   let Party = {
     //     DCId: 0,

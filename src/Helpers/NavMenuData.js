@@ -2,6 +2,7 @@ import {
   MdShoppingCart,
   MdAddShoppingCart,
   MdOutlineReceiptLong,
+  MdFilterAlt,
 } from "react-icons/md";
 import { RiBillLine, RiGitBranchFill } from "react-icons/ri";
 export const RouteData = [
@@ -27,23 +28,30 @@ export const RouteData = [
   },
   {
     id: 3,
-    label: "Chalani Entry",
-    pathName: "/Chalani",
-    icon: RiBillLine,
+    label: "Remaining Production",
+    pathName: "/RemainingProduction",
+    icon: MdFilterAlt,
     key: 3,
   },
   {
     id: 4,
-    label: "View Chalani",
-    pathName: "/ChalaniTable",
-    icon: MdOutlineReceiptLong,
+    label: "Chalani Entry",
+    pathName: "/Chalani",
+    icon: RiBillLine,
     key: 4,
   },
   {
     id: 5,
-    label: "Branch Chalani",
-    pathName: "/BranchChalani",
-    icon: RiGitBranchFill,
+    label: "View Chalani",
+    pathName: "/ChalaniTable",
+    icon: MdOutlineReceiptLong,
     key: 5,
   },
+  // {
+  //   id: 5,
+  //   label: "Branch Chalani",
+  //   pathName: "/BranchChalani",
+  //   icon: RiGitBranchFill,
+  //   key: 5,
+  // },
 ];
