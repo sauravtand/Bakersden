@@ -27,18 +27,14 @@ const AddProduct = (props) => {
   };
 
   const handleSelected = (e) => {
-    console.log("selected", e);
-
-    if (ProductList !== undefined) {
-      // console.log("poor", ProductList);
-      const found = ProductList.find((el) => {
-        if (el.ItemId === e) {
-          return e;
-        }
-      });
-      setMaxCount(found.Quantity);
+    const data = {
+      fromdate: moment().format("YYYY-MM-DD"),
+      id: e
     }
-    // console.log("max count", MaxCount);
+
+    GetAvailableCountofProductForChalanis(data, (res) => {
+      setMaxCount( res.AvailableQuantity[0].Column1);
+    })
   };
   useEffect(() => {
     const date = {
@@ -53,13 +49,10 @@ const AddProduct = (props) => {
     });
 
     GetRemainingProductionGoodsByDatee(date, (res) => {
-      console.log('res', res)
+      // console.log('res', res)
     })
-    GetAvailableCountofProductForChalanis(date, (res) => {
-      console.log('res2', res)
-    })
+   
     GetItemLists((res) => {
-      // console.log("item list", res.ItemList);
       setItemLists(res.ItemList)
     })
 
@@ -71,8 +64,6 @@ const AddProduct = (props) => {
 
       <Form
         onFinish={handleSubmit}
-      // style={{ display: "flex", justifyContent: "space-between" }}
-      // style={{ display: 'inline', width: "100%" }}
       >
         <Form.Item
           name="ProductionName"

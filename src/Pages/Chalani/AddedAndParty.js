@@ -24,29 +24,14 @@ const AddedAndParty = () => {
   const handleSelected = (e) => {
     // console.log("e", e)
     const dataIndex = PartyDetail.find((el) => el.id == e);
-    if (dataIndex.branch) {
-      // console.log("branches", dataIndex.branch)
-      setBakeryBranch(dataIndex.branch);
-    } else {
-      setBakeryDetail(dataIndex);
-      setBakeryBranch();
-    }
+    setBakeryDetail(dataIndex)
+   
   };
-
-  const handleSelectedBranch = (e, data) => {
-    // console.log(e, data)
-    let temp = {
-      name: data.title,
-      address: data.address,
-    };
-    setBakeryDetail(temp);
-  };
-  // console.log("bakerty detail",BakeryDetail)
 
   const handleAllData = (e) => {
     let Party = {
       DCId: 0,
-      PartyId: 1,
+      PartyId: BakeryDetail.id,
       PartyName: BakeryDetail.name,
       PartyAddress: BakeryDetail.address,
       UserId: 1,
@@ -127,31 +112,7 @@ const AddedAndParty = () => {
               form={form}
             >
               <h2 style={{ marginBottom: "30px" }}>Party Details:</h2>
-              {/* <Form.Item
-                label="Party Name"
-                name="PartyName"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your Party Name!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                label="Party Address"
-                name="PartyAddress"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input Party Address!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item> */}
-              {/* dmmy party */}
+
               <Form.Item
                 label="Party Name"
                 name="PartyName"
@@ -168,14 +129,14 @@ const AddedAndParty = () => {
                   filterOption={(input, option) => {
                     return (
                       option.key.toLowerCase().indexOf(input.toLowerCase()) >=
-                        0 ||
+                      0 ||
                       option.title.toLowerCase().indexOf(input.toLowerCase()) >=
-                        0
+                      0
                     );
                   }}
                   onSelect={(e) => handleSelected(e)}
 
-                  // value={product}
+                // value={product}
                 >
                   {PartyDetail.map((e) => (
                     <Option title={e.name} value={e.id} key={e.id}>
@@ -196,36 +157,6 @@ const AddedAndParty = () => {
                     },
                   ]}
                 >
-                  <Select
-                    placeholder="Branch Name"
-                    showSearch
-                    filterOption={(input, option) => {
-                      if (option.key !== null) {
-                        return (
-                          option.key
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0 ||
-                          option.title
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0
-                        );
-                      }
-                    }}
-                    onSelect={(e, _) => handleSelectedBranch(e, _)}
-
-                    // value={product}
-                  >
-                    {BakeryBranch.map((e) => (
-                      <Option
-                        title={e.name}
-                        value={e.BId}
-                        key={e.id}
-                        address={e.address}
-                      >
-                        {e.name}
-                      </Option>
-                    ))}
-                  </Select>
                 </Form.Item>
               )}
 
