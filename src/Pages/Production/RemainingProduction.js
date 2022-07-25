@@ -62,36 +62,18 @@ export default function RemainingProduction() {
       dataIndex: "Production",
       key: "Production",
       sorter: (a, b) => a.Production - b.Production,
-
-      render: (item) => (
-        <>
-          <Tag color="blue">{item}</Tag>
-        </>
-      ),
     },
     {
       title: "Consumption",
       dataIndex: "Consumption",
       key: "Consumption",
       sorter: (a, b) => a.Consumption - b.Consumption,
-
-      render: (item) => (
-        <>
-          <Tag color="red">{item}</Tag>
-        </>
-      ),
     },
     {
       title: "Remaining",
       dataIndex: "Remaining",
       key: "Remaining",
       sorter: (a, b) => a.Remaining - b.Remaining,
-
-      render: (item) => (
-        <>
-          <Tag color="green">{item}</Tag>
-        </>
-      ),
     },
   ];
   //====CSV and Print========//
