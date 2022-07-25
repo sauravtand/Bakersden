@@ -47,7 +47,6 @@ const MainLayout = () => {
                       fontSize: "20px",
                     }}
                   />
-
                   {collapsed ? null : (
                     <span
                       style={{

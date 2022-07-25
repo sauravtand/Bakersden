@@ -121,12 +121,12 @@ const ChalaniTable = (props) => {
       sorter: (a, b) => a.DCId - b.DCId,
     },
     {
-      title: "PartyName",
+      title: "Branch Name",
       dataIndex: "PartyName",
       key: "PartyName",
     },
     {
-      title: "PartyAddress",
+      title: "Address",
       dataIndex: "PartyAddress",
       key: "PartyAddress",
     },
