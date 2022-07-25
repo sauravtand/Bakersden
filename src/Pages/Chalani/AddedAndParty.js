@@ -12,7 +12,7 @@ import {
 import { generateUrlEncodedData } from "../../Services/utils/generateUrlEncodedData";
 import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
-import { PartyDetail } from "../../Helpers/Dummydata";
+// import { PartyDetail } from "../../Helpers/Dummydata";
 import { useEffect } from "react";
 
 const { Option } = Select;
