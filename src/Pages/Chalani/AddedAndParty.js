@@ -5,13 +5,15 @@ import EachItem from "./EachItem";
 import { Button, Col, message, Row, Select } from "antd";
 import { DatePicker, Form, Input } from "antd";
 import {
+  GetBranchLists,
   UpdateChalanItem,
   UpdateDeliveryChalani,
 } from "../../Services/appServices/ProductionService";
 import { generateUrlEncodedData } from "../../Services/utils/generateUrlEncodedData";
 import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
-import { PartyDetail } from "../../Helpers/Dummydata";
+// import { PartyDetail } from "../../Helpers/Dummydata";
+import { useEffect } from "react";
 
 const { Option } = Select;
 const AddedAndParty = () => {
@@ -22,18 +24,19 @@ const AddedAndParty = () => {
   // console.log("PartyDetail", PartyDetail)
 
   const handleSelected = (e) => {
-    // console.log("e", e)
-    const dataIndex = PartyDetail.find((el) => el.id == e);
+    // console.log("ee", e)
+    const dataIndex = BakeryBranch.find((el) => el.BId == e);
+    // console.log("data index", dataIndex)
     setBakeryDetail(dataIndex)
-   
+
   };
 
   const handleAllData = (e) => {
     let Party = {
       DCId: 0,
-      PartyId: BakeryDetail.id,
-      PartyName: BakeryDetail.name,
-      PartyAddress: BakeryDetail.address,
+      PartyId: BakeryDetail.BId,
+      PartyName: BakeryDetail.BranchName,
+      PartyAddress: BakeryDetail.BranchLocation,
       UserId: 1,
       EntryDate: moment().format("YYYY-MM-DD"),
       DeliveryDate: e.Delivery.format("YYYY-MM-DD"),
@@ -91,6 +94,14 @@ const AddedAndParty = () => {
     setItems(remove);
   };
 
+  useEffect(() => {
+    GetBranchLists((res) => {
+      console.log('res 222', res.BranchList)
+      setBakeryBranch(res.BranchList)
+    })
+  }, [])
+
+
   return (
     <>
       <Row gutter={16}>
@@ -111,10 +122,10 @@ const AddedAndParty = () => {
               onFinish={handleAllData}
               form={form}
             >
-              <h2 style={{ marginBottom: "30px" }}>Party Details:</h2>
+              <h2 style={{ marginBottom: "30px" }}>Branch Details:</h2>
 
               <Form.Item
-                label="Party Name"
+                label="Branch Name"
                 name="PartyName"
                 rules={[
                   {
@@ -124,7 +135,7 @@ const AddedAndParty = () => {
                 ]}
               >
                 <Select
-                  placeholder="Party Name"
+                  placeholder="Branch Name"
                   showSearch
                   filterOption={(input, option) => {
                     return (
@@ -138,29 +149,16 @@ const AddedAndParty = () => {
 
                 // value={product}
                 >
-                  {PartyDetail.map((e) => (
-                    <Option title={e.name} value={e.id} key={e.id}>
-                      {e.name}
-                    </Option>
-                  ))}
+                  {
+                    BakeryBranch !== undefined &&
+                    BakeryBranch.map((e) => (
+                      <Option title={e.BranchName} value={e.BId} key={e.BId}>
+                        {e.BranchName}
+                      </Option>
+                    ))}
                 </Select>
               </Form.Item>
 
-              {BakeryBranch !== undefined && (
-                <Form.Item
-                  label="Branch Name"
-                  name="BranchName"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input Branch Name!",
-                    },
-                  ]}
-                >
-                </Form.Item>
-              )}
-
-              {/* dmmy party */}
 
               <Form.Item
                 label="Delivery Date"

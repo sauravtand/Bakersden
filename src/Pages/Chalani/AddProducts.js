@@ -3,7 +3,7 @@ import moment from "moment";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { GetAvailableCountofProductForChalanis, GetItemLists, GetProductionDetailsDate, GetRemainingProductionGoodsByDatee } from "../../Services/appServices/ProductionService";
+import { GetAvailableCountofProductForChalanis, GetBranchLists, GetItemLists, GetProductionDetailsDate, GetRemainingProductionGoodsByDatee } from "../../Services/appServices/ProductionService";
 
 const { Option } = Select;
 const AddProduct = (props) => {
@@ -48,9 +48,9 @@ const AddProduct = (props) => {
       }
     });
 
-    GetRemainingProductionGoodsByDatee(date, (res) => {
-      // console.log('res', res)
-    })
+    // GetBranchLists((res) => {
+    //   console.log('res', res.BranchList)
+    // })
    
     GetItemLists((res) => {
       setItemLists(res.ItemList)

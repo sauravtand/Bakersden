@@ -47,7 +47,6 @@ const MainLayout = () => {
                       fontSize: "20px",
                     }}
                   />
-
                   {collapsed ? null : (
                     <span
                       style={{
@@ -80,7 +79,7 @@ const MainLayout = () => {
                     onClick: () => setCollapsed(!collapsed),
                   }
                 )}
-                <span className="title">Luniva Bakery Product Entry</span>
+                <span className="title">Baker's Den</span>
               </div>
 
               <div
@@ -134,9 +133,9 @@ const SideBarTop = styled.div`
   /* height: 100px; */
   height: auto;
   width: 100%;
-  padding: 8px;
+  /* padding: 8px; */
   position: relative;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   img {
     width: 100%;
   }

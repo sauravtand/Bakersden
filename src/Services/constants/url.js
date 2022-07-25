@@ -158,3 +158,9 @@ export const GetAvailableCountofProductForChalani = `GetAvailableCountofProductF
  * @desc: Get abailable count of product for chalanai
  * @param: ?itemId={itemId}&prodDate={prodDate}
  */
+
+export const GetBranchList = `GetBranchList`;
+
+/**
+ * @desc: Get Branch List
+ */

@@ -1,5 +1,6 @@
 import {
   GetAvailableCountofProductForChalani,
+  GetBranchList,
   GetChalanDetailsByDate,
   GetChalanItemDetailsByChalanId,
   GetItemList,
@@ -188,6 +189,24 @@ export const GetItemLists = async (
   try {
     const response = await fetch(
       `${GetItemList}`
+    );
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else {
+      successCallback([]);
+    }
+  } catch (error) {
+    successCallback([]);
+  }
+};
+
+// GetBranchList
+export const GetBranchLists = async (
+  successCallback
+) => {
+  try {
+    const response = await fetch(
+      `${GetBranchList}`
     );
     if (response?.status === 200) {
       successCallback(response?.data);
