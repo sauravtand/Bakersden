@@ -1,4 +1,4 @@
-import { Table, DatePicker, Button, message } from "antd";
+import { Table, DatePicker, Button, message, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import Header from "../../Components/Common/Header";
 import { GetRemainingProductionGoodsByDatee } from "../../Services/appServices/ProductionService";
@@ -49,6 +49,8 @@ export default function RemainingProduction() {
       title: "Item Id",
       dataIndex: "itemId",
       key: "itemId",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.itemId - b.itemId,
     },
     {
       title: "Item Name",
@@ -59,16 +61,37 @@ export default function RemainingProduction() {
       title: "Production",
       dataIndex: "Production",
       key: "Production",
+      sorter: (a, b) => a.Production - b.Production,
+
+      render: (item) => (
+        <>
+          <Tag color="blue">{item}</Tag>
+        </>
+      ),
     },
     {
       title: "Consumption",
       dataIndex: "Consumption",
       key: "Consumption",
+      sorter: (a, b) => a.Consumption - b.Consumption,
+
+      render: (item) => (
+        <>
+          <Tag color="red">{item}</Tag>
+        </>
+      ),
     },
     {
       title: "Remaining",
       dataIndex: "Remaining",
       key: "Remaining",
+      sorter: (a, b) => a.Remaining - b.Remaining,
+
+      render: (item) => (
+        <>
+          <Tag color="green">{item}</Tag>
+        </>
+      ),
     },
   ];
   //====CSV and Print========//

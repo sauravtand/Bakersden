@@ -187,7 +187,7 @@ const ProductionTable = () => {
       let newStyle = ``;
 
       newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
-        display: none;
+      
        }tbody > tr:last-child{
     background-color: #f0f0f2;
     }
@@ -211,7 +211,7 @@ const ProductionTable = () => {
 
       headers.forEach((ele) => {
         tableHeadHtml += `<th>${ele?.label}</th>`;
-        columns.push(ele.label);
+        columns.push(ele.key);
       });
       tableHeadHtml += "</thead>";
 

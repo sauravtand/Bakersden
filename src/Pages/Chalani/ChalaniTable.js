@@ -222,7 +222,7 @@ const ChalaniTable = (props) => {
       let newStyle = ``;
 
       newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
-        display: none;
+      
        }tbody > tr:last-child{
     background-color: #f0f0f2;
     }
@@ -246,7 +246,7 @@ const ChalaniTable = (props) => {
 
       headers.forEach((ele) => {
         tableHeadHtml += `<th>${ele?.label}</th>`;
-        columns.push(ele.label);
+        columns.push(ele.key);
       });
       tableHeadHtml += "</thead>";
 
@@ -277,12 +277,11 @@ const ChalaniTable = (props) => {
   // modal headers
 
   const modalHeaders = [
-    { label: "CId", key: "CId" },
-    { label: "SN", key: "SN" },
+    // { label: "CId", key: "CId" },
     { label: "SN", key: "SN" },
     { label: "Item Name", key: "ItemId" },
     { label: "Quantity", key: "Quantity" },
-    // { label: "Remarks", key: "Remarks" },
+    { label: "Remarks", key: "Remarks" },
   ];
   const modalPrint = () => {
     if (ChalaniItemList !== undefined) {
@@ -291,7 +290,7 @@ const ChalaniTable = (props) => {
       let newStyle = ``;
 
       newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
-        display: none;
+       
        }tbody > tr:last-child{
     background-color: #f0f0f2;
     }
@@ -339,7 +338,7 @@ const ChalaniTable = (props) => {
 
       modalHeaders.forEach((ele) => {
         tableHeadHtml += `<th>${ele?.label}</th>`;
-        columns.push(ele.label);
+        columns.push(ele.key);
       });
       tableHeadHtml += "</thead>";
 
@@ -357,10 +356,10 @@ const ChalaniTable = (props) => {
       newWindow.document.body.innerHTML =
         newTableStyles + newStyle + refName + allTable + footer;
 
-      // setTimeout(function () {
-      //   newWindow.print();
-      //   newWindow.close();
-      // }, 300);
+      setTimeout(function () {
+        newWindow.print();
+        newWindow.close();
+      }, 300);
     } else {
       message.info("select some data");
     }
