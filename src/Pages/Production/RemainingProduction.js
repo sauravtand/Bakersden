@@ -1,7 +1,9 @@
-import { Table, DatePicker } from "antd";
+import { Table, DatePicker, Button, message } from "antd";
 import React, { useEffect, useState } from "react";
 import Header from "../../Components/Common/Header";
 import { GetRemainingProductionGoodsByDatee } from "../../Services/appServices/ProductionService";
+import { CSVLink } from "react-csv";
+import { newTableStyles } from "../../Components/Common/TableStyles";
 const { RangePicker } = DatePicker;
 
 export default function RemainingProduction() {
@@ -69,6 +71,72 @@ export default function RemainingProduction() {
       key: "Remaining",
     },
   ];
+  //====CSV and Print========//
+  const headers = [
+    { label: "Item Id", key: "itemId" },
+    { label: "Item Name", key: "ItemName" },
+    { label: "Production", key: "Production" },
+    { label: "Consumption", key: "Consumption" },
+    { label: "Remaining", key: "Remaining" },
+  ];
+  const printHandle = () => {
+    if (remainingProduction !== 0) {
+      let newWindow = window.open();
+
+      let newStyle = ``;
+
+      newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
+        
+       }tbody > tr:last-child{
+    background-color: #f0f0f2;
+    }
+    tbody > tr:last-child > td{
+        font-size: 12px;
+        font-weight: 500;
+    }</style>`;
+
+      let refName = `
+      <div style='text-align:center;'>
+          <h1>Baker's Den Pvt.ltd<h1>
+          <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
+          <h5>Production Data<h5>
+      </div>
+    
+      `;
+
+      let tableBody = "";
+      let tableHeadHtml = "<thead>";
+      let columns = [];
+
+      headers.forEach((ele) => {
+        //console.log(ele.label);
+        tableHeadHtml += `<th>${ele?.label}</th>`;
+        columns.push(ele.key);
+      });
+      tableHeadHtml += "</thead>";
+      //console.log(remainingProduction);
+      remainingProduction.forEach((ele) => {
+        tableBody = tableBody + "<tr>";
+        columns.forEach((cell) => {
+          console.log(ele, cell);
+          tableBody = tableBody + "<td>" + ele[cell] + "</td>";
+        });
+        tableBody = tableBody + "</tr>";
+      });
+
+      let allTable = `<table>${tableHeadHtml}${tableBody}</table>`;
+
+      newWindow.document.body.innerHTML =
+        newTableStyles + newStyle + refName + allTable;
+
+      setTimeout(function () {
+        newWindow.print();
+        newWindow.close();
+      }, 300);
+    } else {
+      message.info("select some data");
+    }
+  };
 
   return (
     <>
@@ -80,7 +148,23 @@ export default function RemainingProduction() {
             onDateRangeChange(value);
           }}
         />
+        <Button
+          type="primary"
+          style={{ marginLeft: "16px", float: "right" }}
+          onClick={printHandle}
+        >
+          Print
+        </Button>
+        <Button type="primary" style={{ float: "right" }}>
+          <CSVLink
+            data={remainingProduction !== undefined ? remainingProduction : ""}
+            filename={"RemainingProduction.csv"}
+          >
+            Export to CSV
+          </CSVLink>
+        </Button>
         <Table
+          style={{ marginTop: "15px" }}
           columns={columns}
           dataSource={
             remainingProduction !== undefined ? remainingProduction : ""
