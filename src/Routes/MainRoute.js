@@ -11,8 +11,8 @@ import RemainingProduction from "../Pages/Production/RemainingProduction";
 const MainRoute = () => {
   return (
     <Routes>
-      <Route exact path="/Login" element={<Login />}></Route>
-      <Route exact path="/" element={<ProductionEntry />} />
+      {/* <Route exact path="/Login" element={<Login />}></Route> */}
+      <Route exact path="/ProductionEntry" element={<ProductionEntry />} />
       <Route exact path="/ProductionTable" element={<ProductionTable />} />
       <Route exact path="/Chalani" element={<Chalani />} />
       <Route exact path="/ChalaniTable" element={<ChalaniTable />} />

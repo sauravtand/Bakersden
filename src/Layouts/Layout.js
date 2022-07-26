@@ -1,5 +1,5 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Popover } from "antd";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -7,12 +7,22 @@ import { RouteData } from "../Helpers/NavMenuData";
 import MainRoute from "../Routes/MainRoute";
 import Logo from "../Assets/images/logo.png";
 import { FaUserAlt } from "react-icons/fa";
+import useToken from "../Helpers/useToken";
 
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   // const history = use
+  const { removeToken } = useToken()
+  
+  const content = (
+    <div>
+      <a onClick={() => removeToken()}>logout</a>
+    </div>
+  );
+
+  
   return (
     <MenuContainer>
       <Layout>
@@ -82,7 +92,25 @@ const MainLayout = () => {
                 <span className="title">Baker's Den</span>
               </div>
 
-              <div
+              <Popover
+                // Content={}
+                content={content}
+                placement="bottom" 
+              >
+                <div
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <FaUserAlt
+                    style={{
+                      color: "#3869c4fd",
+                    }}
+                  />
+                  <span className="user">admin</span>
+                </div>
+              </Popover>
+              {/* <div
                 style={{
                   cursor: "pointer",
                 }}
@@ -92,8 +120,8 @@ const MainLayout = () => {
                     color: "#3869c4fd",
                   }}
                 />
-                <span className="user">admin</span>
-              </div>
+                <span className="user" onClick={() => removeToken()}>admin</span>
+              </div> */}
             </HeaderComponent>
           </Header>
           <Content

@@ -15,7 +15,7 @@ export const RouteData = [
   {
     id: 1,
     label: "Production Entry",
-    pathName: "/",
+    pathName: "/ProductionEntry",
     icon: MdAddShoppingCart,
     key: 1,
   },
