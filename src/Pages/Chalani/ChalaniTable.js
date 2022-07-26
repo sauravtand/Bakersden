@@ -32,7 +32,7 @@ const ChalaniTable = (props) => {
       // console.log("item list", res.ItemList);
       if (res?.ItemList.length > 0) {
         setItemList(res.ItemList);
-        console.log(itemList);
+        // console.log(itemList);
       }
     });
   }, []);
@@ -78,7 +78,7 @@ const ChalaniTable = (props) => {
     // console.log("e", e)
     setTempPartyDetails(e);
     setIsModalVisible(true);
-    let tempArr = [];
+
     GetChalanItemDetailsByChalansId(e.DCId, (res) => {
       if (res.chalandetails.length > 0) {
         // setChalaniItemList(res.chalandetails);
@@ -88,7 +88,9 @@ const ChalaniTable = (props) => {
         res.chalandetails.map((e, index) => {
           let newItemName = "";
           itemList.forEach((res) => {
-            if (res.itmId === e.ItemId) newItemName = res.ItmName;
+            if (res.itmId === e.ItemId) {
+              newItemName = res.ItmName;
+            }
           });
           temp = {
             SN: index + 1,
@@ -98,7 +100,7 @@ const ChalaniTable = (props) => {
           tempArr.push(temp);
         });
 
-        console.log("temp arr", tempArr);
+        // console.log("temp arr", tempArr);
         setChalaniItemList(tempArr);
       }
     });
@@ -338,7 +340,7 @@ const ChalaniTable = (props) => {
 
       modalHeaders.forEach((ele) => {
         tableHeadHtml += `<th>${ele?.label}</th>`;
-        columns.push(ele.key);
+        columns.push(ele.label);
       });
       tableHeadHtml += "</thead>";
 
