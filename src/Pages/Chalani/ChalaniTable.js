@@ -100,7 +100,7 @@ const ChalaniTable = (props) => {
           tempArr.push(temp);
         });
 
-        console.log("temp arr", tempArr);
+        // console.log("temp arr", tempArr);
         setChalaniItemList(tempArr);
       }
     });

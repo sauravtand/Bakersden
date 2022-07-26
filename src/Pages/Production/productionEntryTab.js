@@ -1,6 +1,9 @@
 import { Table, Button, message } from "antd";
 import { useEffect, useState } from "react";
-import { GetItemLists, GetProductionDetailsDate } from "../../Services/appServices/ProductionService";
+import {
+  GetItemLists,
+  GetProductionDetailsDate,
+} from "../../Services/appServices/ProductionService";
 import { CSVLink } from "react-csv";
 import { newTableStyles } from "../../Components/Common/TableStyles";
 
@@ -11,7 +14,6 @@ const ProductionEntryTab = (props) => {
   // const [editingProduct, setEditingProduct] = useState();
   const [ItemLists, setItemLists] = useState();
   useEffect(() => {
-
     if (reloadTable === true) {
       getTableData();
       tableAfterReloaded(false);
@@ -22,8 +24,8 @@ const ProductionEntryTab = (props) => {
     getTableData();
     GetItemLists((res) => {
       // console.log("item list", res.ItemList);
-      setItemLists(res.ItemList)
-    })
+      setItemLists(res.ItemList);
+    });
   }, []);
 
   function getTableData() {
@@ -37,6 +39,26 @@ const ProductionEntryTab = (props) => {
       }
     });
   }
+  const addName = () => {
+    let tempArr = [];
+    let temp;
+    if (ProductList !== undefined) {
+      ProductList.map((e) => {
+        let newItemName = "";
+        ItemLists.forEach((res) => {
+          if (res.itmId === e.ItemId) {
+            newItemName = res.ItmName;
+          }
+        });
+        temp = {
+          ItemName: newItemName,
+          ...e,
+        };
+        tempArr.push(temp);
+      });
+    }
+    return tempArr;
+  };
 
   const columns = [
     {
@@ -76,12 +98,15 @@ const ProductionEntryTab = (props) => {
     { label: "UserId", key: "UserId" },
     { label: "PId", key: "PId" },
     { label: "ItemId", key: "ItemId" },
+    { label: "Item Name", key: "ItemName" },
     { label: "Quantity", key: "Quantity" },
     { label: "EntryDate", key: "EntryDate" },
     { label: "Remarks", key: "Remarks" },
   ];
   // handel print
   const printHandle = () => {
+    const temp = addName();
+
     if (ProductList !== 0) {
       let newWindow = window.open();
 
@@ -112,11 +137,11 @@ const ProductionEntryTab = (props) => {
 
       headers.forEach((ele) => {
         tableHeadHtml += `<th>${ele?.label}</th>`;
-        columns.push(ele.label);
+        columns.push(ele.key);
       });
       tableHeadHtml += "</thead>";
 
-      ProductList.forEach((ele) => {
+      temp.forEach((ele) => {
         tableBody = tableBody + "<tr>";
         columns.forEach((cell) => {
           tableBody = tableBody + "<td>" + ele[cell] + "</td>";

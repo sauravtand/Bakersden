@@ -31,20 +31,6 @@ const ProductionTable = () => {
   const [itemList, setItemList] = useState();
 
   useEffect(() => {
-    // const date = new Date().toISOString();
-    const date = {
-      fromdate: new Date().toISOString(),
-      todate: new Date().toISOString(),
-    };
-    GetProductionDetailsDate(date, (res) => {
-      console.log("hello", res);
-      if (res?.ItemList.length > 0) {
-        setProductList(res?.ItemList);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
     GetItemLists((res) => {
       // console.log("item list", res.ItemList);
       if (res?.ItemList.length > 0) {
@@ -53,6 +39,44 @@ const ProductionTable = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    // const date = new Date().toISOString();
+    const date = {
+      fromdate: new Date().toISOString(),
+      todate: new Date().toISOString(),
+    };
+    GetProductionDetailsDate(date, (res) => {
+      // console.log("hello", res);
+      if (res?.ItemList.length > 0) {
+        setProductList(res?.ItemList);
+      }
+    });
+    // addname();
+  }, []);
+  const addname = () => {
+    // setIsChanging(true);
+    let tempArr = [];
+    let temp;
+    if (ProductList !== undefined) {
+      // console.log("hello wosdfsdfsd");
+      ProductList.map((e, index) => {
+        let newItemName = "";
+        itemList.forEach((res) => {
+          if (res.itmId === e.ItemId) {
+            newItemName = res.ItmName;
+          }
+        });
+        temp = {
+          ItemName: newItemName,
+          ...e,
+        };
+        tempArr.push(temp);
+        // console.log("temp", tempArr);
+      });
+    }
+    return tempArr;
+  };
 
   const onFinish = (values) => {
     let data = {
@@ -174,6 +198,7 @@ const ProductionTable = () => {
   const headers = [
     { label: "UserId", key: "UserId" },
     { label: "PId", key: "PId" },
+    { label: "Item name", key: "ItemName" },
     { label: "ItemId", key: "ItemId" },
     { label: "Quantity", key: "Quantity" },
     { label: "EntryDate", key: "EntryDate" },
@@ -181,6 +206,9 @@ const ProductionTable = () => {
   ];
   // handel print
   const printHandle = () => {
+    const temp = addname();
+    // console.log("temp", temp);
+
     if (ProductList !== 0) {
       let newWindow = window.open();
 
@@ -215,7 +243,7 @@ const ProductionTable = () => {
       });
       tableHeadHtml += "</thead>";
 
-      ProductList.forEach((ele) => {
+      temp.forEach((ele) => {
         tableBody = tableBody + "<tr>";
         columns.forEach((cell) => {
           tableBody = tableBody + "<td>" + ele[cell] + "</td>";
