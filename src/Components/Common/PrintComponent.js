@@ -14,6 +14,7 @@ const PrintComponent = ({
   remainingProduction,
   ChalaniItemList,
   modalHeaders,
+  tempPartyDetails,
 }) => {
   //print handler
   //needs csvData, tableHead, fromTodate
@@ -45,11 +46,18 @@ const PrintComponent = ({
         font-weight: 500;
     }</style>`;
 
+      let modalAdditionalHeader = `
+       <p>Party Name:  ${tempPartyDetails.PartyName}</p>
+          <p>Date: ${tempPartyDetails.EntryDate}</p>
+          <p>Delivery Date: ${tempPartyDetails.DeliveryDate}</p>
+        <h2 style="text-align:center;">Chalani Details<h2>
+    `;
+
       let refName = `
          <div style='text-align:center;'>
           <h1>${companyDetail.companyName}<h1>
           <h3>${companyDetail.companyAddress} Phone:${companyDetail.companyPhoneNo}<h3>
-          <h5>${companyDetail.reportName} Data<h5>
+           <h5>${companyDetail.reportName} Data<h5>
       </div>
     
       `;
@@ -58,6 +66,8 @@ const PrintComponent = ({
       style='display: flex;
       justify-content: space-between;
       margin-top: 50px;
+      font-size: 14px;
+      
       '
       >
       <p style='border-top:1px solid black; padding-top: 10px;'>Issued By</p>
@@ -130,7 +140,12 @@ const PrintComponent = ({
         let allTable = `<table>${tableHeadHtml}${tableBody}</table>`;
 
         newWindow.document.body.innerHTML =
-          newTableStyles + newStyle + refName + allTable + footer;
+          newTableStyles +
+          newStyle +
+          refName +
+          modalAdditionalHeader +
+          allTable +
+          footer;
 
         setTimeout(function () {
           newWindow.print();

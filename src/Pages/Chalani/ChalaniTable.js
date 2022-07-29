@@ -78,6 +78,7 @@ const ChalaniTable = (props) => {
   const handlePreview = (e) => {
     // console.log("e", e)
     setTempPartyDetails(e);
+    console.log(tempPartyDetails);
     setIsModalVisible(true);
 
     GetChalanItemDetailsByChalansId(e.DCId, (res) => {
@@ -255,7 +256,7 @@ const ChalaniTable = (props) => {
           columns={columns}
           dataSource={ProductionList !== undefined ? ProductionList : ""}
           scroll={{
-            y: 310,
+            y: 340,
           }}
         />
       </div>
@@ -273,6 +274,7 @@ const ChalaniTable = (props) => {
               ChalaniItemList={ChalaniItemList}
               forCSV
               forPrint
+              tempPartyDetails={tempPartyDetails}
             />
             <Table
               style={{ marginTop: "40px" }}

@@ -241,22 +241,6 @@ const ProductionTable = () => {
           marginBottom: "8px",
         }}
       >
-        {/* <Button
-          type="primary"
-          style={{ marginLeft: "16px", float: "right" }}
-          onClick={printHandle}
-        >
-          Print
-        </Button>
-        <Button type="primary" style={{ float: "right" }}>
-          <CSVLink
-            data={ProductList !== undefined ? ProductList : ""}
-            filename={"ProductionData.csv"}
-          >
-            Export to CSV
-          </CSVLink>
-        </Button> */}
-        {/* range picker */}
         <PrintComponent
           addname={addname}
           ProductList={ProductList}
