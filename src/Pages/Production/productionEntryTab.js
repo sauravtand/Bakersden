@@ -4,8 +4,7 @@ import {
   GetItemLists,
   GetProductionDetailsDate,
 } from "../../Services/appServices/ProductionService";
-import { CSVLink } from "react-csv";
-import { newTableStyles } from "../../Components/Common/TableStyles";
+import PrintComponent from "../../Components/Common/PrintComponent";
 
 const ProductionEntryTab = (props) => {
   const { reloadTable, tableAfterReloaded } = props;
@@ -103,69 +102,9 @@ const ProductionEntryTab = (props) => {
     { label: "EntryDate", key: "EntryDate" },
     { label: "Remarks", key: "Remarks" },
   ];
-  // handel print
-  const printHandle = () => {
-    const temp = addName();
-
-    if (ProductList !== 0) {
-      let newWindow = window.open();
-
-      let newStyle = ``;
-
-      newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
-        display: none;
-       }tbody > tr:last-child{
-    background-color: #f0f0f2;
-    }
-    tbody > tr:last-child > td{
-        font-size: 12px;
-        font-weight: 500;
-    }</style>`;
-
-      let refName = `
-      <div style='text-align:center;'>
-          <h1>Baker's Den Pvt.ltd<h1>
-          <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
-          <h5>Production Data<h5>
-      </div>
-    
-      `;
-
-      let tableBody = "";
-      let tableHeadHtml = "<thead>";
-      let columns = [];
-
-      headers.forEach((ele) => {
-        tableHeadHtml += `<th>${ele?.label}</th>`;
-        columns.push(ele.key);
-      });
-      tableHeadHtml += "</thead>";
-
-      temp.forEach((ele) => {
-        tableBody = tableBody + "<tr>";
-        columns.forEach((cell) => {
-          tableBody = tableBody + "<td>" + ele[cell] + "</td>";
-        });
-        tableBody = tableBody + "</tr>";
-      });
-
-      let allTable = `<table>${tableHeadHtml}${tableBody}</table>`;
-
-      newWindow.document.body.innerHTML =
-        newTableStyles + newStyle + refName + allTable;
-
-      setTimeout(function () {
-        newWindow.print();
-        newWindow.close();
-      }, 300);
-    } else {
-      message.info("select some data");
-    }
-  };
-
   return (
     <>
-      <Button
+      {/* <Button
         type="primary"
         style={{ margin: "20px", float: "right" }}
         onClick={printHandle}
@@ -179,7 +118,14 @@ const ProductionEntryTab = (props) => {
         >
           Export to CSV
         </CSVLink>
-      </Button>
+      </Button> */}
+      <PrintComponent
+        addname={addName}
+        ProductList={ProductList}
+        headers={headers}
+        forCSV
+        forPrint
+      />
 
       <div>
         <Table

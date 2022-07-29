@@ -21,6 +21,7 @@ import { CSVLink } from "react-csv";
 import { newTableStyles } from "../../Components/Common/TableStyles";
 import styled from "styled-components";
 import DateTimeBAdge from "../../Components/Common/DateTimeBAdge";
+import PrintComponent from "../../Components/Common/PrintComponent";
 
 // import { generateUrlEncodedData } from '../../Services/utils/generateUrlEncodedData';
 
@@ -204,66 +205,6 @@ const ProductionTable = () => {
     { label: "EntryDate", key: "EntryDate" },
     { label: "Remarks", key: "Remarks" },
   ];
-  // handel print
-  const printHandle = () => {
-    const temp = addname();
-    // console.log("temp", temp);
-
-    if (ProductList !== 0) {
-      let newWindow = window.open();
-
-      let newStyle = ``;
-
-      newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
-      
-       }tbody > tr:last-child{
-    background-color: #f0f0f2;
-    }
-    tbody > tr:last-child > td{
-        font-size: 12px;
-        font-weight: 500;
-    }</style>`;
-
-      let refName = `
-      <div style='text-align:center;'>
-          <h1>Baker's Den Pvt.ltd<h1>
-          <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
-          <h5>Production Data<h5>
-      </div>
-    
-      `;
-
-      let tableBody = "";
-      let tableHeadHtml = "<thead>";
-      let columns = [];
-
-      headers.forEach((ele) => {
-        tableHeadHtml += `<th>${ele?.label}</th>`;
-        columns.push(ele.key);
-      });
-      tableHeadHtml += "</thead>";
-
-      temp.forEach((ele) => {
-        tableBody = tableBody + "<tr>";
-        columns.forEach((cell) => {
-          tableBody = tableBody + "<td>" + ele[cell] + "</td>";
-        });
-        tableBody = tableBody + "</tr>";
-      });
-
-      let allTable = `<table>${tableHeadHtml}${tableBody}</table>`;
-
-      newWindow.document.body.innerHTML =
-        newTableStyles + newStyle + refName + allTable;
-
-      setTimeout(function () {
-        newWindow.print();
-        newWindow.close();
-      }, 300);
-    } else {
-      message.info("select some data");
-    }
-  };
 
   //Datepicker
   const { RangePicker } = DatePicker;
@@ -300,7 +241,7 @@ const ProductionTable = () => {
           marginBottom: "8px",
         }}
       >
-        <Button
+        {/* <Button
           type="primary"
           style={{ marginLeft: "16px", float: "right" }}
           onClick={printHandle}
@@ -314,8 +255,15 @@ const ProductionTable = () => {
           >
             Export to CSV
           </CSVLink>
-        </Button>
+        </Button> */}
         {/* range picker */}
+        <PrintComponent
+          addname={addname}
+          ProductList={ProductList}
+          headers={headers}
+          forCSV
+          forPrint
+        />
         <RangePicker
           onChange={(value) => {
             onDateRangeChange(value);

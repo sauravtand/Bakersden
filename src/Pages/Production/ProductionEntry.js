@@ -8,13 +8,17 @@ import {
   Col,
   message,
 } from "antd";
-import { GetItemLists, InsertUpdateDayWiseProductionDetail } from "../../Services/appServices/ProductionService";
+import {
+  GetItemLists,
+  InsertUpdateDayWiseProductionDetail,
+} from "../../Services/appServices/ProductionService";
 import Header from "../../Components/Common/Header";
 import TextArea from "antd/lib/input/TextArea";
 import { useState } from "react";
 import ProductionEntryTab from "./productionEntryTab";
 import styled from "styled-components";
 import { useEffect } from "react";
+import useToken from "../../Helpers/useToken";
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -25,13 +29,15 @@ const layout = {
   },
 };
 
-
 const ProductionEntry = () => {
   const [form] = Form.useForm();
   const date = new Date().toISOString();
   const [isbutdis, setisbutdis] = useState(false);
   const [reloadTable, setreloadTable] = useState(false);
-  const [ItemLists, setItemLists] = useState()
+  const [ItemLists, setItemLists] = useState();
+
+  const { token } = useToken();
+  // console.log("aaa", token);
 
   const onFinish = (values) => {
     setisbutdis(true);
@@ -41,7 +47,7 @@ const ProductionEntry = () => {
       ItemId: values.ProductionName,
       Quantity: values.ProductionQuantity,
       Remarks: values.remarks !== undefined ? values.remarks : "n/a",
-      UserId: 5,
+      UserId: token.id,
       EntryDate: date,
       IsActive:
         values.isActive === undefined || values.isActive === true
@@ -74,9 +80,9 @@ const ProductionEntry = () => {
   useEffect(() => {
     GetItemLists((res) => {
       // console.log("item list", res.ItemList);
-      setItemLists(res.ItemList)
-    })
-  }, [])
+      setItemLists(res.ItemList);
+    });
+  }, []);
 
   return (
     <>
@@ -128,14 +134,12 @@ const ProductionEntry = () => {
                         {e.name}
                       </Option>
                     ))} */}
-                    {
-                      ItemLists!== undefined &&
+                    {ItemLists !== undefined &&
                       ItemLists.map((e) => (
                         <Option title={e.ItmName} value={e.itmId} key={e.itmId}>
                           {e.ItmName}
                         </Option>
-                      ))
-                    }
+                      ))}
                   </Select>
                 </Form.Item>
                 <Form.Item

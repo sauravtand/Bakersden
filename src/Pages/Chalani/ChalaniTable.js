@@ -5,6 +5,7 @@ import { CSVLink } from "react-csv";
 import styled from "styled-components";
 import DateTimeBAdge from "../../Components/Common/DateTimeBAdge";
 import Header from "../../Components/Common/Header";
+import PrintComponent from "../../Components/Common/PrintComponent";
 import { newTableStyles } from "../../Components/Common/TableStyles";
 import {
   GetChalanDetailByDate,
@@ -17,7 +18,7 @@ const { RangePicker } = DatePicker;
 const ChalaniTable = (props) => {
   const { reloadTable } = props;
   // const [isEditing, setisEditing] = useState(false);
-  const [ProductList, setProductList] = useState();
+  const [ProductionList, setProductionList] = useState();
   // const [editingProduct, setEditingProduct] = useState();
   const [ChalaniItemList, setChalaniItemList] = useState();
   // const [modalHeaders, setModalHeaders] = useState([]);
@@ -51,7 +52,7 @@ const ChalaniTable = (props) => {
     GetChalanDetailByDate(date, (res) => {
       if (res !== []) {
         if (res?.chalandetails.length > 0) {
-          setProductList(res?.chalandetails);
+          setProductionList(res?.chalandetails);
         }
       }
     });
@@ -69,7 +70,7 @@ const ChalaniTable = (props) => {
   function getTableData(date) {
     GetChalanDetailByDate(date, (res) => {
       if (res?.chalandetails.length > 0) {
-        setProductList(res?.chalandetails);
+        setProductionList(res?.chalandetails);
       }
     });
   }
@@ -216,68 +217,9 @@ const ChalaniTable = (props) => {
     { label: "DeliveryDate", key: "DeliveryDate" },
     { label: "Remarks", key: "Remarks" },
   ];
-  // handel print
-  const printHandle = () => {
-    if (ProductList !== undefined) {
-      let newWindow = window.open();
-
-      let newStyle = ``;
-
-      newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
-      
-       }tbody > tr:last-child{
-    background-color: #f0f0f2;
-    }
-    tbody > tr:last-child > td{
-        font-size: 12px;
-        font-weight: 500;
-    }</style>`;
-
-      let refName = `
-      <div style='text-align:center;'>
-          <h1>Baker's Den Pvt.ltd<h1>
-          <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
-          <h5>Production Data<h5>
-      </div>
-    
-      `;
-
-      let tableBody = "";
-      let tableHeadHtml = "<thead>";
-      let columns = [];
-
-      headers.forEach((ele) => {
-        tableHeadHtml += `<th>${ele?.label}</th>`;
-        columns.push(ele.key);
-      });
-      tableHeadHtml += "</thead>";
-
-      ProductList.forEach((ele) => {
-        tableBody = tableBody + "<tr>";
-        columns.forEach((cell) => {
-          tableBody = tableBody + "<td>" + ele[cell] + "</td>";
-        });
-        tableBody = tableBody + "</tr>";
-      });
-
-      let allTable = `<table>${tableHeadHtml}${tableBody}</table>`;
-
-      newWindow.document.body.innerHTML =
-        newTableStyles + newStyle + refName + allTable;
-
-      setTimeout(function () {
-        newWindow.print();
-        newWindow.close();
-      }, 300);
-    } else {
-      message.info("select some data");
-    }
-  };
 
   //===print and CSV for Modal===//
-
   // modal headers
-
   const modalHeaders = [
     // { label: "CId", key: "CId" },
     { label: "SN", key: "SN" },
@@ -367,6 +309,8 @@ const ChalaniTable = (props) => {
     }
   };
 
+  const addname = () => {};
+
   return (
     <div className="mainContainer">
       <Header title={"View Chalani"}></Header>
@@ -376,7 +320,7 @@ const ChalaniTable = (props) => {
           marginBottom: "8px",
         }}
       >
-        <Button
+        {/* <Button
           type="primary"
           style={{ marginLeft: "16px", float: "right" }}
           onClick={printHandle}
@@ -390,7 +334,14 @@ const ChalaniTable = (props) => {
           >
             Export to CSV
           </CSVLink>
-        </Button>
+        </Button> */}
+        <PrintComponent
+          addname={addname}
+          ProductionList={ProductionList}
+          headers={headers}
+          forCSV
+          forPrint
+        />
         <RangePicker
           onChange={(value) => {
             onDateRangeChange(value);
@@ -401,7 +352,7 @@ const ChalaniTable = (props) => {
       <div>
         <Table
           columns={columns}
-          dataSource={ProductList !== undefined ? ProductList : ""}
+          dataSource={ProductionList !== undefined ? ProductionList : ""}
           scroll={{
             y: 340,
           }}
@@ -425,6 +376,13 @@ const ChalaniTable = (props) => {
           <Button type="primary" onClick={modalPrint}>
             Print
           </Button>,
+          // <PrintComponent
+          //   modalHeaders={modalHeaders}
+          //   ChalaniItemList={ChalaniItemList}
+          //   forCSV
+          //   forPrint
+          //   addname={addname}
+          // />,
         ]}
       >
         {
