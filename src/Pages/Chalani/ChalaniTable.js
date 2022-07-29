@@ -227,89 +227,6 @@ const ChalaniTable = (props) => {
     { label: "Quantity", key: "Quantity" },
     { label: "Remarks", key: "Remarks" },
   ];
-  const modalPrint = () => {
-    if (ChalaniItemList !== undefined) {
-      let newWindow = window.open();
-
-      let newStyle = ``;
-
-      newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
-       
-       }tbody > tr:last-child{
-    background-color: #f0f0f2;
-    }
-    tbody > tr:last-child > td{
-        font-size: 12px;
-        font-weight: 500;
-    }</style>`;
-
-      let refName = `
-     
-      <div style='text-align:center;'>
-          <h1>Baker's Den Pvt.ltd<h1>
-          <h3>Naxal, Bhatbhateni, Kathmandu, Phone: 01-4416560<h3>
-          <div 
-          // style='border: 1px solid black;
-          text-align: center;
-          padding-left: 2%;
-          margin:0 ;'>
-           
-
-          <p>Party Name:  ${tempPartyDetails.PartyName}</p>
-          <p>Date: ${tempPartyDetails.EntryDate}</p>
-          <p>Delivery Date: ${tempPartyDetails.DeliveryDate}</p>
-          </div>
-          <h2>Chalani Details<h2>
-      </div>
-      `;
-      let footer = `
-      <div 
-      style='display: flex;
-      justify-content: space-between;
-      margin-top: 50px;
-      '
-      >
-      <p style='border-top:1px solid black; padding-top: 10px;'>Issued By</p>
-      <p style='border-top:1px solid black; padding-top: 10px;'>Received By</p>
-      <p style='border-top:1px solid black; padding-top: 10px;'>Approved By</p>
-      </div>
-      
-      `;
-
-      let tableBody = "";
-      let tableHeadHtml = "<thead>";
-      let columns = [];
-
-      modalHeaders.forEach((ele) => {
-        tableHeadHtml += `<th>${ele?.label}</th>`;
-        columns.push(ele.label);
-      });
-      tableHeadHtml += "</thead>";
-
-      ChalaniItemList.forEach((ele) => {
-        tableBody = tableBody + "<tr>";
-        columns.forEach((cell) => {
-          console.log(ele);
-          tableBody = tableBody + "<td>" + ele[cell] + "</td>";
-        });
-        tableBody = tableBody + "</tr>";
-      });
-
-      let allTable = `<table>${tableHeadHtml}${tableBody}</table>`;
-
-      newWindow.document.body.innerHTML =
-        newTableStyles + newStyle + refName + allTable + footer;
-
-      setTimeout(function () {
-        newWindow.print();
-        newWindow.close();
-      }, 300);
-    } else {
-      message.info("select some data");
-    }
-  };
-
-  const addname = () => {};
 
   return (
     <div className="mainContainer">
@@ -320,23 +237,7 @@ const ChalaniTable = (props) => {
           marginBottom: "8px",
         }}
       >
-        {/* <Button
-          type="primary"
-          style={{ marginLeft: "16px", float: "right" }}
-          onClick={printHandle}
-        >
-          Print
-        </Button>
-        <Button type="primary" style={{ float: "right" }}>
-          <CSVLink
-            data={ProductList !== undefined ? ProductList : ""}
-            filename={"chalaniData.csv"}
-          >
-            Export to CSV
-          </CSVLink>
-        </Button> */}
         <PrintComponent
-          addname={addname}
           ProductionList={ProductionList}
           headers={headers}
           forCSV
@@ -354,7 +255,7 @@ const ChalaniTable = (props) => {
           columns={columns}
           dataSource={ProductionList !== undefined ? ProductionList : ""}
           scroll={{
-            y: 340,
+            y: 310,
           }}
         />
       </div>
@@ -363,36 +264,25 @@ const ChalaniTable = (props) => {
         title="Product List"
         visible={isModalVisible}
         onCancel={handleCancel}
-        // className='costomeStyle'
-        footer={[
-          <Button key="submit" type="primary" onClick={handleOk}>
-            <CSVLink
-              data={ChalaniItemList !== undefined ? ChalaniItemList : ""}
-              filename={"chalaniItemData.csv"}
-            >
-              Export to CSV
-            </CSVLink>
-          </Button>,
-          <Button type="primary" onClick={modalPrint}>
-            Print
-          </Button>,
-          // <PrintComponent
-          //   modalHeaders={modalHeaders}
-          //   ChalaniItemList={ChalaniItemList}
-          //   forCSV
-          //   forPrint
-          //   addname={addname}
-          // />,
-        ]}
+        footer={[]}
       >
         {
-          <Table
-            columns={columnsChalan}
-            dataSource={ChalaniItemList}
-            scroll={{
-              y: 140,
-            }}
-          />
+          <>
+            <PrintComponent
+              modalHeaders={modalHeaders}
+              ChalaniItemList={ChalaniItemList}
+              forCSV
+              forPrint
+            />
+            <Table
+              style={{ marginTop: "40px" }}
+              columns={columnsChalan}
+              dataSource={ChalaniItemList}
+              scroll={{
+                y: 160,
+              }}
+            />
+          </>
         }
       </Modal>
     </div>

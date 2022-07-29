@@ -18,8 +18,7 @@ const PrintComponent = ({
   //print handler
   //needs csvData, tableHead, fromTodate
   const printHandle = () => {
-    console.log(remainingProduction);
-    if (!remainingProduction) {
+    if (!remainingProduction && !ChalaniItemList && !ProductionList) {
       var temp = addname();
     }
 
@@ -53,6 +52,19 @@ const PrintComponent = ({
           <h5>${companyDetail.reportName} Data<h5>
       </div>
     
+      `;
+      let footer = `
+      <div 
+      style='display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+      '
+      >
+      <p style='border-top:1px solid black; padding-top: 10px;'>Issued By</p>
+      <p style='border-top:1px solid black; padding-top: 10px;'>Received By</p>
+      <p style='border-top:1px solid black; padding-top: 10px;'>Approved By</p>
+      </div>
+      
       `;
 
       let tableBody = "";
@@ -102,22 +114,23 @@ const PrintComponent = ({
       } else {
         modalHeaders.forEach((ele) => {
           tableHeadHtml += `<th>${ele?.label}</th>`;
-          columns.push(ele.key);
+          columns.push(ele.label);
         });
         tableHeadHtml += "</thead>";
-        {
-          ChalaniItemList.forEach((ele) => {
-            tableBody = tableBody + "<tr>";
-            columns.forEach((cell) => {
-              tableBody = tableBody + "<td>" + ele[cell] + "</td>";
-            });
-            tableBody = tableBody + "</tr>";
+
+        ChalaniItemList.forEach((ele) => {
+          tableBody = tableBody + "<tr>";
+          columns.forEach((cell) => {
+            console.log(ele);
+            tableBody = tableBody + "<td>" + ele[cell] + "</td>";
           });
-        }
+          tableBody = tableBody + "</tr>";
+        });
+
         let allTable = `<table>${tableHeadHtml}${tableBody}</table>`;
 
         newWindow.document.body.innerHTML =
-          newTableStyles + newStyle + refName + allTable;
+          newTableStyles + newStyle + refName + allTable + footer;
 
         setTimeout(function () {
           newWindow.print();
