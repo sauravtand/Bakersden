@@ -1,9 +1,7 @@
-import { Table, DatePicker, Button, message, Tag } from "antd";
+import { Table, DatePicker } from "antd";
 import React, { useEffect, useState } from "react";
 import Header from "../../Components/Common/Header";
 import { GetRemainingProductionGoodsByDatee } from "../../Services/appServices/ProductionService";
-import { CSVLink } from "react-csv";
-import { newTableStyles } from "../../Components/Common/TableStyles";
 import PrintComponent from "../../Components/Common/PrintComponent";
 const { RangePicker } = DatePicker;
 
@@ -18,11 +16,11 @@ export default function RemainingProduction() {
       todate: new Date().toISOString().split("T")[0],
     };
     GetRemainingProductionGoodsByDatee(date, (res) => {
-      console.log("hwllo world", res);
+      // console.log("hwllo world", res);
       if (res !== []) {
         setRemainingProduction(res?.RemainingQuantity);
 
-        console.log(remainingProduction);
+        // console.log(remainingProduction);
       }
     });
   }, []);
@@ -41,7 +39,7 @@ export default function RemainingProduction() {
       if (res?.RemainingQuantity.length > 0) {
         setRemainingProduction(res?.RemainingQuantity);
       }
-      console.log(res);
+      // console.log(res);
     });
   }
   // columns

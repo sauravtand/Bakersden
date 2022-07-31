@@ -5,12 +5,6 @@ import { useState } from "react";
 import EachItem from "./EachItem";
 import { Button, Col, message, Row, Select } from "antd";
 import { DatePicker, Form } from "antd";
-import {
-  GetAvailableCountofProductForChalanis,
-  GetRemainingProductionGoodsByDatee,
-} from "../../Services/appServices/ProductionService";
-import { generateUrlEncodedData } from "../../Services/utils/generateUrlEncodedData";
-import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
 import { BranchDetail } from "../../Helpers/BranchDummydata";
 import { Option } from "antd/lib/mentions";

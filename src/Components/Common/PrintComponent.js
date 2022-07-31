@@ -1,5 +1,5 @@
-import { Button, message, Row } from "antd";
-import React, { useEffect, useState } from "react";
+import { Button, message } from "antd";
+import React from "react";
 import { CSVLink } from "react-csv";
 import { newTableStyles } from "./TableStyles";
 import { companyDetail } from "../../Helpers/CompanyDetails";
@@ -46,12 +46,14 @@ const PrintComponent = ({
         font-weight: 500;
     }</style>`;
 
-      let modalAdditionalHeader = `
+      if (tempPartyDetails) {
+        var modalAdditionalHeader = `
        <p>Party Name:  ${tempPartyDetails.PartyName}</p>
           <p>Date: ${tempPartyDetails.EntryDate}</p>
           <p>Delivery Date: ${tempPartyDetails.DeliveryDate}</p>
         <h2 style="text-align:center;">Chalani Details<h2>
     `;
+      }
 
       let refName = `
          <div style='text-align:center;'>

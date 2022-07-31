@@ -14,15 +14,14 @@ const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   // const history = use
-  const { removeToken } = useToken()
-  
+  const { removeToken } = useToken();
+
   const content = (
     <div>
       <a onClick={() => removeToken()}>logout</a>
     </div>
   );
 
-  
   return (
     <MenuContainer>
       <Layout>
@@ -89,13 +88,13 @@ const MainLayout = () => {
                     onClick: () => setCollapsed(!collapsed),
                   }
                 )}
-                <span className="title">Baker's Den</span>
+                <span className="title">Baker's Den Pvt.Ltd</span>
               </div>
 
               <Popover
                 // Content={}
                 content={content}
-                placement="bottom" 
+                placement="bottom"
               >
                 <div
                   style={{

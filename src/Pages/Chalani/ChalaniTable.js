@@ -1,12 +1,10 @@
 import { EditOutlined } from "@ant-design/icons";
-import { Button, DatePicker, message, Modal, Table } from "antd";
+import { DatePicker, Modal, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import { CSVLink } from "react-csv";
 import styled from "styled-components";
 import DateTimeBAdge from "../../Components/Common/DateTimeBAdge";
 import Header from "../../Components/Common/Header";
 import PrintComponent from "../../Components/Common/PrintComponent";
-import { newTableStyles } from "../../Components/Common/TableStyles";
 import {
   GetChalanDetailByDate,
   GetChalanItemDetailsByChalansId,
@@ -37,6 +35,7 @@ const ChalaniTable = (props) => {
       }
     });
   }, []);
+
   useEffect(() => {
     if (reloadTable === true) {
       getTableData();

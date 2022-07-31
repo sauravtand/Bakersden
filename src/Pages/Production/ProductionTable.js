@@ -1,14 +1,4 @@
-import {
-  Table,
-  Button,
-  Tag,
-  Modal,
-  Input,
-  Switch,
-  message,
-  DatePicker,
-  Alert,
-} from "antd";
+import { Table, Tag, Modal, Input, Switch, DatePicker, Alert } from "antd";
 import { useEffect, useState } from "react";
 import Header from "../../Components/Common/Header";
 import {
@@ -17,8 +7,6 @@ import {
   InsertUpdateDayWiseProductionDetail,
 } from "../../Services/appServices/ProductionService";
 import { EditOutlined } from "@ant-design/icons";
-import { CSVLink } from "react-csv";
-import { newTableStyles } from "../../Components/Common/TableStyles";
 import styled from "styled-components";
 import DateTimeBAdge from "../../Components/Common/DateTimeBAdge";
 import PrintComponent from "../../Components/Common/PrintComponent";

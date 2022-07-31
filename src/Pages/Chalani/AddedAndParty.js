@@ -3,7 +3,7 @@ import AddProduct from "./AddProducts";
 import { useState } from "react";
 import EachItem from "./EachItem";
 import { Button, Col, message, Row, Select } from "antd";
-import { DatePicker, Form, Input } from "antd";
+import { DatePicker, Form } from "antd";
 import {
   GetBranchLists,
   UpdateChalanItem,
@@ -27,8 +27,7 @@ const AddedAndParty = () => {
     // console.log("ee", e)
     const dataIndex = BakeryBranch.find((el) => el.BId == e);
     // console.log("data index", dataIndex)
-    setBakeryDetail(dataIndex)
-
+    setBakeryDetail(dataIndex);
   };
 
   const handleAllData = (e) => {
@@ -96,11 +95,10 @@ const AddedAndParty = () => {
 
   useEffect(() => {
     GetBranchLists((res) => {
-      console.log('res 222', res.BranchList)
-      setBakeryBranch(res.BranchList)
-    })
-  }, [])
-
+      // console.log("res 222", res.BranchList);
+      setBakeryBranch(res.BranchList);
+    });
+  }, []);
 
   return (
     <>
@@ -140,17 +138,16 @@ const AddedAndParty = () => {
                   filterOption={(input, option) => {
                     return (
                       option.key.toLowerCase().indexOf(input.toLowerCase()) >=
-                      0 ||
+                        0 ||
                       option.title.toLowerCase().indexOf(input.toLowerCase()) >=
-                      0
+                        0
                     );
                   }}
                   onSelect={(e) => handleSelected(e)}
 
-                // value={product}
+                  // value={product}
                 >
-                  {
-                    BakeryBranch !== undefined &&
+                  {BakeryBranch !== undefined &&
                     BakeryBranch.map((e) => (
                       <Option title={e.BranchName} value={e.BId} key={e.BId}>
                         {e.BranchName}
@@ -158,7 +155,6 @@ const AddedAndParty = () => {
                     ))}
                 </Select>
               </Form.Item>
-
 
               <Form.Item
                 label="Delivery Date"

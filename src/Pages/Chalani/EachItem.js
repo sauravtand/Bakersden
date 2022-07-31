@@ -11,7 +11,7 @@ const EachItem = ({ items, removeProduct }) => {
       // console.log("item list", res.ItemList);
       if (res?.ItemList.length > 0) {
         setItemList(res.ItemList);
-        console.log(itemList);
+        // console.log(itemList);
       }
     });
   }, []);

@@ -3,7 +3,11 @@ import moment from "moment";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { GetAvailableCountofProductForChalanis, GetBranchLists, GetItemLists, GetProductionDetailsDate, GetRemainingProductionGoodsByDatee } from "../../Services/appServices/ProductionService";
+import {
+  GetAvailableCountofProductForChalanis,
+  GetItemLists,
+  GetProductionDetailsDate,
+} from "../../Services/appServices/ProductionService";
 
 const { Option } = Select;
 const AddProduct = (props) => {
@@ -29,18 +33,18 @@ const AddProduct = (props) => {
   const handleSelected = (e) => {
     const data = {
       fromdate: moment().format("YYYY-MM-DD"),
-      id: e
-    }
+      id: e,
+    };
 
     GetAvailableCountofProductForChalanis(data, (res) => {
-      setMaxCount( res.AvailableQuantity[0].Column1);
-    })
+      setMaxCount(res.AvailableQuantity[0].Column1);
+    });
   };
   useEffect(() => {
     const date = {
       fromdate: moment().format("YYYY-MM-DD"),
       todate: moment().format("YYYY-MM-DD"),
-      id: 1
+      id: 1,
     };
     GetProductionDetailsDate(date, (res) => {
       if (res?.ItemList.length > 0) {
@@ -51,20 +55,17 @@ const AddProduct = (props) => {
     // GetBranchLists((res) => {
     //   console.log('res', res.BranchList)
     // })
-   
-    GetItemLists((res) => {
-      setItemLists(res.ItemList)
-    })
 
+    GetItemLists((res) => {
+      setItemLists(res.ItemList);
+    });
   }, []);
 
   return (
     <AddStyle>
       <h2>Add Products:</h2>
 
-      <Form
-        onFinish={handleSubmit}
-      >
+      <Form onFinish={handleSubmit}>
         <Form.Item
           name="ProductionName"
           id="productionName"
@@ -89,10 +90,9 @@ const AddProduct = (props) => {
             }}
             onSelect={(e) => handleSelected(e)}
 
-          // value={product}
+            // value={product}
           >
-            {
-              ItemLists!== undefined &&
+            {ItemLists !== undefined &&
               ItemLists.map((e) => (
                 <Option title={e.ItmName} value={e.itmId} key={e.itmId}>
                   {e.ItmName}
