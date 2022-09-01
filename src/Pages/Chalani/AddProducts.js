@@ -17,17 +17,18 @@ const AddProduct = (props) => {
   const [ItemLists, setItemLists] = useState();
   // const [form] = Form.useForm();
   const handleSubmit = async (e) => {
+    console.log(MaxCount, e);
     if (e.ProductionQuantity <= MaxCount && e.ProductionQuantity > 0) {
       await onSubmit({
         key: e.ProductionName,
         productionName: e.ProductionName,
         productionQuantity: e.ProductionQuantity,
       });
-    } else {
-      message.error("Pliz fill the qunatitiy in required range");
+    } else if (e.productionQuantity === 0) {
+      message.error("Please fill the quantity in required range");
     }
 
-    // form.resetFields();
+    // Form.resetFields();
   };
 
   const handleSelected = (e) => {

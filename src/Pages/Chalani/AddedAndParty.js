@@ -14,6 +14,7 @@ import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
 // import { PartyDetail } from "../../Helpers/Dummydata";
 import { useEffect } from "react";
+import Header from "../../Components/Common/Header";
 
 const { Option } = Select;
 const AddedAndParty = () => {
@@ -57,13 +58,13 @@ const AddedAndParty = () => {
           ChalaniNo: chalaniNo,
           ItemId: items[i].productionName,
           Quantity: items[i].productionQuantity,
-          Remarks: e.remarks,
+          Remarks: e.Remarks !== undefined ? e.Remarks : "n/a",
           IsActive: true,
         };
         UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
           if (res.SuccessMsg === true) {
-            message.info("Data has been saved!");
             form.resetFields();
+
             setItems();
           } else {
             message.warning("Error, saving data!");
@@ -71,6 +72,7 @@ const AddedAndParty = () => {
         });
       }
     });
+    message.success("Data has been saved!");
   };
   const addItems = (item) => {
     if (items === undefined) {
@@ -102,6 +104,8 @@ const AddedAndParty = () => {
 
   return (
     <>
+      <Header title={"Add Chalani"}></Header>
+
       <Row gutter={16}>
         <Col span={12}>
           <FormStyled>

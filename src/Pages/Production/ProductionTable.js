@@ -114,11 +114,19 @@ const ProductionTable = () => {
       },
     },
     {
-      title: "Quantity",
-      dataIndex: "Quantity",
-      key: "Quantity",
-      defaultSortOrder: "descend",
-      sorter: (a, b) => a.Quantity - b.Quantity,
+      title: "Good for Sale",
+      dataIndex: "GoodForSale",
+      key: "GoodForSale",
+    },
+    {
+      title: "Spoilage",
+      dataIndex: "SpoilageCount",
+      key: "SpoilageCount",
+    },
+    {
+      title: "Total Production",
+      dataIndex: "TotalProduction",
+      key: "TotalProduction",
     },
     {
       title: "User Id",
@@ -185,12 +193,14 @@ const ProductionTable = () => {
   };
   //CSV
   const headers = [
-    { label: "UserId", key: "UserId" },
+    { label: "User Id", key: "UserId" },
     { label: "PId", key: "PId" },
     { label: "Item name", key: "ItemName" },
-    { label: "ItemId", key: "ItemId" },
-    { label: "Quantity", key: "Quantity" },
-    { label: "EntryDate", key: "EntryDate" },
+    { label: "Item Id", key: "ItemId" },
+    { label: "Good For Sale ", key: "GoodForSale" },
+    { label: "Spoilage", key: "SpoilageCount" },
+    { label: "Total Production", key: "TotalProduction" },
+    { label: "Entry Date", key: "EntryDate" },
     { label: "Remarks", key: "Remarks" },
   ];
 
@@ -276,7 +286,7 @@ const ProductionTable = () => {
             }}
             disabled="disabled"
           />
-          Item Id:{" "}
+          {/* Item Id:{" "}
           <Input
             value={editingProduct?.ItemId}
             onChange={(e) => {
@@ -285,7 +295,7 @@ const ProductionTable = () => {
               });
             }}
             disabled="disabled"
-          />
+          /> */}
           Quantity:{" "}
           <Input
             value={editingProduct?.Quantity}
@@ -295,7 +305,7 @@ const ProductionTable = () => {
               });
             }}
           />
-          User Id:
+          {/* User Id:
           <Input
             value={editingProduct?.UserId}
             onChange={(e) => {
@@ -314,7 +324,7 @@ const ProductionTable = () => {
               });
             }}
             disabled="disabled"
-          />
+          /> */}
           Remarks:
           <br />
           <Input
@@ -325,8 +335,8 @@ const ProductionTable = () => {
               });
             }}
           />
-          IsActive: <br />
-          <Switch defaultChecked disabled="disabled" />
+          {/* IsActive: <br />
+          <Switch defaultChecked disabled="disabled" /> */}
         </Modal>
       </div>
     </div>

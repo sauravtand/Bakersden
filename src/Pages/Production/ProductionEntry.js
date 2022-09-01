@@ -22,10 +22,10 @@ import useToken from "../../Helpers/useToken";
 const { Option } = Select;
 const layout = {
   labelCol: {
-    span: 5,
+    span: 8,
   },
   wrapperCol: {
-    span: 24,
+    span: 20,
   },
 };
 
@@ -45,7 +45,8 @@ const ProductionEntry = () => {
     let data = {
       PId: 0,
       ItemId: values.ProductionName,
-      Quantity: values.ProductionQuantity,
+
+      Quantity: values.Quantity,
       Remarks: values.remarks !== undefined ? values.remarks : "n/a",
       UserId: token.id,
       EntryDate: date,
@@ -53,6 +54,7 @@ const ProductionEntry = () => {
         values.isActive === undefined || values.isActive === true
           ? true
           : false,
+      SpoilageCount: values.SpoilageCount,
     };
 
     InsertUpdateDayWiseProductionDetail(data, (res) => {
@@ -89,7 +91,7 @@ const ProductionEntry = () => {
       <Header title={"Production Entry"}></Header>
       <div className="mainContainer">
         <Row>
-          <Col span={9}>
+          <Col span={7}>
             <div>
               <Form
                 {...layout}
@@ -143,9 +145,9 @@ const ProductionEntry = () => {
                   </Select>
                 </Form.Item>
                 <Form.Item
-                  name="ProductionQuantity"
-                  label="Quantity"
-                  id="productQuantity"
+                  name="Quantity"
+                  label="Good for Sale"
+                  id="Quantity"
                   rules={[
                     {
                       required: true,
@@ -154,6 +156,19 @@ const ProductionEntry = () => {
                 >
                   <InputNumber min={1} style={{ width: "100%" }} />
                 </Form.Item>
+                <Form.Item
+                  name="SpoilageCount"
+                  label="Spoilage"
+                  id="SpoilageCount"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <InputNumber min={1} style={{ width: "100%" }} />
+                </Form.Item>
+
                 <Form.Item name="remarks" label="remarks" id="remark">
                   <TextArea rows={5} />
                 </Form.Item>
@@ -184,7 +199,7 @@ const ProductionEntry = () => {
               </Form>
             </div>
           </Col>
-          <Col span={14} offset={1}>
+          <Col span={15} offset={2}>
             <div
               style={{
                 borderLeft: "2px solid #888282",

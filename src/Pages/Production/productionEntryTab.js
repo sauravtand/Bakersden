@@ -66,7 +66,7 @@ const ProductionEntryTab = (props) => {
       key: "PId",
     },
     {
-      title: "ItemId",
+      title: "Item Name",
       dataIndex: "ItemId",
       key: "ItemId",
       render: (text, record) => {
@@ -81,9 +81,19 @@ const ProductionEntryTab = (props) => {
       },
     },
     {
-      title: "Quantity",
-      dataIndex: "Quantity",
-      key: "Quantity",
+      title: "Good for Sale",
+      dataIndex: "GoodForSale",
+      key: "GoodForSale",
+    },
+    {
+      title: "Spoilage",
+      dataIndex: "SpoilageCount",
+      key: "SpoilageCount",
+    },
+    {
+      title: "Total Production",
+      dataIndex: "TotalProduction",
+      key: "TotalProduction",
     },
 
     {
@@ -98,7 +108,9 @@ const ProductionEntryTab = (props) => {
     { label: "PId", key: "PId" },
     { label: "ItemId", key: "ItemId" },
     { label: "Item Name", key: "ItemName" },
-    { label: "Quantity", key: "Quantity" },
+    { label: "Good For Sale ", key: "GoodForSale" },
+    { label: "Spoilage", key: "SpoilageCount" },
+    { label: "Total Production", key: "TotalProduction" },
     { label: "EntryDate", key: "EntryDate" },
     { label: "Remarks", key: "Remarks" },
   ];

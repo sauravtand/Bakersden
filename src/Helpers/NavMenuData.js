@@ -36,7 +36,7 @@ export const RouteData = [
   {
     id: 4,
     label: "Chalani Entry",
-    pathName: "/Chalani",
+    pathName: "/AddedAndParty",
     icon: RiBillLine,
     key: 4,
   },
