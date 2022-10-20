@@ -39,11 +39,12 @@ const PrintComponent = ({
       newStyle = `<style>thead > tr> th:first-child, thead > tr> th:nth-child(2), tbody > tr > td:first-child,tbody > tr > td:nth-child(2){
       
        }tbody > tr:last-child{
-    background-color: #f0f0f2;
+    // background-color: #f0f0f2;
+ 
     }
     tbody > tr:last-child > td{
-        font-size: 12px;
-        font-weight: 500;
+        // font-size: 12px;
+        // font-weight: 500;
     }</style>`;
 
       if (tempPartyDetails) {

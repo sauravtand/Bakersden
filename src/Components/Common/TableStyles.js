@@ -19,9 +19,9 @@ table {
 thead > tr > th, tbody > tr > td {
     padding: 4px 4px;
     overflow-wrap: break-word;
-    border: 1px solid black;
+    // border: 1px solid black;
     
-    border-bottom: 1px solid #232325;
+    border-bottom: 0.1px solid grey;
 }
 thead > tr > th {
     position: relative;
@@ -30,12 +30,12 @@ thead > tr > th {
     font-weight: 500;
     text-align: left;
     // background: #fafafa;
-    border-top: 1px solid #232325;
+    // border-top: 1px solid #232325;
     border-bottom: 1px solid #232325;
     transition: background 0.3s ease;
 }
 tbody > tr > td {
-    border-bottom: 1px solid #f0f0f1;
+    // border-bottom: 1px solid #f0f0f1;
     transition: background 0.3s;
     font-size: 10px;
     overflow-y:hidden;

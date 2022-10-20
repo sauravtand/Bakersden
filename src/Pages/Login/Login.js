@@ -21,6 +21,7 @@ const Login = () => {
       bramchName: "Kritipur",
     };
     setToken(temp);
+
     navigate("/ProductionEntry");
   };
   return (

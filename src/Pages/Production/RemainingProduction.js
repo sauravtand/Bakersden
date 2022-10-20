@@ -26,6 +26,7 @@ export default function RemainingProduction() {
   }, []);
 
   function onDateRangeChange(data) {
+    setRemainingProduction();
     let newData = {
       fromdate: data[0].format("YYYY-MM-DD"),
       todate: data[1].format("YYYY-MM-DD"),

@@ -183,13 +183,9 @@ export const GetAvailableCountofProductForChalanis = async (
 
 // GetItemList
 
-export const GetItemLists = async (
-  successCallback
-) => {
+export const GetItemLists = async (successCallback) => {
   try {
-    const response = await fetch(
-      `${GetItemList}`
-    );
+    const response = await fetch(`${GetItemList}`);
     if (response?.status === 200) {
       successCallback(response?.data);
     } else {
@@ -201,13 +197,9 @@ export const GetItemLists = async (
 };
 
 // GetBranchList
-export const GetBranchLists = async (
-  successCallback
-) => {
+export const GetBranchLists = async (successCallback) => {
   try {
-    const response = await fetch(
-      `${GetBranchList}`
-    );
+    const response = await fetch(`${GetBranchList}`);
     if (response?.status === 200) {
       successCallback(response?.data);
     } else {

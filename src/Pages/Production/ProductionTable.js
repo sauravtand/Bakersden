@@ -42,6 +42,7 @@ const ProductionTable = () => {
       }
     });
     // addname();
+    console.log("productList", ProductList);
   }, []);
   const addname = () => {
     // setIsChanging(true);
@@ -209,6 +210,7 @@ const ProductionTable = () => {
   // handle change
 
   function onDateRangeChange(data) {
+    setProductList();
     let newData = {
       fromdate: data[0].format("YYYY-MM-DD"),
       todate: data[1].format("YYYY-MM-DD"),
@@ -223,10 +225,11 @@ const ProductionTable = () => {
       todate: data.todate,
     };
     GetProductionDetailsDate(date, (res) => {
-      if (res?.ItemList.length > 0) {
+      if (res?.ItemList && res?.ItemList.length > 0) {
         setProductList(res?.ItemList);
       }
     });
+    console.log("log after change", ProductList);
   }
   return (
     <div className="mainContainer">

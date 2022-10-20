@@ -58,6 +58,7 @@ const ChalaniTable = (props) => {
   }, []);
 
   function onDateRangeChange(data) {
+    setProductionList();
     let newData = {
       fromdate: data[0].format("YYYY-MM-DD"),
       todate: data[1].format("YYYY-MM-DD"),
