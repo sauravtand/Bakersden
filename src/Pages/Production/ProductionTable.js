@@ -42,8 +42,8 @@ const ProductionTable = () => {
       }
     });
     // addname();
-    console.log("productList", ProductList);
-  }, []);
+    // console.log("productList", ProductList);
+  }, [editingProduct]);
   const addname = () => {
     // setIsChanging(true);
     let tempArr = [];
@@ -72,11 +72,12 @@ const ProductionTable = () => {
     let data = {
       PId: editingProduct.PId,
       ItemId: editingProduct.ItemId,
-      Quantity: editingProduct.Quantity,
+      Quantity: editingProduct.GoodForSale,
       Remarks: editingProduct.Remarks,
       UserId: editingProduct.UserId,
       EntryDate: editingProduct.EntryDate,
       IsActive: editingProduct.IsActive,
+      SpoilageCount: editingProduct.SpoilageCount,
     };
     InsertUpdateDayWiseProductionDetail(data, (res) => {
       // setisbutdis(false)
@@ -229,7 +230,6 @@ const ProductionTable = () => {
         setProductList(res?.ItemList);
       }
     });
-    console.log("log after change", ProductList);
   }
   return (
     <div className="mainContainer">
@@ -299,12 +299,21 @@ const ProductionTable = () => {
             }}
             disabled="disabled"
           /> */}
-          Quantity:{" "}
+          Good For Sale:{" "}
           <Input
-            value={editingProduct?.Quantity}
+            value={editingProduct?.GoodForSale}
             onChange={(e) => {
               setEditingProduct((prev) => {
-                return { ...prev, Quantity: e.target.value };
+                return { ...prev, GoodForSale: e.target.value };
+              });
+            }}
+          />
+          Spoilage:{" "}
+          <Input
+            value={editingProduct?.SpoilageCount}
+            onChange={(e) => {
+              setEditingProduct((prev) => {
+                return { ...prev, SpoilageCount: e.target.value };
               });
             }}
           />

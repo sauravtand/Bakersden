@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import AddProduct from "./AddProducts";
 import { useState } from "react";
-import EachItem from "./EachItem";
+import AddedProducts from "./AddedProducts";
 import { Button, Col, message, Row, Select } from "antd";
 import { DatePicker, Form } from "antd";
 import TextArea from "antd/lib/input/TextArea";
@@ -178,7 +178,7 @@ export default function BranchChalani() {
           <AddProduct onSubmit={addItems} items={items} />
           <AddedProducts>
             <h2>Added Products:</h2>
-            <EachItem items={items} removeProduct={removeProduct} />
+            <AddedProducts items={items} removeProduct={removeProduct} />
           </AddedProducts>
         </Col>
       </Row>
@@ -201,7 +201,7 @@ const FormStyled = styled.div`
   -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
   background-color: #fefefe;
 `;
-const AddedProducts = styled.div`
+const ProductsTable = styled.div`
   padding: 8px 16px;
   height: 405px;
   border: 2px solid "#c8cacb";

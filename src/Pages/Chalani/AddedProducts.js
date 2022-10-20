@@ -2,7 +2,7 @@ import { Table, Space, Button } from "antd";
 import { useEffect, useState } from "react";
 import { GetItemLists } from "../../Services/appServices/ProductionService";
 
-const EachItem = ({ items, removeProduct }) => {
+const AddedProducts = ({ items, removeProduct }) => {
   const [itemList, setItemList] = useState();
   useEffect(() => {
     // const date = new Date().toISOString();
@@ -74,7 +74,7 @@ const EachItem = ({ items, removeProduct }) => {
   );
 };
 
-export default EachItem;
+export default AddedProducts;
 
 // const Table = styled.div`
 // // border: 2px solid black;//

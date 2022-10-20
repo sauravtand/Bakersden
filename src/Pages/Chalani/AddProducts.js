@@ -11,6 +11,7 @@ import {
 
 const { Option } = Select;
 const AddProduct = (props) => {
+  const [form] = Form.useForm();
   const { onSubmit, items } = props;
   const [ProductList, setProductList] = useState();
   const [MaxCount, setMaxCount] = useState();
@@ -27,8 +28,6 @@ const AddProduct = (props) => {
     } else if (e.productionQuantity === 0) {
       message.error("Please fill the quantity in required range");
     }
-
-    // Form.resetFields();
   };
 
   const handleSelected = (e) => {

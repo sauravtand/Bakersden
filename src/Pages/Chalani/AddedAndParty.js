@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import AddProduct from "./AddProducts";
 import { useState } from "react";
-import EachItem from "./EachItem";
+import AddedProducts from "./AddedProducts";
 import { Button, Col, message, Row, Select } from "antd";
 import { DatePicker, Form } from "antd";
 import {
@@ -186,10 +186,10 @@ const AddedAndParty = () => {
         </Col>
         <Col span={12}>
           <AddProduct onSubmit={addItems} items={items} />
-          <AddedProducts>
+          <AddedProductss>
             <h2>Added Products:</h2>
-            <EachItem items={items} removeProduct={removeProduct} />
-          </AddedProducts>
+            <AddedProducts items={items} removeProduct={removeProduct} />
+          </AddedProductss>
         </Col>
       </Row>
     </>
@@ -214,9 +214,9 @@ const FormStyled = styled.div`
   -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
   background-color: #fefefe;
 `;
-const AddedProducts = styled.div`
+const AddedProductss = styled.div`
   padding: 8px 16px;
-  height: 405px;
+  height: 395px;
   border: 2px solid "#c8cacb";
   border-radius: 8px;
   box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
