@@ -50,8 +50,8 @@ const PrintComponent = ({
       if (tempPartyDetails) {
         var modalAdditionalHeader = `
        <p>Party Name:  ${tempPartyDetails.PartyName}</p>
-          <p>Date: ${tempPartyDetails.EntryDate}</p>
-          <p>Delivery Date: ${tempPartyDetails.DeliveryDate}</p>
+          <p>Date: ${tempPartyDetails.EntryDate.slice(0, 10)}</p>
+          <p>Delivery Date: ${tempPartyDetails.DeliveryDate.slice(0, 10)}</p>
         <h2 style="text-align:center;">Chalani Details<h2>
     `;
       }
