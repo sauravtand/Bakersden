@@ -160,11 +160,11 @@ const ProductionEntry = () => {
                   name="SpoilageCount"
                   label="Spoilage"
                   id="SpoilageCount"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //   },
+                  // ]}
                 >
                   <InputNumber min={1} style={{ width: "100%" }} />
                 </Form.Item>

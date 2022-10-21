@@ -1,28 +1,46 @@
-import React from "react";
-import { Button, Input, Form } from "antd";
+import React, { useState } from "react";
+import { Button, Input, Form, message } from "antd";
 import styled from "styled-components";
 import Cover from "../../Assets/images/cover2.jpg";
 import logo from "../../Assets/images/logo.png";
 import useToken from "../../Helpers/useToken";
 import { useNavigate } from "react-router-dom";
+import { getLoginApi } from "../../Services/appServices/loginService";
+import { useDispatch } from "react-redux";
 // import {useToken} from '../../Helpers/usetoken';
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const { token, setToken } = useToken();
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
-    console.log("submit", token);
-
-    // condition halnu parne
-    let temp = {
-      id: 1,
-      userName: "admin",
-      userrole: 1,
-      bramchName: "Kritipur",
+    let data = {
+      username: e?.username,
+      password: e?.password,
     };
-    setToken(temp);
 
-    navigate("/ProductionEntry");
+    dispatch(
+      getLoginApi(data, (res) => {
+        if (res.length !== 0) {
+          let UserDetails = res?.UserDetails;
+          if (UserDetails[0]?.Id > 0) {
+            // console.log("hello", res, UserDetails[0]?.Id);
+            setToken({
+              id: UserDetails[0]?.Id,
+              userName: UserDetails[0]?.UserName,
+              userrole: UserDetails[0]?.Id,
+            });
+            navigate("/ProductionEntry");
+          } else {
+            message.error("Incorrect Username or Password");
+          }
+        } else {
+          message.error("Incorrect Username or Password");
+        }
+      })
+    );
   };
   return (
     <LoginContainer>

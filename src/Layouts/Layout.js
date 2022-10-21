@@ -106,7 +106,7 @@ const MainLayout = () => {
                       color: "#3869c4fd",
                     }}
                   />
-                  <span className="user">admin</span>
+                  <span className="user">Admin</span>
                 </div>
               </Popover>
               {/* <div

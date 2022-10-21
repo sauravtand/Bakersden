@@ -164,3 +164,9 @@ export const GetBranchList = `GetBranchList`;
 /**
  * @desc: Get Branch List
  */
+
+export const CheckValidLogin = `CheckValidLogin`;
+
+/**
+ * @desc: Check login credentials
+ */

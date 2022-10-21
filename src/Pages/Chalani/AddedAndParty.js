@@ -32,47 +32,50 @@ const AddedAndParty = () => {
   };
 
   const handleAllData = (e) => {
-    let Party = {
-      DCId: 0,
-      PartyId: BakeryDetail.BId,
-      PartyName: BakeryDetail.BranchName,
-      PartyAddress: BakeryDetail.BranchLocation,
-      UserId: 1,
-      EntryDate: moment().format("YYYY-MM-DD"),
-      DeliveryDate: e.Delivery.format("YYYY-MM-DD"),
-      Remarks: e.Remarks !== undefined ? e.Remarks : "n/a",
-      IssuedBy: 1,
-      ReceivedBy: 1,
-      ApprovedBy: 1,
-      IsActive: true,
-    };
+    if (items) {
+      let Party = {
+        DCId: 0,
+        PartyId: BakeryDetail.BId,
+        PartyName: BakeryDetail.BranchName,
+        PartyAddress: BakeryDetail.BranchLocation,
+        UserId: 1,
+        EntryDate: moment().format("YYYY-MM-DD"),
+        DeliveryDate: e.Delivery.format("YYYY-MM-DD"),
+        Remarks: e.Remarks !== undefined ? e.Remarks : "n/a",
+        IssuedBy: 1,
+        ReceivedBy: 1,
+        ApprovedBy: 1,
+        IsActive: true,
+      };
 
-    // console.log(Party)
-    // return
-    let chalaniNo = 0;
-    UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
-      chalaniNo = res.CreatedId;
-      for (let i = 0; i < items.length; i++) {
-        let ChalanItems = {
-          CId: 0,
-          ChalaniNo: chalaniNo,
-          ItemId: items[i].productionName,
-          Quantity: items[i].productionQuantity,
-          Remarks: e.Remarks !== undefined ? e.Remarks : "n/a",
-          IsActive: true,
-        };
-        UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
-          if (res.SuccessMsg === true) {
-            form.resetFields();
-
-            setItems();
-          } else {
-            message.warning("Error, saving data!");
-          }
-        });
-      }
-    });
-    message.success("Data has been saved!");
+      // console.log(Party)
+      // return
+      let chalaniNo = 0;
+      UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
+        chalaniNo = res.CreatedId;
+        for (let i = 0; i < items.length; i++) {
+          let ChalanItems = {
+            CId: 0,
+            ChalaniNo: chalaniNo,
+            ItemId: items[i].productionName,
+            Quantity: items[i].productionQuantity,
+            Remarks: e.Remarks !== undefined ? e.Remarks : "n/a",
+            IsActive: true,
+          };
+          UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
+            if (res.SuccessMsg === true) {
+              form.resetFields();
+              setItems();
+            } else {
+              message.warning("Error, saving data!");
+            }
+          });
+        }
+      });
+      message.success("Data has been saved!");
+    } else {
+      message.info("Please input some Production Items!");
+    }
   };
   const addItems = (item) => {
     if (items === undefined) {
@@ -186,10 +189,10 @@ const AddedAndParty = () => {
         </Col>
         <Col span={12}>
           <AddProduct onSubmit={addItems} items={items} />
-          <AddedProductss>
+          <ProductsContainer>
             <h2>Added Products:</h2>
             <AddedProducts items={items} removeProduct={removeProduct} />
-          </AddedProductss>
+          </ProductsContainer>
         </Col>
       </Row>
     </>
@@ -214,7 +217,7 @@ const FormStyled = styled.div`
   -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
   background-color: #fefefe;
 `;
-const AddedProductss = styled.div`
+const ProductsContainer = styled.div`
   padding: 8px 16px;
   height: 395px;
   border: 2px solid "#c8cacb";

@@ -17,17 +17,25 @@ const AddProduct = (props) => {
   const [MaxCount, setMaxCount] = useState();
   const [ItemLists, setItemLists] = useState();
   // const [form] = Form.useForm();
-  const handleSubmit = async (e) => {
-    console.log(MaxCount, e);
+  const handleSubmit = (e) => {
+    // console.log(MaxCount, e);
     if (e.ProductionQuantity <= MaxCount && e.ProductionQuantity > 0) {
-      await onSubmit({
+      onSubmit({
         key: e.ProductionName,
         productionName: e.ProductionName,
         productionQuantity: e.ProductionQuantity,
       });
+      resetThisField();
     } else if (e.productionQuantity === 0) {
       message.error("Please fill the quantity in required range");
+    } else {
+      message.error("Production Item not available!");
     }
+  };
+
+  const resetThisField = () => {
+    form.resetFields();
+    setMaxCount();
   };
 
   const handleSelected = (e) => {
@@ -65,7 +73,13 @@ const AddProduct = (props) => {
     <AddStyle>
       <h2>Add Products:</h2>
 
-      <Form onFinish={handleSubmit}>
+      <Form
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={handleSubmit}
+        form={form}
+      >
         <Form.Item
           name="ProductionName"
           id="productionName"
@@ -106,6 +120,7 @@ const AddProduct = (props) => {
           rules={[
             {
               required: true,
+              message: "Please input the Quantity",
             },
           ]}
           style={{ display: "inline-block", width: "100%" }}
@@ -113,7 +128,7 @@ const AddProduct = (props) => {
             span: 24,
           }}
           // label={`max count: ${MaxCount}`}
-          label={`${MaxCount !== undefined ? `max count : ${MaxCount}` : ""}`}
+          label={`${MaxCount !== undefined ? `Max count : ${MaxCount}` : ""}`}
         >
           <div
             style={{
@@ -125,9 +140,7 @@ const AddProduct = (props) => {
               style={{ width: "100%" }}
               placeholder="Quantity"
               min={1}
-              max={MaxCount !== undefined ? MaxCount : 1}
               type="number"
-              disabled={MaxCount === undefined ? true : false}
             />
           </div>
         </Form.Item>

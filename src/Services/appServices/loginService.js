@@ -1,9 +1,4 @@
-import {
-  CheckValidLogin,
-  GetUserTokenByUserId,
-  GetValidCollectorLoginForApp,
-  InsertUpdateCollectorToken,
-} from "../constants/url";
+import { CheckValidLogin } from "../constants/url";
 import { generateUrlEncodedData } from "../utils/generateUrlEncodedData";
 import { fetch, store } from "../utils/httpUtil";
 
@@ -18,6 +13,8 @@ export const getLoginApi = (data, sucessCallback) => {
       } else {
         sucessCallback([]);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
