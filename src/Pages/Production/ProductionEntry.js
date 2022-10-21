@@ -154,7 +154,7 @@ const ProductionEntry = () => {
                     },
                   ]}
                 >
-                  <InputNumber min={1} style={{ width: "100%" }} />
+                  <InputNumber min={0} style={{ width: "100%" }} />
                 </Form.Item>
                 <Form.Item
                   name="SpoilageCount"
@@ -166,7 +166,7 @@ const ProductionEntry = () => {
                   //   },
                   // ]}
                 >
-                  <InputNumber min={1} style={{ width: "100%" }} />
+                  <InputNumber min={0} style={{ width: "100%" }} />
                 </Form.Item>
 
                 <Form.Item name="remarks" label="remarks" id="remark">
