@@ -1,4 +1,4 @@
-import { httpBase, httpBaseJson, httpSeperateBaseJson } from "./httpBaseUtil";
+import { httpBase, httpSeperateBaseJson } from "./httpBaseUtil";
 
 export const fetch = (url, params) => {
   return httpBase().get(`/${url}`, params);

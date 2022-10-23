@@ -1,6 +1,5 @@
 import { CheckValidLogin } from "../constants/url";
-import { generateUrlEncodedData } from "../utils/generateUrlEncodedData";
-import { fetch, store } from "../utils/httpUtil";
+import { fetch } from "../utils/httpUtil";
 
 export const getLoginApi = (data, sucessCallback) => {
   return async (dispatch) => {

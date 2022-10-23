@@ -3,8 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import ProductionEntry from "../Pages/Production/ProductionEntry";
 import ProductionTable from "../Pages/Production/ProductionTable";
 import ChalaniTable from "../Pages/Chalani/ChalaniTable";
-import BranchChalani from "../Pages/Chalani/BranchChalani";
-import Login from "../Pages/Login/Login";
 import RemainingProduction from "../Pages/Production/RemainingProduction";
 import AddedAndParty from "../Pages/Chalani/AddedAndParty";
 
@@ -16,7 +14,6 @@ const MainRoute = () => {
       <Route exact path="/ProductionTable" element={<ProductionTable />} />
       <Route exact path="/AddedAndParty" element={<AddedAndParty />} />
       <Route exact path="/ChalaniTable" element={<ChalaniTable />} />
-      {/* <Route exact path="/BranchChalani" element={<BranchChalani />} /> */}
       <Route
         exact
         path="/RemainingProduction"

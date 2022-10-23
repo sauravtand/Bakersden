@@ -7,7 +7,6 @@ import {
   GetProductionDetailsByDate,
   GetRemainingProductionGoodsByDate,
   InsertChalanDetailsWithSeparateItemsDetails,
-  InsertChalanWithItemDetails,
   InsertUpdateDayWiseProductionDetails,
   UpdateChalanItems,
   UpdateDeliveryChalan,
