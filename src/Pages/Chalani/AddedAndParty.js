@@ -74,7 +74,7 @@ const AddedAndParty = () => {
       });
       message.success("Data has been saved!");
     } else {
-      message.info("Please input some Production Items!");
+      message.info("Please add some Production Items!");
     }
   };
   const addItems = (item) => {
@@ -135,7 +135,7 @@ const AddedAndParty = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input Party Name!",
+                    message: "Please input Branch Name!",
                   },
                 ]}
               >
@@ -169,7 +169,7 @@ const AddedAndParty = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input Entry Date!",
+                    message: "Please input Delivery Date!",
                   },
                 ]}
               >

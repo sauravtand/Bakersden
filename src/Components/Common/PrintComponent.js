@@ -50,18 +50,26 @@ const PrintComponent = ({
       if (tempPartyDetails) {
         var modalAdditionalHeader = `
        <p>Party Name:  ${tempPartyDetails.PartyName}</p>
-          <p>Date: ${tempPartyDetails.EntryDate.slice(0, 10)}</p>
+          <p>Production Date: ${tempPartyDetails.EntryDate.slice(0, 10)}</p>
           <p>Delivery Date: ${tempPartyDetails.DeliveryDate.slice(0, 10)}</p>
-        <h2 style="text-align:center;">Chalani Details<h2>
+        <h4 style="text-align:center;">Chalani Details<h4>
     `;
       }
 
       let refName = `
          <div style='text-align:center;'>
           <h1>${companyDetail.companyName}<h1>
-          <h3>${companyDetail.companyAddress} Phone:${companyDetail.companyPhoneNo}<h3>
-           <h5>${companyDetail.reportName} Data<h5>
+          <h3>${companyDetail.companyAddress}, Phone:${
+        companyDetail.companyPhoneNo
+      }<h3>
+           <h4>${
+             ChalaniItemList || remainingProduction
+               ? ""
+               : companyDetail.reportName
+           }<h4>
+           <h4>${remainingProduction ? "Remaining Production Data" : ""}<h4>
       </div>
+
     
       `;
       let footer = `

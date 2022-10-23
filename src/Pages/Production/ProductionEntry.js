@@ -59,7 +59,7 @@ const ProductionEntry = () => {
 
     InsertUpdateDayWiseProductionDetail(data, (res) => {
       if (res?.SuccessMsg === true) {
-        message.success("The data is saved");
+        message.success("Production Added");
         setisbutdis(false);
         setreloadTable(true);
         onReset();
@@ -116,6 +116,7 @@ const ProductionEntry = () => {
                   rules={[
                     {
                       required: true,
+                      message: "Production Item required!",
                     },
                   ]}
                 >
@@ -151,6 +152,7 @@ const ProductionEntry = () => {
                   rules={[
                     {
                       required: true,
+                      message: "Good for Sale is required!",
                     },
                   ]}
                 >
@@ -169,7 +171,7 @@ const ProductionEntry = () => {
                   <InputNumber min={0} style={{ width: "100%" }} />
                 </Form.Item>
 
-                <Form.Item name="remarks" label="remarks" id="remark">
+                <Form.Item name="remarks" label="Remarks" id="remark">
                   <TextArea rows={5} />
                 </Form.Item>
                 <Form.Item
@@ -202,7 +204,7 @@ const ProductionEntry = () => {
           <Col span={15} offset={2}>
             <div
               style={{
-                borderLeft: "2px solid #888282",
+                borderLeft: "2px solid #d9dadb",
                 paddingLeft: "20px",
               }}
             >

@@ -143,9 +143,9 @@ const ProductionEntryTab = (props) => {
         <Table
           columns={columns}
           dataSource={ProductList !== undefined ? ProductList : ""}
-          style={{ height: "450px" }}
+          style={{ height: "490px" }}
           scroll={{
-            y: 340,
+            y: 350,
           }}
         />
       </div>
