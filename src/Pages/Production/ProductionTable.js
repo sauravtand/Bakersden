@@ -37,7 +37,7 @@ const ProductionTable = () => {
     };
     GetProductionDetailsDate(date, (res) => {
       // console.log("hello", res);
-      if (res?.ItemList.length > 0) {
+      if (res?.ItemList?.length > 0) {
         setProductList(res?.ItemList);
       }
     });
@@ -67,6 +67,7 @@ const ProductionTable = () => {
     }
     return tempArr;
   };
+  const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
 
   const onFinish = (values) => {
     let data = {

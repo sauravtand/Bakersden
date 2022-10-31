@@ -9,6 +9,8 @@ import { Provider } from "react-redux";
 import store from "./Services/store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+// const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>

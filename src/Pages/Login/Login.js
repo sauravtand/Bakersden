@@ -7,6 +7,7 @@ import useToken from "../../Helpers/useToken";
 import { useNavigate } from "react-router-dom";
 import { getLoginApi } from "../../Services/appServices/loginService";
 import { useDispatch } from "react-redux";
+import { storeUserData } from "../../Services/store/slices/profileSlice";
 // import {useToken} from '../../Helpers/usetoken';
 
 const Login = () => {
@@ -27,12 +28,16 @@ const Login = () => {
           let UserDetails = res?.UserDetails;
           if (UserDetails[0]?.Id > 0) {
             // console.log("hello", res, UserDetails[0]?.Id);
-            setToken({
+
+            let temp = {
               id: UserDetails[0]?.Id,
               userName: UserDetails[0]?.UserName,
               userrole: UserDetails[0]?.Id,
-            });
-            navigate("/ProductionEntry");
+            };
+            setToken(temp);
+            localStorage.setItem("userData", JSON.stringify(temp));
+            navigate("/ChalaniTable");
+            dispatch(storeUserData(temp));
           } else {
             message.error("Incorrect Username or Password");
           }

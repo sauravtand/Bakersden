@@ -99,7 +99,11 @@ const PrintComponent = ({
         });
         tableHeadHtml += "</thead>";
         if (temp) {
-          temp.forEach((ele) => {
+          let productListWithoutTime = temp.map((e) => {
+            return { ...e, EntryDate: e.EntryDate.slice(0, 10) };
+          });
+
+          productListWithoutTime.forEach((ele) => {
             tableBody = tableBody + "<tr>";
             columns.forEach((cell) => {
               tableBody = tableBody + "<td>" + ele[cell] + "</td>";
@@ -115,7 +119,15 @@ const PrintComponent = ({
             tableBody = tableBody + "</tr>";
           });
         } else if (ProductionList) {
-          ProductionList.forEach((ele) => {
+          let productionListWithoutTime = ProductionList.map((e) => {
+            return {
+              ...e,
+              EntryDate: e.EntryDate.slice(0, 10),
+              DeliveryDate: e.DeliveryDate.slice(0, 10),
+            };
+          });
+
+          productionListWithoutTime.forEach((ele) => {
             tableBody = tableBody + "<tr>";
             columns.forEach((cell) => {
               tableBody = tableBody + "<td>" + ele[cell] + "</td>";

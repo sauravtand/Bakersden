@@ -3,22 +3,41 @@ import { Layout, Menu, Popover } from "antd";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { RouteData } from "../Helpers/NavMenuData";
+import { RouteDataAdmin } from "../Helpers/NavMenuData";
 import MainRoute from "../Routes/MainRoute";
 import Logo from "../Assets/images/logo.png";
 import { FaUserAlt } from "react-icons/fa";
 import useToken from "../Helpers/useToken";
+import { useEffect } from "react";
 
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [sideBarDataNew, setSideBarDataNew] = useState();
   // const history = use
   const { removeToken } = useToken();
+  const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
+
+  useEffect(() => {
+    // console.log(localStorageUserData, "hello fromlocal storage");
+    let sideBarData =
+      localStorageUserData.userrole === 2
+        ? RouteDataAdmin.slice(4, 5)
+        : RouteDataAdmin;
+    setSideBarDataNew(sideBarData);
+  }, []);
 
   const content = (
     <div>
-      <a onClick={() => removeToken()}>logout</a>
+      <a
+        onClick={() => {
+          removeToken();
+          localStorage.clear();
+        }}
+      >
+        logout
+      </a>
     </div>
   );
 
@@ -37,11 +56,11 @@ const MainLayout = () => {
           }}
         >
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={["5"]}>
             <SideBarTop>
               <img src={Logo} />
             </SideBarTop>
-            {RouteData.map((e) => (
+            {sideBarDataNew?.map((e) => (
               <Menu.Item key={e.id} item={e.label}>
                 <NavLink
                   to={e.pathName}
@@ -106,7 +125,7 @@ const MainLayout = () => {
                       color: "#3869c4fd",
                     }}
                   />
-                  <span className="user">Admin</span>
+                  <span className="user">{localStorageUserData?.userName}</span>
                 </div>
               </Popover>
               {/* <div

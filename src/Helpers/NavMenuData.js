@@ -4,8 +4,8 @@ import {
   MdOutlineReceiptLong,
   MdFilterAlt,
 } from "react-icons/md";
-import { RiBillLine, RiGitBranchFill } from "react-icons/ri";
-export const RouteData = [
+import { RiBillLine } from "react-icons/ri";
+export const RouteDataAdmin = [
   // {
   //   id: 1,
   //   name: 'DashBoard',
@@ -47,11 +47,4 @@ export const RouteData = [
     icon: MdOutlineReceiptLong,
     key: 5,
   },
-  // {
-  //   id: 5,
-  //   label: "Branch Chalani",
-  //   pathName: "/BranchChalani",
-  //   icon: RiGitBranchFill,
-  //   key: 5,
-  // },
 ];

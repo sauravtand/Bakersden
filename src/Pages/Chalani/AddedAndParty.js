@@ -26,7 +26,7 @@ const AddedAndParty = () => {
 
   const handleSelected = (e) => {
     // console.log("ee", e)
-    const dataIndex = BakeryBranch.find((el) => el.BId == e);
+    const dataIndex = BakeryBranch.find((el) => el.BId === e);
     // console.log("data index", dataIndex)
     setBakeryDetail(dataIndex);
   };
