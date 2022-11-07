@@ -3,6 +3,7 @@ import React from "react";
 import { CSVLink } from "react-csv";
 import { newTableStyles } from "./TableStyles";
 import { companyDetail } from "../../Helpers/CompanyDetails";
+import useToken from "../../Helpers/useToken";
 
 const PrintComponent = ({
   addname,
@@ -16,6 +17,7 @@ const PrintComponent = ({
   modalHeaders,
   tempPartyDetails,
 }) => {
+  const { token } = useToken();
   //print handler
   //needs csvData, tableHead, fromTodate
   const printHandle = () => {
@@ -24,6 +26,9 @@ const PrintComponent = ({
     }
 
     // console.log("temp", temp);
+
+    // console.log(tempPartyDetails);
+    // console.log(tempPartyDetails?.Approver);
 
     if (
       ProductList ||
@@ -73,15 +78,31 @@ const PrintComponent = ({
     
       `;
       let footer = `
-      <div 
+ <div 
       style='display: flex;
       justify-content: space-between;
       margin-top: 50px;
       font-size: 14px;
+      margin-bottom:-15px;
+    '
+      >
+      <p>${token.userName}</p>
+
+      </div>
+
+
+
+
+      <div 
+      style='display: flex;
+      justify-content: space-between;
+      margin-top: -10px;
+      font-size: 14px;
       
       '
       >
-      <p style='border-top:1px solid black; padding-top: 10px;'>Issued By</p>
+      <p style='border-top:1px solid black; padding-top: 10px;'>Issued By ${token.userName}
+      </p>
       <p style='border-top:1px solid black; padding-top: 10px;'>Received By</p>
       <p style='border-top:1px solid black; padding-top: 10px;'>Approved By</p>
       </div>

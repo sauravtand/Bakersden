@@ -15,6 +15,7 @@ import TextArea from "antd/lib/input/TextArea";
 // import { PartyDetail } from "../../Helpers/Dummydata";
 import { useEffect } from "react";
 import Header from "../../Components/Common/Header";
+import useToken from "../../Helpers/useToken";
 
 const { Option } = Select;
 const AddedAndParty = () => {
@@ -22,6 +23,7 @@ const AddedAndParty = () => {
   const [form] = Form.useForm();
   const [BakeryDetail, setBakeryDetail] = useState();
   const [BakeryBranch, setBakeryBranch] = useState();
+  const { token } = useToken();
   // console.log("PartyDetail", PartyDetail)
 
   const handleSelected = (e) => {
@@ -38,13 +40,13 @@ const AddedAndParty = () => {
         PartyId: BakeryDetail.BId,
         PartyName: BakeryDetail.BranchName,
         PartyAddress: BakeryDetail.BranchLocation,
-        UserId: 1,
+        UserId: token.id,
         EntryDate: moment().format("YYYY-MM-DD"),
         DeliveryDate: e.Delivery.format("YYYY-MM-DD"),
         Remarks: e.Remarks !== undefined ? e.Remarks : "n/a",
-        IssuedBy: 1,
-        ReceivedBy: 1,
-        ApprovedBy: 1,
+        IssuedBy: token.id,
+        ReceivedBy: token.id,
+        ApprovedBy: token.id,
         IsActive: true,
       };
 
