@@ -154,7 +154,7 @@ const PrintComponent = ({
         ChalaniItemList.forEach((ele) => {
           tableBody = tableBody + "<tr>";
           columns.forEach((cell) => {
-            console.log(ele);
+            // console.log(ele);
             tableBody = tableBody + "<td>" + ele[cell] + "</td>";
           });
           tableBody = tableBody + "</tr>";

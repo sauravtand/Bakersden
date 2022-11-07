@@ -69,7 +69,7 @@ export const InsertChalanDetailsWithSeparateItemsDetail = async (
   successCallback
 ) => {
   try {
-    console.log("fgf", data);
+    // console.log("fgf", data);
     const response = await seperateStoreJson(
       `${InsertChalanDetailsWithSeparateItemsDetails}`,
       data

@@ -78,7 +78,7 @@ const ChalaniTable = (props) => {
   const handlePreview = (e) => {
     // console.log("e", e)
     setTempPartyDetails(e);
-    console.log(tempPartyDetails);
+    // console.log(tempPartyDetails);
     setIsModalVisible(true);
 
     GetChalanItemDetailsByChalansId(e.DCId, (res) => {
