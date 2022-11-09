@@ -26,8 +26,6 @@ const ChalaniTable = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [tempPartyDetails, setTempPartyDetails] = useState();
   const [itemList, setItemList] = useState();
-  const [isApproved, setIsApproved] = useState(false);
-
   useEffect(() => {
     // const date = new Date().toISOString();
 
@@ -45,6 +43,7 @@ const ChalaniTable = (props) => {
       getTableData();
     }
   }, [reloadTable]);
+
   useEffect(() => {
     // const date = new Date().toISOString();
     const date = {
@@ -82,10 +81,12 @@ const ChalaniTable = (props) => {
       }
     });
   }
+
   // console.log(ProductList)
   const handlePreview = (e) => {
     // console.log("e", e)
     setTempPartyDetails(e);
+
     // console.log(tempPartyDetails);
     setIsModalVisible(true);
 
