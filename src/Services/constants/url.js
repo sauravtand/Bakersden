@@ -170,3 +170,13 @@ export const CheckValidLogin = `CheckValidLogin`;
 /**
  * @desc: Check login credentials
  */
+
+export const ApproveDeliveryChalan = "ApproveDeliveryChalan";
+/**
+ * @desc: Approve Chalan
+ */
+
+export const ReceiveDeliveryChalan = "ReceiveDeliveryChalan";
+/**
+ * @desc: Receive Chalan
+ */

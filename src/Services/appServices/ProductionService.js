@@ -1,4 +1,5 @@
 import {
+  ApproveDeliveryChalan,
   GetAvailableCountofProductForChalani,
   GetBranchList,
   GetChalanDetailsByDate,
@@ -8,6 +9,7 @@ import {
   GetRemainingProductionGoodsByDate,
   InsertChalanDetailsWithSeparateItemsDetails,
   InsertUpdateDayWiseProductionDetails,
+  ReceiveDeliveryChalan,
   UpdateChalanItems,
   UpdateDeliveryChalan,
 } from "../constants/url";
@@ -199,6 +201,41 @@ export const GetItemLists = async (successCallback) => {
 export const GetBranchLists = async (successCallback) => {
   try {
     const response = await fetch(`${GetBranchList}`);
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else {
+      successCallback([]);
+    }
+  } catch (error) {
+    successCallback([]);
+  }
+};
+
+// Approve Chalan entry
+
+export const ApproveDeliveryChalani = async (data, successCallback) => {
+  try {
+    const response = await store(
+      `${ApproveDeliveryChalan}?chalanId=${data.chalanId}&userId=${data.userId}`
+    );
+    if (response?.status === 200) {
+      successCallback(response?.data);
+      console.log(response?.data, "response.data");
+    } else {
+      successCallback([]);
+    }
+  } catch (error) {
+    successCallback([]);
+  }
+};
+
+// Receive Chalan Entry
+
+export const ReceiveDeliveryChalani = async (data, successCallback) => {
+  try {
+    const response = await store(
+      `${ReceiveDeliveryChalan}?chalanId=${data.chalanId}&userId=${data.userId}`
+    );
     if (response?.status === 200) {
       successCallback(response?.data);
     } else {

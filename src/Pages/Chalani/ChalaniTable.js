@@ -1,16 +1,18 @@
 import { EditOutlined } from "@ant-design/icons";
-import { DatePicker, Modal, Table } from "antd";
+import { DatePicker, Modal, Table, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import DateTimeBAdge from "../../Components/Common/DateTimeBAdge";
 import Header from "../../Components/Common/Header";
 import PrintComponent from "../../Components/Common/PrintComponent";
 import {
+  ApproveDeliveryChalani,
   GetChalanDetailByDate,
   GetChalanItemDetailsByChalansId,
   GetItemLists,
 } from "../../Services/appServices/ProductionService";
-
+import { generateUrlEncodedData } from "../../Services/utils/generateUrlEncodedData";
+///
 const { RangePicker } = DatePicker;
 
 const ChalaniTable = (props) => {
@@ -24,6 +26,8 @@ const ChalaniTable = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [tempPartyDetails, setTempPartyDetails] = useState();
   const [itemList, setItemList] = useState();
+  const [isApproved, setIsApproved] = useState(false);
+
   useEffect(() => {
     // const date = new Date().toISOString();
 
@@ -56,6 +60,10 @@ const ChalaniTable = (props) => {
       }
     });
   }, []);
+
+  // setTimeout(() => {
+  //   console.log(ProductionList, "hellomf");
+  // }, 2000);
 
   function onDateRangeChange(data) {
     setProductionList();
@@ -116,6 +124,20 @@ const ChalaniTable = (props) => {
     setIsModalVisible(false);
   };
 
+  const handleApprove = (e) => {
+    let data = {
+      chalanId: e.DCId,
+      userId: e.UserId,
+    };
+    ApproveDeliveryChalani(data, (res) => {
+      if (res.SuccessMsg === true) {
+        console.log("success");
+      } else {
+        console.log("Error!!!!!!!!!!!");
+      }
+    });
+  };
+
   const columns = [
     {
       title: "DCId",
@@ -173,6 +195,45 @@ const ChalaniTable = (props) => {
         );
       },
     },
+    {
+      title: "Approve Status",
+      key: "approve",
+      render: (_, record) => {
+        console.log("recod", record);
+        return (
+          <>
+            <ApproveIcon
+              onClick={(e) => {
+                handleApprove(record);
+              }}
+              isApproved={isApproved}
+            >
+              Approve
+            </ApproveIcon>
+          </>
+        );
+      },
+    },
+    // {
+    //   title: "Tags",
+    //   key: "tags",
+    //   dataIndex: "tags",
+    //   render: (_, { tags }) => (
+    //     <>
+    //       {tags.map((tag) => {
+    //         let color = tag.length > 5 ? "geekblue" : "green";
+    //         if (tag === "loser") {
+    //           color = "volcano";
+    //         }
+    //         return (
+    //           <Tag color={color} key={tag}>
+    //             {tag.toUpperCase()}
+    //           </Tag>
+    //         );
+    //       })}
+    //     </>
+    //   ),
+    // },
   ];
 
   const columnsChalan = [
@@ -276,6 +337,7 @@ const ChalaniTable = (props) => {
               forPrint
               tempPartyDetails={tempPartyDetails}
             />
+
             <Table
               style={{ marginTop: "40px" }}
               columns={columnsChalan}
@@ -311,6 +373,28 @@ const CIcon = styled.div`
 
   &:hover {
     background-color: #84b0c9;
+    color: #fefefe;
+  }
+`;
+const ApproveIcon = styled.div`
+  border: 1px solid #84b0c9d5;
+  cursor: pointer;
+  width: 80px;
+  height: 34px;
+  border-radius: 2px;
+  color: white;
+  display: flex;
+  background-color: #1890ff;
+
+  justify-content: space-evenly;
+  align-items: center;
+
+  /* span{
+    margin-left: 16px;
+  } */
+
+  &:hover {
+    background-color: #1890ff;
     color: #fefefe;
   }
 `;
