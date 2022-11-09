@@ -36,6 +36,8 @@ const AddedAndParty = () => {
   const handleAllData = (e) => {
     if (items) {
       let Party = {
+        ApprovedBy: 0,
+        Approver: 0,
         DCId: 0,
         PartyId: BakeryDetail.BId,
         PartyName: BakeryDetail.BranchName,
@@ -45,8 +47,9 @@ const AddedAndParty = () => {
         DeliveryDate: e.Delivery.format("YYYY-MM-DD"),
         Remarks: e.Remarks !== undefined ? e.Remarks : "n/a",
         IssuedBy: token.id,
-        ReceivedBy: token.id,
-        ApprovedBy: token.id,
+        IssuedUser: token.userName,
+        ReceivedBy: 0,
+        ReceivedUser: 0,
         IsActive: true,
       };
 

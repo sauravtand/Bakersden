@@ -18,6 +18,8 @@ const PrintComponent = ({
   tempPartyDetails,
 }) => {
   const { token } = useToken();
+
+  console.log(ChalaniItemList, "ProductionList");
   //print handler
   //needs csvData, tableHead, fromTodate
   const printHandle = () => {
@@ -78,15 +80,21 @@ const PrintComponent = ({
     
       `;
       let footer = `
- <div 
+ 
+      <div 
       style='display: flex;
       justify-content: space-between;
       margin-top: 50px;
       font-size: 14px;
-      margin-bottom:-15px;
+      margin-bottom:-25px;
+      font-weight: 400
     '
       >
-      <p>${token.userName}</p>
+      <p>${ChalaniItemList[0].Issuer}</p>
+      <p>${ChalaniItemList[0].Approver}</p>
+      <p>${ChalaniItemList[0].Approver}</p>
+
+ 
 
       </div>
 
@@ -101,7 +109,7 @@ const PrintComponent = ({
       
       '
       >
-      <p style='border-top:1px solid black; padding-top: 10px;'>Issued By ${token.userName}
+      <p style='border-top:1px solid black; padding-top: 10px;'>Issued By
       </p>
       <p style='border-top:1px solid black; padding-top: 10px;'>Received By</p>
       <p style='border-top:1px solid black; padding-top: 10px;'>Approved By</p>
@@ -207,7 +215,9 @@ const PrintComponent = ({
         <Button
           type="primary"
           style={{ marginLeft: "16px", float: "right" }}
-          onClick={printHandle}
+          onClick={() => {
+            printHandle();
+          }}
         >
           Print
         </Button>
