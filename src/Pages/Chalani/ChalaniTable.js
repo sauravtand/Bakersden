@@ -114,7 +114,7 @@ const ChalaniTable = (props) => {
           temp = {
             SN: index + 1,
             "Item Name": newItemName,
-            Approver: val.Approver,
+            Approver: val.Approver !== 0 ? val.Approver : "",
             Issuer: val.IssuedUser,
             ...e,
           };
@@ -136,7 +136,7 @@ const ChalaniTable = (props) => {
   };
 
   const handleApprove = (e) => {
-    // console.log("e", e);
+    console.log("e", e);
     let data = {
       chalanId: e.DCId,
       userId: e.UserId,

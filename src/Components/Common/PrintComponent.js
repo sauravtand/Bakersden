@@ -17,9 +17,7 @@ const PrintComponent = ({
   modalHeaders,
   tempPartyDetails,
 }) => {
-  const { token } = useToken();
-
-  console.log(ChalaniItemList, "ProductionList");
+  // console.log(ChalaniItemList, "ProductionList");
   //print handler
   //needs csvData, tableHead, fromTodate
   const printHandle = () => {
@@ -79,9 +77,9 @@ const PrintComponent = ({
 
     
       `;
-      let footer = `
- 
-      <div 
+
+      if (ChalaniItemList) {
+        var footerContent = `    <div 
       style='display: flex;
       justify-content: space-between;
       margin-top: 50px;
@@ -90,13 +88,19 @@ const PrintComponent = ({
       font-weight: 400
     '
       >
-      <p>${ChalaniItemList[0].Issuer}</p>
-      <p>${ChalaniItemList[0].Approver}</p>
-      <p>${ChalaniItemList[0].Approver}</p>
+   
+      <p>${ChalaniItemList[0]?.Issuer ? ChalaniItemList[0].Issuer : ""}</p>
+      <p>${ChalaniItemList[0]?.Approver ? ChalaniItemList[0].Approver : ""}</p>
+      <p>${ChalaniItemList[0]?.Approver ? ChalaniItemList[0].Approver : ""}</p>
 
  
 
-      </div>
+      </div>`;
+      }
+
+      let footer = `
+ 
+  
 
 
 
@@ -197,6 +201,7 @@ const PrintComponent = ({
           refName +
           modalAdditionalHeader +
           allTable +
+          footerContent +
           footer;
 
         setTimeout(function () {
