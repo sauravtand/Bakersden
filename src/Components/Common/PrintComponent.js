@@ -17,7 +17,7 @@ const PrintComponent = ({
   modalHeaders,
   tempPartyDetails,
 }) => {
-  // console.log(ChalaniItemList, "ProductionList");
+  console.log(ChalaniItemList, "ChalaniItemList", tempPartyDetails);
   //print handler
   //needs csvData, tableHead, fromTodate
   const printHandle = () => {
@@ -89,10 +89,9 @@ const PrintComponent = ({
     '
       >
    
-      <p>${ChalaniItemList[0]?.Issuer ? ChalaniItemList[0].Issuer : ""}</p>
-      <p>${ChalaniItemList[0]?.Approver ? ChalaniItemList[0].Approver : ""}</p>
-      <p>${ChalaniItemList[0]?.Approver ? ChalaniItemList[0].Approver : ""}</p>
-
+      <p>${ChalaniItemList[0].Issuer}</p>
+      <p>${tempPartyDetails.Approver}</p>
+      <p>${tempPartyDetails.Approver}</p>
  
 
       </div>`;

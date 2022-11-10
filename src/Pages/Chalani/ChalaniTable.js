@@ -101,6 +101,7 @@ const ChalaniTable = (props) => {
     GetChalanItemDetailsByChalansId(val.DCId, (res) => {
       if (res.chalandetails.length > 0) {
         // setChalaniItemList(res.chalandetails);
+        console.log(res, "resres");
 
         let tempArr = [];
         let temp;
@@ -114,8 +115,8 @@ const ChalaniTable = (props) => {
           temp = {
             SN: index + 1,
             "Item Name": newItemName,
-            Approver: val.Approver !== 0 ? val.Approver : "",
             Issuer: val.IssuedUser,
+
             ...e,
           };
           tempArr.push(temp);
@@ -147,6 +148,7 @@ const ChalaniTable = (props) => {
         console.log("success");
 
         if (token) {
+          console.log(token, "token");
           let Party = {
             ApprovedBy: token.id,
             Approver: token.userName,
@@ -167,7 +169,9 @@ const ChalaniTable = (props) => {
           UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
             if (res.SuccessMsg === true) {
               // console.log("Successssss", res, Party);
+
               message.success("Approved Successfully");
+              setReloadOnButtonClick(true);
             } else {
               message.warning("Error, saving data!");
             }
@@ -251,14 +255,14 @@ const ChalaniTable = (props) => {
               onClick={(e) => {
                 handleApprove(record);
                 // console.log("recod", record);
-                setReloadOnButtonClick(true);
               }}
               // disabled={record.DCId ? false : true}
               // isApproved={isApproved}
               disabled={record.ApprovedBy !== 0 ? true : false}
               style={{
-                borderColor: record.ApprovedBy !== 0 ? "red" : "green",
+                backgroundColor: record.ApprovedBy !== 0 ? "#067d01" : "",
                 borderWidth: "1.5px",
+                color: record.ApprovedBy !== 0 ? "white" : "black",
               }}
             >
               {record.ApprovedBy !== 0 ? "Approved" : "Approve"}
