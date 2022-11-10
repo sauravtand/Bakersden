@@ -17,7 +17,7 @@ const PrintComponent = ({
   modalHeaders,
   tempPartyDetails,
 }) => {
-  console.log(ChalaniItemList, "ChalaniItemList", tempPartyDetails);
+  // console.log(ChalaniItemList, "ChalaniItemList", tempPartyDetails);
   //print handler
   //needs csvData, tableHead, fromTodate
   const printHandle = () => {
@@ -27,7 +27,7 @@ const PrintComponent = ({
 
     // console.log("temp", temp);
 
-    // console.log(tempPartyDetails);
+    console.log("tempPartyDetails", tempPartyDetails);
     // console.log(tempPartyDetails?.Approver);
 
     if (
@@ -57,6 +57,7 @@ const PrintComponent = ({
        <p>Party Name:  ${tempPartyDetails.PartyName}</p>
           <p>Production Date: ${tempPartyDetails.EntryDate.slice(0, 10)}</p>
           <p>Delivery Date: ${tempPartyDetails.DeliveryDate.slice(0, 10)}</p>
+          <P>Chalani ID: ${tempPartyDetails.DCId}
         <h4 style="text-align:center;">Chalani Details<h4>
     `;
       }

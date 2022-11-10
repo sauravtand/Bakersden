@@ -37,7 +37,14 @@ const Login = () => {
             };
             setToken(temp);
             localStorage.setItem("userData", JSON.stringify(temp));
-            navigate("/ChalaniTable");
+
+            let navpage;
+
+            navigate(
+              temp.id === 1 || temp.id === 8
+                ? "/ProductionEntry"
+                : "/ChalaniTable"
+            );
             dispatch(storeUserData(temp));
           } else {
             message.error("Incorrect Username or Password");

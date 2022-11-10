@@ -14,27 +14,31 @@ const MainRoute = () => {
     <Routes>
       {/* <Route exact path="/Login" element={<Login />}></Route> */}
 
-      <Route
-        exact
-        path="/ProductionEntry"
-        element={userData?.userrole === 1 && <ProductionEntry />}
-      />
-      <Route
-        exact
-        path="/ProductionTable"
-        element={userData?.userrole === 1 && <ProductionTable />}
-      />
-      <Route
-        exact
-        path="/AddedAndParty"
-        element={userData?.userrole === 1 && <AddedAndParty />}
-      />
+      {(userData?.userrole === 1 || userData?.userrole === 8) && (
+        <Route exact path="/ProductionEntry" element={<ProductionEntry />} />
+      )}
+
+      {(userData?.userrole === 1 || userData?.userrole === 8) && (
+        <Route exact path="/ProductionTable" element={<ProductionTable />} />
+      )}
+      {(userData?.userrole === 1 ||
+        userData?.userrole === 3 ||
+        userData?.userrole === 4 ||
+        userData?.userrole === 5 ||
+        userData?.userrole === 6 ||
+        userData?.userrole === 7) && (
+        <Route exact path="/AddedAndParty" element={<AddedAndParty />} />
+      )}
+
       <Route path="/ChalaniTable" element={<ChalaniTable />} />
-      <Route
-        exact
-        path="/RemainingProduction"
-        element={userData?.userrole === 1 && <RemainingProduction />}
-      />
+
+      {(userData?.userrole === 1 || userData?.userrole === 8) && (
+        <Route
+          exact
+          path="/RemainingProduction"
+          element={<RemainingProduction />}
+        />
+      )}
     </Routes>
   );
 };

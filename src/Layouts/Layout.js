@@ -1,7 +1,7 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout, Menu, Popover } from "antd";
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route } from "react-router-dom";
 import styled from "styled-components";
 import { RouteDataAdmin } from "../Helpers/NavMenuData";
 import MainRoute from "../Routes/MainRoute";
@@ -20,12 +20,17 @@ const MainLayout = () => {
   const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
-    // console.log(localStorageUserData, "hello fromlocal storage");
-    let sideBarData =
-      localStorageUserData.userrole === 2
-        ? RouteDataAdmin.slice(4, 5)
-        : RouteDataAdmin;
-    setSideBarDataNew(sideBarData);
+    console.log(localStorageUserData, "hello fromlocal storage");
+
+    if (localStorageUserData.userrole == 1) {
+      setSideBarDataNew(RouteDataAdmin);
+    } else if (localStorageUserData.userrole === 2) {
+      setSideBarDataNew(RouteDataAdmin.slice(4, 5));
+    } else if (localStorageUserData.userrole === 8) {
+      setSideBarDataNew(RouteDataAdmin.slice(0, 3));
+    } else if (localStorageUserData.userrole === 3 || 4 || 5 || 6 || 7) {
+      setSideBarDataNew(RouteDataAdmin.slice(3, 5));
+    }
   }, []);
 
   const content = (
