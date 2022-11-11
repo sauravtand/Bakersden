@@ -42,14 +42,31 @@ const PrintComponent = ({
     tbody > tr:last-child > td{
         // font-size: 12px;
         // font-weight: 500;
-    }</style>`;
+    }
+    
+    
+    </style>`;
 
       if (tempPartyDetails) {
         var modalAdditionalHeader = `
-       <p>Party Name:  ${tempPartyDetails.PartyName}</p>
-          <p>Production Date: ${tempPartyDetails.EntryDate.slice(0, 10)}</p>
-          <p>Delivery Date: ${tempPartyDetails.DeliveryDate.slice(0, 10)}</p>
-          <P>Chalani ID: ${tempPartyDetails.DCId}
+
+        <p>Chalani Number: ${
+          tempPartyDetails.DCId
+        }<span style='float:right'>Production Date: ${tempPartyDetails.EntryDate.slice(
+          0,
+          10
+        )}</span</p>
+       <p>Party Name: ${
+         tempPartyDetails.PartyName
+       } <span style='float:right'>Delivery Date: ${tempPartyDetails.DeliveryDate.slice(
+          0,
+          10
+        )}</span>
+</p>
+      
+      
+     
+  
         <h4 style="text-align:center;">Chalani Details<h4>
     `;
       }
