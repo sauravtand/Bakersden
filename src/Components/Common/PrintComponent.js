@@ -17,18 +17,10 @@ const PrintComponent = ({
   modalHeaders,
   tempPartyDetails,
 }) => {
-  // console.log(ChalaniItemList, "ChalaniItemList", tempPartyDetails);
-  //print handler
-  //needs csvData, tableHead, fromTodate
   const printHandle = () => {
     if (!remainingProduction && !ChalaniItemList && !ProductionList) {
       var temp = addname();
     }
-
-    // console.log("temp", temp);
-
-    console.log("tempPartyDetails", tempPartyDetails);
-    // console.log(tempPartyDetails?.Approver);
 
     if (
       ProductList ||
@@ -91,8 +83,18 @@ const PrintComponent = ({
       >
    
       <p>${ChalaniItemList[0].Issuer}</p>
-      <p>${tempPartyDetails.Approver}</p>
-      <p>${tempPartyDetails.Approver}</p>
+      <p>${
+        tempPartyDetails.Approver !== null &&
+        tempPartyDetails.Approver !== undefined
+          ? tempPartyDetails.Approver
+          : ""
+      }</p>
+      <p>${
+        tempPartyDetails.Approver !== null &&
+        tempPartyDetails.Approver !== undefined
+          ? tempPartyDetails.Approver
+          : ""
+      }</p>
  
 
       </div>`;
@@ -187,7 +189,6 @@ const PrintComponent = ({
         ChalaniItemList.forEach((ele) => {
           tableBody = tableBody + "<tr>";
           columns.forEach((cell) => {
-            // console.log(ele);
             tableBody = tableBody + "<td>" + ele[cell] + "</td>";
           });
           tableBody = tableBody + "</tr>";

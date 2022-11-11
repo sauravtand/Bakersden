@@ -36,13 +36,10 @@ const ChalaniTable = (props) => {
     // const date = new Date().toISOString();
 
     GetItemLists((res) => {
-      // console.log("item list", res.ItemList);
       if (res?.ItemList.length > 0) {
         setItemList(res.ItemList);
-        // console.log(itemList);
       }
     });
-    // console.log("token,token", token);
   }, []);
 
   useEffect(() => {
@@ -68,10 +65,6 @@ const ChalaniTable = (props) => {
     setReloadOnButtonClick(false);
   }, [reloadOnButtonClick]);
 
-  // setTimeout(() => {
-  //   console.log(ProductionList, "hellomf");
-  // }, 2000);
-
   function onDateRangeChange(data) {
     setProductionList();
     let newData = {
@@ -79,7 +72,6 @@ const ChalaniTable = (props) => {
       todate: data[1].format("YYYY-MM-DD"),
     };
     getTableData(newData);
-    // console.log(data);
   }
 
   function getTableData(date) {
@@ -90,18 +82,14 @@ const ChalaniTable = (props) => {
     });
   }
 
-  // console.log(ProductList)
   const handlePreview = (val) => {
-    console.log("e", val);
     setTempPartyDetails(val);
 
-    // console.log(tempPartyDetails);
     setIsModalVisible(true);
 
     GetChalanItemDetailsByChalansId(val.DCId, (res) => {
       if (res.chalandetails.length > 0) {
         // setChalaniItemList(res.chalandetails);
-        console.log(res, "resres");
 
         let tempArr = [];
         let temp;
@@ -122,7 +110,6 @@ const ChalaniTable = (props) => {
           tempArr.push(temp);
         });
 
-        // console.log("temp arr", tempArr);
         setChalaniItemList(tempArr);
       }
     });
@@ -137,7 +124,6 @@ const ChalaniTable = (props) => {
   };
 
   const handleApprove = (e) => {
-    console.log("e", e);
     let data = {
       chalanId: e.DCId,
       userId: e.UserId,
@@ -148,7 +134,6 @@ const ChalaniTable = (props) => {
         console.log("success");
 
         if (token) {
-          console.log(token, "token");
           let Party = {
             ApprovedBy: token.id,
             Approver: token.userName,
@@ -168,8 +153,6 @@ const ChalaniTable = (props) => {
           };
           UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
             if (res.SuccessMsg === true) {
-              // console.log("Successssss", res, Party);
-
               message.success("Approved Successfully");
               setReloadOnButtonClick(true);
             } else {
@@ -182,11 +165,6 @@ const ChalaniTable = (props) => {
       }
     });
   };
-
-  // useEffect(() => {
-  //   console.log(approveUser, "aproveUser");
-  //   console.log("ProductionList", ProductionList);
-  // }, [approveUser]);
 
   const columns = [
     {
@@ -344,7 +322,6 @@ const ChalaniTable = (props) => {
         />
         <RangePicker
           onChange={(value) => {
-            console.log(value, "onchangevalue");
             onDateRangeChange(value);
           }}
         />

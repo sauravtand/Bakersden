@@ -37,7 +37,6 @@ const ProductionEntry = () => {
   const [ItemLists, setItemLists] = useState();
 
   const { token } = useToken();
-  // console.log("aaa", token);
 
   const onFinish = (values) => {
     setisbutdis(true);
@@ -81,7 +80,6 @@ const ProductionEntry = () => {
 
   useEffect(() => {
     GetItemLists((res) => {
-      // console.log("item list", res.ItemList);
       setItemLists(res.ItemList);
     });
   }, []);
@@ -174,13 +172,13 @@ const ProductionEntry = () => {
                 <Form.Item name="remarks" label="Remarks" id="remark">
                   <TextArea rows={5} />
                 </Form.Item>
-                <Form.Item
+                {/* <Form.Item
                   name="isActive"
                   label="isActive"
                   valuePropName="Checked"
                 >
                   <Switch defaultChecked />
-                </Form.Item>
+                </Form.Item> */}
 
                 <Form.Item>
                   <Button
