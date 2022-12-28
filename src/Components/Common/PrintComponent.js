@@ -1,5 +1,5 @@
 import { Button, message } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { CSVLink } from "react-csv";
 import { newTableStyles } from "./TableStyles";
 import { companyDetail } from "../../Helpers/CompanyDetails";
@@ -17,9 +17,23 @@ const PrintComponent = ({
   modalHeaders,
   tempPartyDetails,
 }) => {
+
+
+  // const [dataForCSV, setDataForCSV] = useState()
+
+  // const CSVdata = addname();
+  // setDataForCSV(CSVdata);
+  if (addname) {
+
+    var CSVdata = addname()
+  }
+
+
+
   const printHandle = () => {
     if (!remainingProduction && !ChalaniItemList && !ProductionList) {
       var temp = addname();
+
     }
 
     if (
@@ -50,18 +64,16 @@ const PrintComponent = ({
       if (tempPartyDetails) {
         var modalAdditionalHeader = `
 
-        <p>Chalani Number: ${
-          tempPartyDetails.DCId
-        }<span style='float:right'>Production Date: ${tempPartyDetails.EntryDate.slice(
-          0,
-          10
-        )}</span</p>
-       <p>Party Name: ${
-         tempPartyDetails.PartyName
-       } <span style='float:right'>Delivery Date: ${tempPartyDetails.DeliveryDate.slice(
-          0,
-          10
-        )}</span>
+        <p>Chalani Number: ${tempPartyDetails.DCId
+          }<span style='float:right'>Production Date: ${tempPartyDetails.EntryDate.slice(
+            0,
+            10
+          )}</span</p>
+       <p>Party Name: ${tempPartyDetails.PartyName
+          } <span style='float:right'>Delivery Date: ${tempPartyDetails.DeliveryDate.slice(
+            0,
+            10
+          )}</span>
 </p>
       
       
@@ -74,14 +86,12 @@ const PrintComponent = ({
       let refName = `
          <div style='text-align:center;'>
           <h1>${companyDetail.companyName}<h1>
-          <h3>${companyDetail.companyAddress}, Phone:${
-        companyDetail.companyPhoneNo
-      }<h3>
-           <h4>${
-             ChalaniItemList || remainingProduction
-               ? ""
-               : companyDetail.reportName
-           }<h4>
+          <h3>${companyDetail.companyAddress}, Phone:${companyDetail.companyPhoneNo
+        }<h3>
+           <h4>${ChalaniItemList || remainingProduction
+          ? ""
+          : companyDetail.reportName
+        }<h4>
            <h4>${remainingProduction ? "Remaining Production Data" : ""}<h4>
       </div>
 
@@ -100,18 +110,16 @@ const PrintComponent = ({
       >
    
       <p>${ChalaniItemList[0].Issuer}</p>
-      <p>${
-        tempPartyDetails.Approver !== null &&
-        tempPartyDetails.Approver !== undefined
-          ? tempPartyDetails.Approver
-          : ""
-      }</p>
-      <p>${
-        tempPartyDetails.Approver !== null &&
-        tempPartyDetails.Approver !== undefined
-          ? tempPartyDetails.Approver
-          : ""
-      }</p>
+      <p>${tempPartyDetails.Approver !== null &&
+            tempPartyDetails.Approver !== undefined
+            ? tempPartyDetails.Approver
+            : ""
+          }</p>
+      <p>${tempPartyDetails.Approver !== null &&
+            tempPartyDetails.Approver !== undefined
+            ? tempPartyDetails.Approver
+            : ""
+          }</p>
  
 
       </div>`;
@@ -146,6 +154,7 @@ const PrintComponent = ({
 
       if (headers) {
         headers.forEach((ele) => {
+          console.log(ele.label, 'elelelele');
           tableHeadHtml += `<th>${ele?.label}</th>`;
           columns.push(ele.key);
         });
@@ -232,6 +241,10 @@ const PrintComponent = ({
     }
   };
 
+
+
+
+
   return (
     <>
       {forPrint && (
@@ -249,7 +262,7 @@ const PrintComponent = ({
       {forCSV && (
         <Button type="primary" style={{ float: "right" }}>
           <CSVLink
-            data={ProductList !== undefined ? ProductList : ""}
+            data={CSVdata !== undefined ? CSVdata : ""}
             filename={"ProductionData.csv"}
           >
             Export to CSV

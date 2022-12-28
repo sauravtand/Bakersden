@@ -44,6 +44,22 @@ const ProductionTable = () => {
     // addname();
     // console.log("productList", ProductList);
   }, [editingProduct]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const addname = () => {
     // setIsChanging(true);
     let tempArr = [];

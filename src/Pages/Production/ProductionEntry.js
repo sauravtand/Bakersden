@@ -89,7 +89,7 @@ const ProductionEntry = () => {
       <Header title={"Production Entry"}></Header>
       <div className="mainContainer">
         <Row>
-          <Col span={7}>
+          <Col span={8}>
             <div>
               <Form
                 {...layout}
@@ -123,7 +123,7 @@ const ProductionEntry = () => {
                     filterOption={(input, option) => {
                       return (
                         option.key.toLowerCase().indexOf(input.toLowerCase()) >=
-                          0 ||
+                        0 ||
                         option.title
                           .toLowerCase()
                           .indexOf(input.toLowerCase()) >= 0
@@ -160,11 +160,11 @@ const ProductionEntry = () => {
                   name="SpoilageCount"
                   label="Spoilage"
                   id="SpoilageCount"
-                  // rules={[
-                  //   {
-                  //     required: true,
-                  //   },
-                  // ]}
+                // rules={[
+                //   {
+                //     required: true,
+                //   },
+                // ]}
                 >
                   <InputNumber min={0} style={{ width: "100%" }} />
                 </Form.Item>
@@ -199,11 +199,11 @@ const ProductionEntry = () => {
               </Form>
             </div>
           </Col>
-          <Col span={15} offset={2}>
+          <Col span={14} offset={2}>
             <div
               style={{
                 borderLeft: "2px solid #d9dadb",
-                paddingLeft: "20px",
+                paddingLeft: "5px",
               }}
             >
               <ProductionEntryTab

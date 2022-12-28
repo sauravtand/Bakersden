@@ -38,6 +38,37 @@ const ProductionEntryTab = (props) => {
       }
     });
   }
+
+
+  // useEffect(() => {
+
+  //   const newProductList = ProductList?.map((item) => {
+  //     // console.log(item, 'this is item');
+  //     let productName = ItemLists?.map((value) => {
+  //       if (value.itmId === item.ItemId) {
+
+  //         return value.ItmName;
+  //       }
+  //     });
+
+  //     console.log('this is product name', productName)
+
+
+
+  //   }
+
+
+  //   )
+  //   // console.log('this is the  new product list', newProductList);
+  // }, [ProductList, ItemLists])
+
+
+
+
+
+
+
+
   const addName = () => {
     let tempArr = [];
     let temp;
