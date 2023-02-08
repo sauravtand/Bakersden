@@ -47,4 +47,18 @@ export const RouteDataAdmin = [
     icon: MdOutlineReceiptLong,
     key: 5,
   },
+  {
+    id: 6,
+    label: "Items Entry",
+    pathName: "/ItemsEntry",
+    icon: MdOutlineReceiptLong,
+    key: 6,
+  },
+  {
+    id: 7,
+    label: "Users",
+    pathName: "/InsertUsers",
+    icon: MdOutlineReceiptLong,
+    key: 7,
+  },
 ];

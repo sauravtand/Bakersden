@@ -12,6 +12,9 @@ import {
   ReceiveDeliveryChalan,
   UpdateChalanItems,
   UpdateDeliveryChalan,
+  InsertUpdateItemDetails,
+  InsertUpdateUserDetails,
+  GetListOfUsers,
 } from "../constants/url";
 // import { GenerateUrlEncodedData } from "../Helpers/GenerateUrlEncodedData";
 // import { fetch, store } from "../Helpers/HttpUtil";
@@ -241,6 +244,45 @@ export const ReceiveDeliveryChalani = async (data, successCallback) => {
     } else {
       successCallback([]);
     }
+  } catch (error) {
+    successCallback([]);
+  }
+};
+
+export const InsertUpdateItemDetail = async (data, successCallback) => {
+  let formData = generateUrlEncodedData(data);
+  // return
+  try {
+    const response = await store(`${InsertUpdateItemDetails}`, formData);
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else successCallback([]);
+  } catch (error) {
+    successCallback([]);
+  }
+};
+
+export const GetListOfUser = async (successCallback) => {
+  try {
+    const response = await fetch(`${GetListOfUsers}`);
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else {
+      successCallback([]);
+    }
+  } catch (error) {
+    successCallback([]);
+  }
+};
+
+export const InsertUpdateUserDetail = async (data, successCallback) => {
+  let formData = generateUrlEncodedData(data);
+  // return
+  try {
+    const response = await store(`${InsertUpdateUserDetails}`, formData);
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else successCallback([]);
   } catch (error) {
     successCallback([]);
   }

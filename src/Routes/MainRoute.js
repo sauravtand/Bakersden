@@ -5,6 +5,9 @@ import ProductionTable from "../Pages/Production/ProductionTable";
 import ChalaniTable from "../Pages/Chalani/ChalaniTable";
 import RemainingProduction from "../Pages/Production/RemainingProduction";
 import AddedAndParty from "../Pages/Chalani/AddedAndParty";
+import ItemsEntry from "../Pages/Items/ItemsEntry";
+import InsertUsers from "../Pages/Users/InsertUsers";
+import EditUser from "../Pages/Users/EditUser";
 import useToken from "../Helpers/useToken";
 
 const MainRoute = () => {
@@ -41,6 +44,10 @@ const MainRoute = () => {
           element={<RemainingProduction />}
         />
       )}
+
+      <Route path="/ItemsEntry" element={<ItemsEntry />} />
+      <Route path="/InsertUsers" element={<InsertUsers />} />
+      <Route path="/EditUser" element={<EditUser />} />
     </Routes>
   );
 };

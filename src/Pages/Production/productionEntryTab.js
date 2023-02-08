@@ -39,7 +39,6 @@ const ProductionEntryTab = (props) => {
     });
   }
 
-
   // useEffect(() => {
 
   //   const newProductList = ProductList?.map((item) => {
@@ -53,21 +52,11 @@ const ProductionEntryTab = (props) => {
 
   //     console.log('this is product name', productName)
 
-
-
   //   }
-
 
   //   )
   //   // console.log('this is the  new product list', newProductList);
   // }, [ProductList, ItemLists])
-
-
-
-
-
-
-
 
   const addName = () => {
     let tempArr = [];

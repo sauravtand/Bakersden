@@ -45,21 +45,6 @@ const ProductionTable = () => {
     // console.log("productList", ProductList);
   }, [editingProduct]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const addname = () => {
     // setIsChanging(true);
     let tempArr = [];
@@ -68,11 +53,14 @@ const ProductionTable = () => {
       // console.log("hello wosdfsdfsd");
       ProductList.map((e, index) => {
         let newItemName = "";
-        itemList.forEach((res) => {
-          if (res.itmId === e.ItemId) {
-            newItemName = res.ItmName;
-          }
-        });
+        if (itemList) {
+          itemList.forEach((res) => {
+            if (res.itmId === e.ItemId) {
+              newItemName = res.ItmName;
+            }
+          });
+        }
+
         temp = {
           ItemName: newItemName,
           ...e,

@@ -20,7 +20,7 @@ const MainLayout = () => {
   const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
-    console.log(localStorageUserData, "hello fromlocal storage");
+    // console.log(localStorageUserData, "hello fromlocal storage");
 
     if (localStorageUserData.userrole == 1) {
       setSideBarDataNew(RouteDataAdmin);
