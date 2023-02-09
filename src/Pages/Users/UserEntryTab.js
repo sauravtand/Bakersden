@@ -1,7 +1,6 @@
 import { Table, Tag, Modal, Input, Checkbox, Alert, Select } from "antd";
 import styled from "styled-components";
 import { EditOutlined } from "@ant-design/icons";
-
 import { useEffect, useState } from "react";
 import {
   GetListOfUser,
@@ -9,7 +8,7 @@ import {
   InsertUpdateUserDetail,
 } from "../../Services/appServices/ProductionService";
 import PrintComponent from "../../Components/Common/PrintComponent";
-import { InsertUpdateUserDetails } from "../../Services/constants/url";
+
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -36,7 +35,6 @@ const UserEntryTab = (props) => {
   useEffect(() => {
     getTableData();
     GetListOfUser((res) => {
-      // console.log(res.UserList, "users");
       setUserLists(res.UserList);
       if (res?.UserList.length > 0) {
         setuserList(res?.ItemList);
@@ -83,22 +81,15 @@ const UserEntryTab = (props) => {
       Id: editingProduct.Id,
       // ItemCode: editingProduct.itmCode,
       UserName: editingProduct.UserName,
-      UserPassword: editProduct.UserPassword,
+      UserPassword: editingProduct.UserPassword,
       IsActive: editingProduct.IsActive,
       UserRole: editingProduct.UserRole,
     };
     InsertUpdateUserDetail(data, (res) => {
-      console.log(data, res, "update");
-      // setisbutdis(false)
       if (res?.SuccessMsg === true) {
         <Alert message="The data is saved" type="success" showIcon />;
-
-        // setisbutdis(false)
-        // onReset()
       } else {
         <Alert message="Error" type="Error" showIcon />;
-
-        // setisbutdis(false)
       }
     });
   };
@@ -109,7 +100,6 @@ const UserEntryTab = (props) => {
       dataIndex: "Id",
       key: "Id",
       sorter: (a, b) => a.Id - b.Id,
-      sortOrder: "descend",
     },
     {
       title: "User Name",
@@ -146,12 +136,13 @@ const UserEntryTab = (props) => {
           </>
         );
       },
+      sorter: (a, b) => a.IsActive - b.IsActive,
     },
     {
       title: "Action",
       key: "action",
       render: (_, record) => {
-        // console.log(record, "this is log123123123123");
+        console.log(record, "i am here");
         return (
           <>
             <CIcon
@@ -161,9 +152,6 @@ const UserEntryTab = (props) => {
             >
               <EditOutlined />
               <span>Edit</span>
-              {/* <Button >
-                  <FcPrint style={{ marginRight: '5px', fontSize: '20px' }} /> Print
-                </Button> */}
             </CIcon>
           </>
         );
@@ -173,7 +161,6 @@ const UserEntryTab = (props) => {
   const editProduct = (record) => {
     setisEditing(true);
     setEditingProduct({ ...record });
-    // console.log(editingProduct, "main");
   };
   const resetEditing = () => {
     setisEditing(false);
@@ -181,7 +168,7 @@ const UserEntryTab = (props) => {
   };
   //CSV
   const headers = [
-    // { label: "ItemId", key: "itmId" },
+    { label: "Id", key: "Id" },
     { label: "User Name", key: "UserName" },
     { label: "User Role ", key: "UserRole" },
     { label: "IsActive", key: "IsActive" },
@@ -192,7 +179,7 @@ const UserEntryTab = (props) => {
       <div>
         <PrintComponent
           addname={addName}
-          UserList={userList}
+          userList={userList}
           headers={headers}
           forCSV
           forPrint
@@ -217,7 +204,6 @@ const UserEntryTab = (props) => {
             setisEditing(false);
           }}
           onOk={() => {
-            // handleEditing();
             resetEditing();
             onFinish();
           }}
@@ -283,10 +269,6 @@ const CIcon = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-
-  /* span{
-    margin-left: 16px;
-  } */
 
   &:hover {
     background-color: #84b0c9;

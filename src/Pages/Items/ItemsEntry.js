@@ -48,6 +48,7 @@ const ItemsEntry = () => {
         message.success("Item Added");
         setisbutdis(false);
         setreloadTable(true);
+
         onReset();
       } else {
         message.error("Error!");

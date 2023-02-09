@@ -1,119 +1,40 @@
-import { Table } from "antd";
-import { useEffect, useState } from "react";
-import { GetItemLists } from "../../Services/appServices/ProductionService";
-import PrintComponent from "../../Components/Common/PrintComponent";
-
-const ItemEntryTab = (props) => {
-  const { reloadTable, tableAfterReloaded } = props;
-  // const [isEditing, setisEditing] = useState(false);
-  const [ProductList, setProductList] = useState();
-  // const [editingProduct, setEditingProduct] = useState();
-  const [ItemLists, setItemLists] = useState();
-  useEffect(() => {
-    if (reloadTable === true) {
-      getTableData();
-      tableAfterReloaded(false);
-    }
-  }, [reloadTable]);
-  useEffect(() => {
-    // const date = new Date().toISOString();
-    getTableData();
-    GetItemLists((res) => {
-      // console.log("item list", res.ItemList);
-      setItemLists(res.ItemList);
-    });
-  }, []);
-
-  function getTableData() {
-    const date = {
-      fromdate: new Date().toISOString(),
-      todate: new Date().toISOString(),
-    };
-    GetItemLists(date, (res) => {
-      console.log(res);
-      if (res?.ItemList.length > 0) {
-        setProductList(res?.ItemList);
-      }
-    });
-  }
-
-  const addName = () => {
-    let tempArr = [];
-    let temp;
-    if (ProductList !== undefined) {
-      console.log(ProductList, "sahi ho");
-      ProductList.map((e) => {
-        let newItemName = "";
-        ItemLists.forEach((res) => {
-          if (res.itmId === e.ItemId) {
-            newItemName = res.ItmName;
-          }
-        });
-        temp = {
-          ItemName: newItemName,
-          ...e,
-        };
-        tempArr.push(temp);
-      });
-    }
-    return tempArr;
-  };
-
   const columns = [
     {
-      title: "Item Id",
-      dataIndex: "itmId",
-      key: "itmId",
+      title: "ItemId",
+      dataIndex: "ItemId",
+      key: "ItemId",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.PId - b.PId,
     },
-    // {
-    //   title: "Item Code",
-    //   dataIndex: "itmCode",
-    //   key: "itmCode",
-    // },
     {
       title: "Item Name",
-      dataIndex: "ItmName",
-      key: "ItmName",
+      dataIndex: "ItemName",
+      key: "ItemName",
     },
-    // {
-    //   title: "Added Date",
-    //   dataIndex: "itmDateAdded",
-    //   key: "itmDateAdded",
-    // },
-    // {
-    //   title: "Units",
-    //   dataIndex: "Units",
-    //   key: "Units",
-    // },
-  ];
-  //CSV
-  const headers = [
-    { label: "ItemId", key: "itmId" },
-    { label: "Item Name", key: "ItmName" },
-    { label: "Added date ", key: "itmDateAdded" },
-    { label: "Units", key: "Units" },
-  ];
-  return (
-    <>
-      <PrintComponent
-        addname={addName}
-        ProductList={ProductList}
-        headers={headers}
-        forCSV
-        forPrint
-      />
+    {
+      title: "Opening",
+      dataIndex: "Opening",
+      key: "Opening",
+    },
 
-      <div>
-        <Table
-          columns={columns}
-          dataSource={ProductList !== undefined ? ProductList : ""}
-          style={{ height: "490px" }}
-          scroll={{
-            y: 350,
-          }}
-        />
-      </div>
-    </>
-  );
-};
-export default ItemEntryTab;
+    {
+      title: "Production",
+      dataIndex: "Production",
+      key: "Production",
+    },
+    {
+      title: "Total",
+      dataIndex: "Total",
+      key: "Total",
+    },
+    {
+      title: "Consumption",
+      dataIndex: "Consumption",
+      key: "Consumption",
+    },
+    {
+      title: "Remaining",
+      dataIndex: "Remaining",
+      key: "Remaining",
+    },
+  ];

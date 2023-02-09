@@ -15,14 +15,14 @@ const ItemEntryTab = (props) => {
   const [isEditing, setisEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState();
   const [ProductList, setProductList] = useState();
-  const [hello, setHello] = useState();
   const [ItemLists, setItemLists] = useState();
+
   useEffect(() => {
     if (reloadTable === true) {
       getTableData();
       tableAfterReloaded(false);
     }
-  }, [reloadTable]);
+  }, []);
   useEffect(() => {
     // const date = new Date().toISOString();
     getTableData();
@@ -31,7 +31,6 @@ const ItemEntryTab = (props) => {
       setItemLists(res.ItemList);
       if (res?.ItemList.length > 0) {
         setProductList(res?.ItemList);
-        setHello(ProductList.ItmName);
       }
     });
   }, []);

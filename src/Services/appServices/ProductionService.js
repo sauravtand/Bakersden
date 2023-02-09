@@ -15,6 +15,8 @@ import {
   InsertUpdateItemDetails,
   InsertUpdateUserDetails,
   GetListOfUsers,
+  UpdateOpeningStockOfItems,
+  GetDayWiseProductionStockDetails,
 } from "../constants/url";
 // import { GenerateUrlEncodedData } from "../Helpers/GenerateUrlEncodedData";
 // import { fetch, store } from "../Helpers/HttpUtil";
@@ -283,6 +285,35 @@ export const InsertUpdateUserDetail = async (data, successCallback) => {
     if (response?.status === 200) {
       successCallback(response?.data);
     } else successCallback([]);
+  } catch (error) {
+    successCallback([]);
+  }
+};
+export const UpdateOpeningStockOfItem = async (data, successCallback) => {
+  try {
+    const response = await store(`${UpdateOpeningStockOfItems}`, data);
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else {
+      successCallback([]);
+    }
+  } catch (error) {
+    successCallback([]);
+  }
+};
+export const GetDayWiseProductionStockDetail = async (
+  data,
+  successCallback
+) => {
+  try {
+    const response = await fetch(
+      `${GetDayWiseProductionStockDetails}?stockDate=${data.stockDate}`
+    );
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else {
+      successCallback([]);
+    }
   } catch (error) {
     successCallback([]);
   }

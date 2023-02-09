@@ -213,8 +213,19 @@ export const InsertUpdateUserDetails = "InsertUpdateUserDetails";
 }  
  */
 
-export const GetListOfUsers = `GetListOfUsers`;
+export const UpdateOpeningStockOfItems = `UpdateOpeningStockOfItems`;
+/**
+ * @params{
+ * id,date
+ * }
+ */
 
+export const GetListOfUsers = `GetListOfUsers`;
+/**
+ * @desc: Get User List
+ */
+
+export const GetDayWiseProductionStockDetails = `GetDayWiseProductionStockDetails`;
 /**
  * @desc: Get User List
  */

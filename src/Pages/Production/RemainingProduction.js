@@ -5,7 +5,7 @@ import { GetRemainingProductionGoodsByDatee } from "../../Services/appServices/P
 import PrintComponent from "../../Components/Common/PrintComponent";
 const { RangePicker } = DatePicker;
 
-export default function RemainingProduction() {
+export default function RemainingProduction({ title }) {
   const [remainingProduction, setRemainingProduction] = useState();
 
   useEffect(() => {
