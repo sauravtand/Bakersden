@@ -291,7 +291,10 @@ export const InsertUpdateUserDetail = async (data, successCallback) => {
 };
 export const UpdateOpeningStockOfItem = async (data, successCallback) => {
   try {
-    const response = await store(`${UpdateOpeningStockOfItems}`, data);
+    const response = await store(
+      `${UpdateOpeningStockOfItems}?currentDate=${data.currentDate}&userId=${data.userId}`,
+      data
+    );
     if (response?.status === 200) {
       successCallback(response?.data);
     } else {

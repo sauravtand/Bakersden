@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { useState } from "react";
 import { UpdateOpeningStockOfItem } from "../../Services/appServices/ProductionService";
 import useToken from "../../Helpers/useToken";
-const { RangePicker } = DatePicker;
 const ClosingDate = () => {
   const { token } = useToken();
   const [isbutdis, setisbutdis] = useState(false);
@@ -16,14 +15,25 @@ const ClosingDate = () => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleSave = () => {
+    if (!selectedDate) {
+      message.error("Please select a date.");
+      return;
+    }
+
+    let confirmed = window.confirm(
+      "Do you want to enter this date for closing?"
+    );
+    if (!confirmed) return;
     let data = {
-      userId: token.id,
       currentDate: selectedDate.format("YYYY-MM-DD"),
+      userId: token.id,
     };
     UpdateOpeningStockOfItem(data, (res) => {
-      console.log(data, "HEllo soltis ");
-      if (res?.SuccessMsg === true) {
-        message.success("Item Added");
+      console.log(res, "Response Data");
+      console.log(data, "Hello guys");
+
+      if (res.SuccessMsg) {
+        message.success("Opening Stock updated");
         setisbutdis(isbutdis);
       } else {
         message.error("Error!");
