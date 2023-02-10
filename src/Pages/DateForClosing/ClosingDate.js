@@ -1,17 +1,15 @@
 import React from "react";
-import { Form, DatePicker, Button, message } from "antd";
+import { Form, DatePicker, Button, message, Modal } from "antd";
 import Header from "../../Components/Common/Header";
 import RemainingProduction from "../Production/RemainingProduction";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UpdateOpeningStockOfItem } from "../../Services/appServices/ProductionService";
 import useToken from "../../Helpers/useToken";
 const ClosingDate = () => {
   const { token } = useToken();
   const [isbutdis, setisbutdis] = useState(false);
-
-  // console.log(token, "Its Saureys Token");
-
+  const [visible, setVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleSave = () => {
@@ -19,28 +17,59 @@ const ClosingDate = () => {
       message.error("Please select a date.");
       return;
     }
+    setVisible(true);
+  };
 
-    let confirmed = window.confirm(
-      "Do you want to enter this date for closing?"
-    );
-    if (!confirmed) return;
+  // Modal.confirm({
+  //   title: "Confirm Closing Date",
+  //   content:
+  //     "Do you want to enter this date for closing?  This date will update the stock as Opening Stock for tomorrow",
+  //   onOk: () => {
+  //     setisbutdis(true);
+  //     let data = {
+  //       currentDate: selectedDate.format("YYYY-MM-DD"),
+  //       userId: token.id,
+  //     };
+  //     UpdateOpeningStockOfItem(data, (res) => {
+  //       console.log(res, "Response Data");
+  //       console.log(data, "Hello guys");
+
+  //       if (res.SuccessMsg) {
+  //         message.success("Closing has been Successful!!");
+  //         setisbutdis(true);
+  //       } else {
+  //         message.error("Error!");
+  //         setisbutdis(false);
+  //       }
+  //     });
+  //   },
+  //   onCancel() {
+  //     console.log("Canceled");
+  //   },
+  // });
+  const handleOk = () => {
+    setVisible(false);
     let data = {
       currentDate: selectedDate.format("YYYY-MM-DD"),
       userId: token.id,
     };
+    setisbutdis(true);
     UpdateOpeningStockOfItem(data, (res) => {
       console.log(res, "Response Data");
       console.log(data, "Hello guys");
-
       if (res.SuccessMsg) {
-        message.success("Opening Stock updated");
-        setisbutdis(isbutdis);
+        message.success("Closing has been Successful!!");
+        setisbutdis(true);
       } else {
         message.error("Error!");
         setisbutdis(false);
       }
     });
   };
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
   return (
     <Form layout="vertical">
       <Top>
@@ -66,11 +95,28 @@ const ClosingDate = () => {
             style={{ width: "40%", margin: "0 5px 0 5px", textAlign: "center" }}
             onChange={(date) => setSelectedDate(date)}
           />
-          <Button type="primary" onClick={handleSave}>
+          <Button type="primary" onClick={handleSave} disabled={isbutdis}>
             Save
           </Button>
         </Form.Item>
       </Closing>
+      <Modal
+        title="Confirm Closing Date"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okButtonProps={{
+          style: { background: "rgb(21 132 227 / 85%)", color: "white" },
+        }}
+        cancelButtonProps={{ style: { background: "#f5222d", color: "white" } }}
+      >
+        <Mod>
+          <p style={{ fontWeight: "bold", fontSize: "18px" }}>
+            Do you want to close the stock for the selected date?<br></br>
+            This will update the Opening Stock for tomorrow
+          </p>
+        </Mod>
+      </Modal>
 
       <RemainingProduction />
     </Form>
@@ -119,4 +165,19 @@ const ClosingHead = styled.div`
   max-width: 100%;
   margin-bottom: 8px;
   margin-left: 0;
+`;
+
+const Mod = styled.div`
+  background-color: #fefefe;
+  padding: 10px;
+  box-shadow: 1px 2px 2px #b0bccea6;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 40px;
+  justify-content: center;
+  text-align: center;
+  max-width: 100%;
+  box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
+  -webkit-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
+  -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
 `;
