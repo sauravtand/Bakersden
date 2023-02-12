@@ -20,33 +20,6 @@ const ClosingDate = () => {
     setVisible(true);
   };
 
-  // Modal.confirm({
-  //   title: "Confirm Closing Date",
-  //   content:
-  //     "Do you want to enter this date for closing?  This date will update the stock as Opening Stock for tomorrow",
-  //   onOk: () => {
-  //     setisbutdis(true);
-  //     let data = {
-  //       currentDate: selectedDate.format("YYYY-MM-DD"),
-  //       userId: token.id,
-  //     };
-  //     UpdateOpeningStockOfItem(data, (res) => {
-  //       console.log(res, "Response Data");
-  //       console.log(data, "Hello guys");
-
-  //       if (res.SuccessMsg) {
-  //         message.success("Closing has been Successful!!");
-  //         setisbutdis(true);
-  //       } else {
-  //         message.error("Error!");
-  //         setisbutdis(false);
-  //       }
-  //     });
-  //   },
-  //   onCancel() {
-  //     console.log("Canceled");
-  //   },
-  // });
   const handleOk = () => {
     setVisible(false);
     let data = {
