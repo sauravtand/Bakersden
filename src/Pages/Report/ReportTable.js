@@ -29,6 +29,7 @@ const ReportTable = (props) => {
       if (res?.Stock?.length > 0) {
         setProductList(res?.Stock);
       }
+      // console.log(ProductList, "i am ProductList");
     });
   }, []);
 
@@ -95,9 +96,9 @@ const ReportTable = (props) => {
   }
   const headers = [
     // { label: "ItemId", key: "itmId" },
-    { label: "Id", key: "ItemId" },
-    { label: "Item Name ", key: "ItemName" },
-    { label: "Opening Stock", key: "Opening" },
+    { label: "ItemId", key: "ItemId" },
+    { label: "ItemName", key: "ItemName" },
+    { label: "Opening", key: "Opening" },
     { label: "Production", key: "Production" },
     { label: "Total", key: "Total" },
     { label: "Consumption", key: "Consumption" },
@@ -117,9 +118,9 @@ const ReportTable = (props) => {
               onChange={(value) =>
                 onDateRangeChange(value.format("YYYY-MM-DD"))
               }
-            />
+            />{" "}
             <PrintComponent
-              //   addname={addName}
+              addName=""
               ProductList={ProductList}
               headers={headers}
               forCSV

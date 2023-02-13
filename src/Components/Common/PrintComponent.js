@@ -61,13 +61,13 @@ const PrintComponent = ({
 
         <p>Chalani Number: ${
           tempPartyDetails.DCId
-        }<span style='float:right'>Production Date: ${tempPartyDetails.EntryDate.slice(
+        }<span style='float:right'>Production Date: ${tempPartyDetails.EntryDate?.slice(
           0,
           10
         )}</span</p>
        <p>Party Name: ${
          tempPartyDetails.PartyName
-       } <span style='float:right'>Delivery Date: ${tempPartyDetails.DeliveryDate.slice(
+       } <span style='float:right'>Delivery Date: ${tempPartyDetails.DeliveryDate?.slice(
           0,
           10
         )}</span>
@@ -162,7 +162,7 @@ const PrintComponent = ({
         tableHeadHtml += "</thead>";
         if (temp) {
           let productListWithoutTime = temp.map((e) => {
-            return { ...e, EntryDate: e.EntryDate.slice(0, 10) };
+            return { ...e, EntryDate: e.EntryDate?.slice(0, 10) };
           });
 
           productListWithoutTime.forEach((ele) => {
@@ -184,8 +184,8 @@ const PrintComponent = ({
           let productionListWithoutTime = ProductionList.map((e) => {
             return {
               ...e,
-              EntryDate: e.EntryDate.slice(0, 10),
-              DeliveryDate: e.DeliveryDate.slice(0, 10),
+              EntryDate: e.EntryDate?.slice(0, 10),
+              DeliveryDate: e.DeliveryDate?.slice(0, 10),
             };
           });
 
