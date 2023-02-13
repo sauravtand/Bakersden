@@ -4,7 +4,10 @@ import {
   MdOutlineReceiptLong,
   MdFilterAlt,
 } from "react-icons/md";
-import { RiBillLine } from "react-icons/ri";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import TableChartTwoToneIcon from "@mui/icons-material/TableChartTwoTone";
+
+import { RiBillLine, RiCalendarTodoFill } from "react-icons/ri";
 export const RouteDataAdmin = [
   // {
   //   id: 1,
@@ -46,5 +49,33 @@ export const RouteDataAdmin = [
     pathName: "/ChalaniTable",
     icon: MdOutlineReceiptLong,
     key: 5,
+  },
+  {
+    id: 6,
+    label: "Items Entry",
+    pathName: "/ItemsEntry",
+    icon: MdAddShoppingCart,
+    key: 6,
+  },
+  {
+    id: 7,
+    label: "Users",
+    pathName: "/InsertUsers",
+    icon: AccountCircleOutlinedIcon,
+    key: 7,
+  },
+  {
+    id: 8,
+    label: "Closing Date",
+    pathName: "/ClosingDate",
+    icon: RiCalendarTodoFill,
+    key: 8,
+  },
+  {
+    id: 9,
+    label: "Report Table",
+    pathName: "/ReportTable",
+    icon: TableChartTwoToneIcon,
+    key: 8,
   },
 ];

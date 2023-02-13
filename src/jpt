@@ -1,0 +1,40 @@
+  const columns = [
+    {
+      title: "ItemId",
+      dataIndex: "ItemId",
+      key: "ItemId",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.PId - b.PId,
+    },
+    {
+      title: "Item Name",
+      dataIndex: "ItemName",
+      key: "ItemName",
+    },
+    {
+      title: "Opening",
+      dataIndex: "Opening",
+      key: "Opening",
+    },
+
+    {
+      title: "Production",
+      dataIndex: "Production",
+      key: "Production",
+    },
+    {
+      title: "Total",
+      dataIndex: "Total",
+      key: "Total",
+    },
+    {
+      title: "Consumption",
+      dataIndex: "Consumption",
+      key: "Consumption",
+    },
+    {
+      title: "Remaining",
+      dataIndex: "Remaining",
+      key: "Remaining",
+    },
+  ];

@@ -1,13 +1,16 @@
 /**
  * @desc: api url
  */
-const API_URL = `https://lunivacare.ddns.net/bakeryProduction/`;
+// const API_URL = `https://lunivacare.ddns.net/bakeryProduction/`;
+const API_URL = `http://lunivacare.ddns.net/bakeryProductionUAT/`;
 
 /**
  * @desc: api base url with route
  *
  */
-  export const BASE_URL = `${API_URL}LunivaproductionApi/`;
+// export const BASE_URL = `${API_URL}LunivaproductionApi/`;
+// export const BASE_URL = `${API_URL}LunivaproductionApi/`;
+export const BASE_URL = `${API_URL}LunivaproductionApi/`;
 
 export const GetItemList = "GetItemList";
 
@@ -179,4 +182,51 @@ export const ApproveDeliveryChalan = "ApproveDeliveryChalan";
 export const ReceiveDeliveryChalan = "ReceiveDeliveryChalan";
 /**
  * @desc: Receive Chalan
+ */
+
+export const InsertUpdateItemDetails = "InsertUpdateItemDetails";
+/**
+ * @desc: Insert Update Item Detai
+ *  @param:{
+  "
+  {
+  "itmID": 1,
+  "itmCode": "sample string 2",
+  "itmName": "sample string 3",
+  "itmDateAdded": "2023-02-05T10:35:43.4903733+05:45",
+  "Units": "sample string 5"
+}
+  }
+ */
+
+export const InsertUpdateUserDetails = "InsertUpdateUserDetails";
+/**
+ * @desc: Insert Update Item Detai
+ *  @param:{
+  "
+  
+{
+  "Id": 1,
+  "UserName": "sample string 2",
+  "UserPassword": "sample string 3",
+  "IsActive": true,
+  "UserRole": "sample string 5"
+}  
+ */
+
+export const UpdateOpeningStockOfItems = `UpdateOpeningStockOfItems`;
+/**
+ * @params{
+ * id,date
+ * }
+ */
+
+export const GetListOfUsers = `GetListOfUsers`;
+/**
+ * @desc: Get User List
+ */
+
+export const GetDayWiseProductionStockDetails = `GetDayWiseProductionStockDetails`;
+/**
+ * @desc: Get User List
  */

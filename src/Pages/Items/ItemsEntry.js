@@ -1,21 +1,13 @@
-import {
-  Button,
-  Form,
-  InputNumber,
-  Row,
-  Select,
-  Switch,
-  Col,
-  message,
-} from "antd";
+import { Button, Form, Row, Select, Col, message } from "antd";
+import { Input } from "antd";
 import {
   GetItemLists,
-  InsertUpdateDayWiseProductionDetail,
+  InsertUpdateItemDetail,
 } from "../../Services/appServices/ProductionService";
 import Header from "../../Components/Common/Header";
-import TextArea from "antd/lib/input/TextArea";
 import { useState } from "react";
-import ProductionEntryTab from "./productionEntryTab";
+import ItemEntryTab from "./ItemEntryTab";
+
 import styled from "styled-components";
 import { useEffect } from "react";
 import useToken from "../../Helpers/useToken";
@@ -29,7 +21,7 @@ const layout = {
   },
 };
 
-const ProductionEntry = () => {
+const ItemsEntry = () => {
   const [form] = Form.useForm();
   const date = new Date().toISOString();
   const [isbutdis, setisbutdis] = useState(false);
@@ -42,25 +34,21 @@ const ProductionEntry = () => {
     setisbutdis(true);
 
     let data = {
-      PId: 0,
-      ItemId: values.ProductionName,
-
-      Quantity: values.Quantity,
-      Remarks: values.remarks !== undefined ? values.remarks : "n/a",
-      UserId: token.id,
-      EntryDate: date,
-      IsActive:
-        values.isActive === undefined || values.isActive === true
-          ? true
-          : false,
-      SpoilageCount: values.SpoilageCount,
+      itmID: 0,
+      itmCode: values.ItemCode,
+      itmName: values.ItemName,
+      itmDateAdded: date,
+      Units: values.Units,
     };
 
-    InsertUpdateDayWiseProductionDetail(data, (res) => {
+    InsertUpdateItemDetail(data, (res) => {
+      console.log(res);
+      console.log(data);
       if (res?.SuccessMsg === true) {
-        message.success("Production Added");
+        message.success("Item Added");
         setisbutdis(false);
         setreloadTable(true);
+
         onReset();
       } else {
         message.error("Error!");
@@ -86,7 +74,7 @@ const ProductionEntry = () => {
 
   return (
     <>
-      <Header title={"Production Entry"}></Header>
+      <Header title={"Items Entry"}></Header>
       <div className="mainContainer">
         <Row>
           <Col span={8}>
@@ -97,7 +85,7 @@ const ProductionEntry = () => {
                 name="control-hooks"
                 onFinish={onFinish}
                 style={{ marginTop: "20px" }}
-                id="productionEntry"
+                id="itemEntry"
               >
                 <h2
                   style={{
@@ -105,80 +93,47 @@ const ProductionEntry = () => {
                     marginBottom: "30px",
                   }}
                 >
-                  Add Production:
+                  Add Items:
                 </h2>
                 <Form.Item
-                  name="ProductionName"
+                  name="ItemName"
                   label="Name"
-                  id="productionName"
+                  id="itmName"
                   rules={[
                     {
                       required: true,
-                      message: "Production Item required!",
+                      message: " Item required!",
                     },
                   ]}
                 >
-                  <Select
-                    showSearch
-                    filterOption={(input, option) => {
-                      return (
-                        option.key.toLowerCase().indexOf(input.toLowerCase()) >=
-                          0 ||
-                        option.title
-                          .toLowerCase()
-                          .indexOf(input.toLowerCase()) >= 0
-                      );
-                    }}
-                  >
-                    {/* {dummydata.map((e) => (
-                      <Option title={e.name} value={e.id} key={e.id}>
-                        {e.name}
-                      </Option>
-                    ))} */}
-                    {ItemLists !== undefined &&
-                      ItemLists.map((e) => (
-                        <Option title={e.ItmName} value={e.itmId} key={e.itmId}>
-                          {e.ItmName}
-                        </Option>
-                      ))}
-                  </Select>
+                  <Input></Input>
                 </Form.Item>
                 <Form.Item
-                  name="Quantity"
-                  label="Good for Sale"
-                  id="Quantity"
+                  name="ItemCode"
+                  label="ItemCode"
+                  id="itmCode"
                   rules={[
                     {
                       required: true,
-                      message: "Good for Sale is required!",
+                      message: "Item Code is required!",
                     },
                   ]}
                 >
-                  <InputNumber min={0} style={{ width: "100%" }} />
+                  <Input></Input>
                 </Form.Item>
                 <Form.Item
-                  name="SpoilageCount"
-                  label="Spoilage"
-                  id="SpoilageCount"
-                  // rules={[
-                  //   {
-                  //     required: true,
-                  //   },
-                  // ]}
+                  name="Units"
+                  label="Units"
+                  id="Units"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Unit is required!",
+                    },
+                  ]}
                 >
-                  <InputNumber min={0} style={{ width: "100%" }} />
+                  <Input></Input>
                 </Form.Item>
-
-                <Form.Item name="remarks" label="Remarks" id="remark">
-                  <TextArea rows={5} />
-                </Form.Item>
-                {/* <Form.Item
-                  name="isActive"
-                  label="isActive"
-                  valuePropName="Checked"
-                >
-                  <Switch defaultChecked />
-                </Form.Item> */}
 
                 <Form.Item>
                   <Button
@@ -193,7 +148,7 @@ const ProductionEntry = () => {
                     disabled={isbutdis}
                     loading={isbutdis}
                   >
-                    Add Production
+                    Add Item
                   </Button>
                 </Form.Item>
               </Form>
@@ -206,7 +161,7 @@ const ProductionEntry = () => {
                 paddingLeft: "5px",
               }}
             >
-              <ProductionEntryTab
+              <ItemEntryTab
                 reloadTable={reloadTable}
                 tableAfterReloaded={tableAfterReloaded}
               />
@@ -218,9 +173,9 @@ const ProductionEntry = () => {
   );
 };
 
-export default ProductionEntry;
+export default ItemsEntry;
 
-const ProductionStyle = styled.div`
+const ItemsEntryStyle = styled.div`
   /* position: absolute; */
   background-color: #fefefe;
   padding: 10px;
