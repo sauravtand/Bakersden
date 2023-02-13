@@ -43,6 +43,10 @@ export default function RemainingProduction({ title }) {
       // console.log(res);
     });
   }
+  const addname = () => {
+    return remainingProduction;
+  };
+
   // columns
   const columns = [
     {
@@ -98,6 +102,7 @@ export default function RemainingProduction({ title }) {
 
         <PrintComponent
           remainingProduction={remainingProduction}
+          addname={addname}
           headers={headers}
           forCSV
           forPrint
