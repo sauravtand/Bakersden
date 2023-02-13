@@ -54,26 +54,6 @@ const UserEntryTab = (props) => {
     });
   }
 
-  const addName = () => {
-    let tempArr = [];
-    let temp;
-    if (userList !== undefined) {
-      userList.map((e) => {
-        let newUserName = "";
-        UserLists.forEach((res) => {
-          if (res.Id === e.Id) {
-            newUserName = res.UserName;
-          }
-        });
-        temp = {
-          UserName: newUserName,
-          ...e,
-        };
-        tempArr.push(temp);
-      });
-    }
-    return tempArr;
-  };
   const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
 
   const onFinish = (values) => {
@@ -173,12 +153,15 @@ const UserEntryTab = (props) => {
     { label: "User Role ", key: "UserRole" },
     { label: "IsActive", key: "IsActive" },
   ];
+  const addname = () => {
+    return UserLists;
+  };
 
   return (
     <>
       <div>
         <PrintComponent
-          addname={addName}
+          addname={addname}
           userList={userList}
           headers={headers}
           forCSV

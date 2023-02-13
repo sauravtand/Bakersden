@@ -43,10 +43,6 @@ export default function RemainingProduction({ title }) {
       // console.log(res);
     });
   }
-  const addname = () => {
-    return remainingProduction;
-  };
-
   // columns
   const columns = [
     {
@@ -89,6 +85,10 @@ export default function RemainingProduction({ title }) {
     { label: "Remaining", key: "Remaining" },
   ];
 
+  const addname = () => {
+    return remainingProduction;
+  };
+
   return (
     <>
       <div className="mainContainer">
@@ -101,8 +101,8 @@ export default function RemainingProduction({ title }) {
         />
 
         <PrintComponent
-          remainingProduction={remainingProduction}
           addname={addname}
+          // remainingProduction={remainingProduction}
           headers={headers}
           forCSV
           forPrint

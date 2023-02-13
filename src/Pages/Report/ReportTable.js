@@ -104,6 +104,10 @@ const ReportTable = (props) => {
     { label: "Consumption", key: "Consumption" },
     { label: "Remaining", key: "Remaining" },
   ];
+
+  const addname = () => {
+    return ProductList;
+  };
   return (
     <>
       <Top>
@@ -120,8 +124,7 @@ const ReportTable = (props) => {
               }
             />{" "}
             <PrintComponent
-              addName=""
-              ProductList={ProductList}
+              addname={addname}
               headers={headers}
               forCSV
               forPrint
