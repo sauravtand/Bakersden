@@ -24,13 +24,13 @@ const ClosingDate = () => {
     GetLastClosingDates((res) => {
       setResDate(res.GetLastClosingDate[0].OpeningDate);
     });
-    if (correct === newCorrect) {
+    if (correct >= newCorrect) {
       setisbutdis(true);
-      alert("This date is already Used");
+      alert("This date is used already for the Closing");
     } else {
       setisbutdis(false);
     }
-  }, [correct, newCorrect]);
+  }, [newCorrect, correct]);
 
   const handleSave = () => {
     if (!selectedDate) {
