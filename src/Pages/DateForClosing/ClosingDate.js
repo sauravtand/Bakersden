@@ -13,6 +13,8 @@ const ClosingDate = () => {
   const { token } = useToken();
   const [isbutdis, setisbutdis] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   const [selectedDate, setSelectedDate] = useState(null);
   const [resDate, setResDate] = useState();
   let correct = resDate?.split("T")[0];
@@ -26,7 +28,8 @@ const ClosingDate = () => {
     });
     if (correct >= newCorrect) {
       setisbutdis(true);
-      alert("This date is used already for the Closing");
+      // alert("This date is already used for the Closing");
+      setShowModal(true);
     } else {
       setisbutdis(false);
     }
@@ -63,6 +66,12 @@ const ClosingDate = () => {
     setVisible(false);
   };
 
+  const handleModal = () => {
+    setShowModal(false);
+  };
+  const handlCancelModal = () => {
+    setShowModal(false);
+  };
   return (
     <Form layout="vertical">
       <Top>
@@ -107,6 +116,23 @@ const ClosingDate = () => {
           <p style={{ fontWeight: "bold", fontSize: "18px" }}>
             Do you want to close the stock for the selected date?<br></br>
             This will update the Opening Stock for tomorrow
+          </p>
+        </Mod>
+      </Modal>
+      <Modal
+        title="Closing Date Error"
+        visible={showModal}
+        onOk={handleModal}
+        onCancel={handlCancelModal}
+        okButtonProps={{
+          style: { background: "rgb(21 132 227 / 85%)", color: "white" },
+        }}
+        cancelButtonProps={{ style: { background: "#f5222d", color: "white" } }}
+      >
+        <Mod>
+          <p style={{ fontWeight: "bold", fontSize: "18px", color: "red" }}>
+            Please enter the unused date!<br></br> The date has already been
+            used!
           </p>
         </Mod>
       </Modal>
