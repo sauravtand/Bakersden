@@ -4,13 +4,33 @@ import Header from "../../Components/Common/Header";
 import RemainingProduction from "../Production/RemainingProduction";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { UpdateOpeningStockOfItem } from "../../Services/appServices/ProductionService";
+import {
+  UpdateOpeningStockOfItem,
+  GetLastClosingDates,
+} from "../../Services/appServices/ProductionService";
 import useToken from "../../Helpers/useToken";
 const ClosingDate = () => {
   const { token } = useToken();
   const [isbutdis, setisbutdis] = useState(false);
   const [visible, setVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [resDate, setResDate] = useState();
+  let correct = resDate?.split("T")[0];
+  console.log(correct, "resDate");
+  let newCorrect = selectedDate?.format("YYYY-MM-DD");
+  console.log(newCorrect, "newDate");
+
+  useEffect(() => {
+    GetLastClosingDates((res) => {
+      setResDate(res.GetLastClosingDate[0].OpeningDate);
+    });
+    if (correct === newCorrect) {
+      setisbutdis(true);
+      alert("This date is already Used");
+    } else {
+      setisbutdis(false);
+    }
+  }, [correct, newCorrect]);
 
   const handleSave = () => {
     if (!selectedDate) {
@@ -23,7 +43,7 @@ const ClosingDate = () => {
   const handleOk = () => {
     setVisible(false);
     let data = {
-      currentDate: selectedDate.format("YYYY-MM-DD"),
+      currentDate: selectedDate?.format("YYYY-MM-DD"),
       userId: token.id,
     };
     setisbutdis(true);

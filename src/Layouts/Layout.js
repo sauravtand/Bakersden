@@ -58,6 +58,8 @@ const MainLayout = () => {
             position: "fixed",
             left: "0",
             top: "0",
+            height: " 80vh",
+            overflowy: "scroll",
           }}
         >
           <div className="logo" />
