@@ -11,26 +11,19 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
-
 const ReportTable = (props) => {
   const [date, setDate] = useState(null);
   const [ProductList, setProductList] = useState();
   const [itemList, setItemList] = useState();
 
   useEffect(() => {
-    // const date = new Date().toISOString();
     const date = {
       stockDate: new Date().toISOString(),
     };
     GetDayWiseProductionStockDetail(date, (res) => {
-      // console.log("hello", res);
       if (res?.Stock?.length > 0) {
         setProductList(res?.Stock);
       }
-      // console.log(ProductList, "i am ProductList");
     });
   }, []);
 
@@ -82,10 +75,8 @@ const ReportTable = (props) => {
       stockDate: data,
     };
     callService(newData);
-    // console.log(data);
   }
   function callService(data) {
-    // const date = new Date().toISOString();
     const date = {
       stockDate: data.stockDate,
     };
