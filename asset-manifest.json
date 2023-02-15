@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/Bakersden/static/css/main.8e99eee4.css",
+    "main.js": "/Bakersden/static/js/main.75677885.js",
+    "static/js/787.ef10469d.chunk.js": "/Bakersden/static/js/787.ef10469d.chunk.js",
+    "static/media/cover2.jpg": "/Bakersden/static/media/cover2.7a287210a9296c2c450b.jpg",
+    "static/media/logo.png": "/Bakersden/static/media/logo.dcbbc82449e25879024d.png",
+    "index.html": "/Bakersden/index.html",
+    "main.8e99eee4.css.map": "/Bakersden/static/css/main.8e99eee4.css.map",
+    "main.75677885.js.map": "/Bakersden/static/js/main.75677885.js.map",
+    "787.ef10469d.chunk.js.map": "/Bakersden/static/js/787.ef10469d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8e99eee4.css",
+    "static/js/main.75677885.js"
+  ]
+}
