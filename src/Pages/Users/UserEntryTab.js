@@ -7,6 +7,8 @@ import {
   GetProductionDetailsDate,
   InsertUpdateUserDetail,
 } from "../../Services/appServices/ProductionService";
+import SearchBar from "../../Components/Common/SearchBar";
+
 import PrintComponent from "../../Components/Common/PrintComponent";
 
 const { Option } = Select;
@@ -156,6 +158,14 @@ const UserEntryTab = (props) => {
   const addname = () => {
     return UserLists;
   };
+  function onSearch(value) {
+    if (value) {
+      const filteredData = UserLists.filter((item) =>
+        item.UserName.toLowerCase().includes(value.toLowerCase())
+      );
+      setUserLists(filteredData);
+    }
+  }
 
   return (
     <>
@@ -170,6 +180,7 @@ const UserEntryTab = (props) => {
       </div>
 
       <div>
+        <SearchBar onSearch={onSearch} />
         <Table
           columns={columns}
           dataSource={UserLists !== undefined ? UserLists : ""}

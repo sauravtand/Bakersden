@@ -4,6 +4,7 @@ import { GetDayWiseProductionStockDetail } from "../../Services/appServices/Prod
 import Header from "../../Components/Common/Header";
 import styled from "styled-components";
 import PrintComponent from "../../Components/Common/PrintComponent";
+import SearchBar from "../../Components/Common/SearchBar";
 
 const layout = {
   labelCol: { span: 8 },
@@ -108,6 +109,15 @@ const ReportTable = (props) => {
   const addname = () => {
     return ProductList;
   };
+  function onSearch(value) {
+    if (value) {
+      const filteredData = ProductList.filter((item) =>
+        item.ItemName.toLowerCase().includes(value.toLowerCase())
+      );
+      setProductList(filteredData);
+    }
+  }
+
   return (
     <>
       <Top>
@@ -118,18 +128,22 @@ const ReportTable = (props) => {
             label="Date"
             style={{ fontWeight: "bold", alignItem: "left" }}
           >
-            <DatePicker
-              onChange={(value) =>
-                onDateRangeChange(value.format("YYYY-MM-DD"))
-              }
-            />{" "}
-            <PrintComponent
-              addname={addname}
-              headers={headers}
-              forCSV
-              forPrint
-            />
+            <div
+              style={{
+                display: "flex",
+                marginBottom: "10px",
+                justifyContent: "space-between",
+              }}
+            >
+              <DatePicker
+                onChange={(value) =>
+                  onDateRangeChange(value.format("YYYY-MM-DD"))
+                }
+              />{" "}
+              <SearchBar onSearch={onSearch} />
+            </div>
           </Form.Item>
+          <PrintComponent addname={addname} headers={headers} forCSV forPrint />
         </Form>
       </Top>
 

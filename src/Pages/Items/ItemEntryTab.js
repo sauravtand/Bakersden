@@ -7,7 +7,7 @@ import {
 } from "../../Services/appServices/ProductionService";
 import { EditOutlined } from "@ant-design/icons";
 import styled from "styled-components";
-
+import SearchBar from "../../Components/Common/SearchBar";
 import PrintComponent from "../../Components/Common/PrintComponent";
 
 const ItemEntryTab = (props) => {
@@ -158,6 +158,14 @@ const ItemEntryTab = (props) => {
     { label: "Added date ", key: "itmDateAdded" },
     { label: "Units", key: "Units" },
   ];
+  function onSearch(value) {
+    if (value) {
+      const filteredData = ProductList.filter((item) =>
+        item.Name.toLowerCase().includes(value.toLowerCase())
+      );
+      setProductList(filteredData);
+    }
+  }
   return (
     <>
       <PrintComponent
@@ -169,6 +177,8 @@ const ItemEntryTab = (props) => {
       />
 
       <div>
+        <SearchBar onSearch={onSearch} />
+
         <Table
           columns={columns}
           dataSource={ProductList !== undefined ? ProductList : ""}
