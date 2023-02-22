@@ -206,6 +206,7 @@ const ChalaniTable = (props) => {
       title: "Action",
       key: "action",
       render: (_, record) => {
+        console.log(record, "this is log ");
         return (
           <>
             <CIcon

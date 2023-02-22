@@ -102,7 +102,7 @@ export default function RemainingProduction({ title }) {
 
         <PrintComponent
           remainingProduction={remainingProduction}
-          addname={addname}
+          adndame={addname}
           headers={headers}
           forCSV
           forPrint
