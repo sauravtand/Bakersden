@@ -1,5 +1,14 @@
-import { EditOutlined } from "@ant-design/icons";
-import { Button, DatePicker, message, Modal, Table, Tag } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  Button,
+  DatePicker,
+  Input,
+  InputNumber,
+  message,
+  Modal,
+  Table,
+  Tag,
+} from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import DateTimeBAdge from "../../Components/Common/DateTimeBAdge";
@@ -11,6 +20,7 @@ import {
   GetChalanDetailByDate,
   GetChalanItemDetailsByChalansId,
   GetItemLists,
+  UpdateChalanItem,
   UpdateDeliveryChalani,
 } from "../../Services/appServices/ProductionService";
 import { generateUrlEncodedData } from "../../Services/utils/generateUrlEncodedData";
@@ -29,8 +39,15 @@ const ChalaniTable = (props) => {
   const [tempPartyDetails, setTempPartyDetails] = useState();
   const [itemList, setItemList] = useState();
   const [reloadOnButtonClick, setReloadOnButtonClick] = useState(false);
+  const [editModalVisibility, setEditModalVisibility] = useState(false);
 
   const { token } = useToken();
+
+  // states for edits
+
+  const [editingProduct, setEditingProduct] = useState();
+  const [deleteModalVisibility, setDeleteModalVisibility] = useState(false);
+  const [isApproved, setIsApproved] = useState();
 
   useEffect(() => {
     // const date = new Date().toISOString();
@@ -57,7 +74,7 @@ const ChalaniTable = (props) => {
     };
     GetChalanDetailByDate(date, (res) => {
       if (res !== []) {
-        if (res?.chalandetails.length > 0) {
+        if (res?.chalandetails?.length > 0) {
           setProductionList(res?.chalandetails);
         }
       }
@@ -121,6 +138,7 @@ const ChalaniTable = (props) => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    setIsApproved();
   };
 
   const handleApprove = (e) => {
@@ -131,7 +149,7 @@ const ChalaniTable = (props) => {
 
     ApproveDeliveryChalani(data, (res) => {
       if (res.SuccessMsg === true) {
-        console.log("success");
+        // console.log("success");
 
         if (token) {
           let Party = {
@@ -206,11 +224,13 @@ const ChalaniTable = (props) => {
       title: "Action",
       key: "action",
       render: (_, record) => {
-        console.log(record, "this is log ");
+        // console.log(record, "this log");
         return (
           <>
             <CIcon
               onClick={() => {
+                setIsApproved(record.ApprovedBy);
+
                 handlePreview(record);
               }}
             >
@@ -284,6 +304,43 @@ const ChalaniTable = (props) => {
       dataIndex: "Remarks",
       key: "Remarks",
     },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => {
+        // console.log(record);
+        return (
+          <>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <CIcon onClick={() => onEditButtonClick(record)}>
+                <EditOutlined />
+                <span>Edit</span>
+                {/* <Button >
+                <FcPrint style={{ marginRight: '5px', fontSize: '20px' }} /> Print
+              </Button> */}
+              </CIcon>
+              <CIconDelete
+                onClick={() => {
+                  onDeleteModalClick(record);
+                }}
+              >
+                <DeleteOutlined />
+                <span>Delete</span>
+                {/* <Button >
+                <FcPrint style={{ marginRight: '5px', fontSize: '20px' }} /> Print
+              </Button> */}
+              </CIconDelete>
+            </div>
+          </>
+        );
+      },
+    },
   ];
   //CSV
   const headers = [
@@ -306,6 +363,57 @@ const ChalaniTable = (props) => {
     { label: "Remarks", key: "Remarks" },
   ];
 
+  const onEditButtonClick = (e) => {
+    setEditingProduct(e);
+    setEditModalVisibility(!editModalVisibility);
+  };
+  const onDeleteModalClick = (e) => {
+    setEditingProduct(e);
+    setDeleteModalVisibility(!deleteModalVisibility);
+  };
+
+  const onEditSave = () => {
+    let ChalanItems = {
+      CId: editingProduct.CId,
+      ChalaniNo: editingProduct.ChalaniNo,
+      ItemId: editingProduct.ItemId,
+      Quantity: editingProduct.Quantity,
+      Remarks: editingProduct.Remarks,
+      IsActive: true,
+    };
+    // console.log(ChalanItems, "data");
+    UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
+      if (res.SuccessMsg === true) {
+        message.info("Product edited successfully");
+        setEditingProduct();
+      } else {
+        message.warning("Error, saving data!");
+      }
+    });
+  };
+  const onDelete = () => {
+    let ChalanItems = {
+      CId: editingProduct.CId,
+      ChalaniNo: editingProduct.ChalaniNo,
+      ItemId: editingProduct.ItemId,
+      Quantity: editingProduct.Quantity,
+      Remarks: editingProduct.Remarks,
+      IsActive: false,
+    };
+    console.log(ChalanItems, "data");
+    UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
+      if (res.SuccessMsg === true) {
+        message.info("Product deleted successfully");
+        setEditingProduct();
+      } else {
+        message.warning("Error, saving data!");
+      }
+    });
+  };
+
+  if (editingProduct) {
+    var secondKey = Object.keys(editingProduct)[1];
+  }
   return (
     <div className="mainContainer">
       <Header title={"View Chalani"}></Header>
@@ -356,7 +464,11 @@ const ChalaniTable = (props) => {
 
             <Table
               style={{ marginTop: "40px" }}
-              columns={columnsChalan}
+              columns={
+                isApproved
+                  ? columnsChalan.slice(0, columnsChalan.length - 1)
+                  : columnsChalan
+              }
               dataSource={ChalaniItemList}
               scroll={{
                 y: 160,
@@ -364,6 +476,52 @@ const ChalaniTable = (props) => {
             />
           </>
         }
+      </Modal>
+      <Modal
+        title="Edit Product"
+        okText="Save"
+        onOk={() => {
+          onEditSave();
+          setEditModalVisibility(!editModalVisibility);
+        }}
+        width={300}
+        visible={editModalVisibility}
+        onCancel={() => {
+          setEditModalVisibility(false);
+          setEditingProduct();
+        }}
+      >
+        Name:{" "}
+        <Input
+          style={{ marginBottom: 10 }}
+          disabled
+          value={editingProduct ? editingProduct[secondKey] : null}
+        />
+        Quantity:{" "}
+        <InputNumber
+          style={{ width: "100%" }}
+          value={editingProduct?.Quantity}
+          onChange={(e) => {
+            setEditingProduct((prev) => {
+              return { ...prev, Quantity: e };
+            });
+          }}
+        />
+      </Modal>
+      <Modal
+        okText="Yes"
+        onOk={() => {
+          onDelete();
+          setDeleteModalVisibility(!deleteModalVisibility);
+        }}
+        width={300}
+        visible={deleteModalVisibility}
+        onCancel={() => {
+          setDeleteModalVisibility(false);
+          setEditingProduct();
+        }}
+      >
+        Are you sure you want to delete the product?
       </Modal>
     </div>
   );
@@ -389,6 +547,27 @@ const CIcon = styled.div`
 
   &:hover {
     background-color: #84b0c9;
+    color: #fefefe;
+  }
+`;
+const CIconDelete = styled.div`
+  border: 1px solid red;
+  cursor: pointer;
+  width: 60px;
+  height: 24px;
+  border-radius: 4px;
+  color: red;
+  display: flex;
+
+  justify-content: space-evenly;
+  align-items: center;
+
+  /* span{
+    margin-left: 16px;
+  } */
+
+  &:hover {
+    background-color: red;
     color: #fefefe;
   }
 `;

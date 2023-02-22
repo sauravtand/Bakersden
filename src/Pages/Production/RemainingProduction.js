@@ -121,13 +121,8 @@ export default function RemainingProduction({ title }) {
         </div>
 
         <PrintComponent
-<<<<<<< HEAD
-          remainingProduction={remainingProduction}
-          adndame={addname}
-=======
           addname={addname}
           // remainingProduction={remainingProduction}
->>>>>>> 8358b019cd2943f086d3fd59dff4d446d752229a
           headers={headers}
           forCSV
           forPrint
