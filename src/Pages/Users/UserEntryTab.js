@@ -7,6 +7,8 @@ import {
   GetProductionDetailsDate,
   InsertUpdateUserDetail,
 } from "../../Services/appServices/ProductionService";
+import SearchBar from "../../Components/Common/SearchBar";
+
 import PrintComponent from "../../Components/Common/PrintComponent";
 
 const { Option } = Select;
@@ -54,26 +56,6 @@ const UserEntryTab = (props) => {
     });
   }
 
-  const addName = () => {
-    let tempArr = [];
-    let temp;
-    if (userList !== undefined) {
-      userList.map((e) => {
-        let newUserName = "";
-        UserLists.forEach((res) => {
-          if (res.Id === e.Id) {
-            newUserName = res.UserName;
-          }
-        });
-        temp = {
-          UserName: newUserName,
-          ...e,
-        };
-        tempArr.push(temp);
-      });
-    }
-    return tempArr;
-  };
   const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
 
   const onFinish = (values) => {
@@ -173,12 +155,23 @@ const UserEntryTab = (props) => {
     { label: "User Role ", key: "UserRole" },
     { label: "IsActive", key: "IsActive" },
   ];
+  const addname = () => {
+    return UserLists;
+  };
+  function onSearch(value) {
+    if (value) {
+      const filteredData = UserLists.filter((item) =>
+        item.UserName.toLowerCase().includes(value.toLowerCase())
+      );
+      setUserLists(filteredData);
+    }
+  }
 
   return (
     <>
       <div>
         <PrintComponent
-          addname={addName}
+          addname={addname}
           userList={userList}
           headers={headers}
           forCSV
@@ -187,6 +180,7 @@ const UserEntryTab = (props) => {
       </div>
 
       <div>
+        <SearchBar onSearch={onSearch} />
         <Table
           columns={columns}
           dataSource={UserLists !== undefined ? UserLists : ""}

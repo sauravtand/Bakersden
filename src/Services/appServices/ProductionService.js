@@ -17,6 +17,7 @@ import {
   GetListOfUsers,
   UpdateOpeningStockOfItems,
   GetDayWiseProductionStockDetails,
+  GetLastClosingDate,
 } from "../constants/url";
 // import { GenerateUrlEncodedData } from "../Helpers/GenerateUrlEncodedData";
 // import { fetch, store } from "../Helpers/HttpUtil";
@@ -295,6 +296,18 @@ export const UpdateOpeningStockOfItem = async (data, successCallback) => {
       `${UpdateOpeningStockOfItems}?currentDate=${data.currentDate}&userId=${data.userId}`,
       data
     );
+    if (response?.status === 200) {
+      successCallback(response?.data);
+    } else {
+      successCallback([]);
+    }
+  } catch (error) {
+    successCallback([]);
+  }
+};
+export const GetLastClosingDates = async (successCallback) => {
+  try {
+    const response = await fetch(`${GetLastClosingDate}`);
     if (response?.status === 200) {
       successCallback(response?.data);
     } else {

@@ -9,6 +9,7 @@ import Logo from "../Assets/images/logo.png";
 import { FaUserAlt } from "react-icons/fa";
 import useToken from "../Helpers/useToken";
 import { useEffect } from "react";
+import { ImportantDevices } from "@mui/icons-material";
 
 const { Header, Sider, Content } = Layout;
 
@@ -58,6 +59,9 @@ const MainLayout = () => {
             position: "fixed",
             left: "0",
             top: "0",
+            overflow: "auto",
+            height: "100vh",
+            position: "fixed",
           }}
         >
           <div className="logo" />

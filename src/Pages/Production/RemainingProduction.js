@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import Header from "../../Components/Common/Header";
 import { GetRemainingProductionGoodsByDatee } from "../../Services/appServices/ProductionService";
 import PrintComponent from "../../Components/Common/PrintComponent";
+import SearchBar from "../../Components/Common/SearchBar";
+
 const { RangePicker } = DatePicker;
 
 export default function RemainingProduction({ title }) {
@@ -43,10 +45,6 @@ export default function RemainingProduction({ title }) {
       // console.log(res);
     });
   }
-  const addname = () => {
-    return remainingProduction;
-  };
-
   // columns
   const columns = [
     {
@@ -89,20 +87,47 @@ export default function RemainingProduction({ title }) {
     { label: "Remaining", key: "Remaining" },
   ];
 
+  const addname = () => {
+    return remainingProduction;
+  };
+
+  function onSearch(value) {
+    if (value) {
+      const filteredData = remainingProduction.filter((item) =>
+        item.ItemName.toLowerCase().includes(value.toLowerCase())
+      );
+      setRemainingProduction(filteredData);
+    }
+  }
+
   return (
     <>
       <div className="mainContainer">
         <Header title={"Remaining Production"}></Header>
-
-        <RangePicker
-          onChange={(value) => {
-            onDateRangeChange(value);
+        <div
+          style={{
+            display: "flex",
+            marginBottom: "10px",
+            justifyContent: "space-between",
           }}
-        />
+        >
+          {" "}
+          <RangePicker
+            onChange={(value) => {
+              onDateRangeChange(value);
+            }}
+          />
+          <SearchBar onSearch={onSearch} />
+        </div>
 
         <PrintComponent
+<<<<<<< HEAD
           remainingProduction={remainingProduction}
           adndame={addname}
+=======
+          addname={addname}
+          // remainingProduction={remainingProduction}
+>>>>>>> 8358b019cd2943f086d3fd59dff4d446d752229a
           headers={headers}
           forCSV
           forPrint

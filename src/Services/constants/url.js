@@ -225,6 +225,7 @@ export const GetListOfUsers = `GetListOfUsers`;
 /**
  * @desc: Get User List
  */
+export const GetLastClosingDate = "GetLastClosingDate";
 
 export const GetDayWiseProductionStockDetails = `GetDayWiseProductionStockDetails`;
 /**

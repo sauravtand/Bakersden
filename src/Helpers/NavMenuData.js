@@ -6,7 +6,8 @@ import {
 } from "react-icons/md";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import TableChartTwoToneIcon from "@mui/icons-material/TableChartTwoTone";
-
+import { Route } from "react-router-dom";
+import styled from "styled-components";
 import { RiBillLine, RiCalendarTodoFill } from "react-icons/ri";
 export const RouteDataAdmin = [
   // {
@@ -76,6 +77,6 @@ export const RouteDataAdmin = [
     label: "Report Table",
     pathName: "/ReportTable",
     icon: TableChartTwoToneIcon,
-    key: 8,
+    key: 9,
   },
 ];
