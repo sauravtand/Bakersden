@@ -83,12 +83,15 @@ const ChalaniTable = (props) => {
   }
 
   const handlePreview = (val) => {
+    console.log(val, "this is val");
     setTempPartyDetails(val);
 
     setIsModalVisible(true);
 
     GetChalanItemDetailsByChalansId(val.DCId, (res) => {
+      console.log(res, "vitra ko detail ho ");
       if (res.chalandetails.length > 0) {
+        console.log(res.chalandetails, "Chalaini vitra ko ");
         // setChalaniItemList(res.chalandetails);
 
         let tempArr = [];
@@ -206,6 +209,7 @@ const ChalaniTable = (props) => {
       title: "Action",
       key: "action",
       render: (_, record) => {
+        console.log(record, "This is first view");
         return (
           <>
             <CIcon

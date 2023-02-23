@@ -19,7 +19,6 @@ const PrintComponent = ({
   ItemLists,
 }) => {
   // const [dataForCSV, setDataForCSV] = useState()
-  console.log(ProductList, "from istem");
 
   // const CSVdata = addname();
   // setDataForCSV(CSVdata);
