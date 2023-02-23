@@ -74,15 +74,11 @@ const ClosingDate = () => {
   };
   return (
     <Form layout="vertical">
-      <Top>
-        <Header title="Closing Date For the Stock"></Header>
-      </Top>
+      <Header title="Closing Date For the Stock"></Header>
 
       <Closing>
         <Form.Item>
           <ClosingHead> Enter Closing date</ClosingHead>
-
-          <b style={{ fontSize: "20px" }}>Date:</b>
 
           <DatePicker
             name="Date"
@@ -94,7 +90,7 @@ const ClosingDate = () => {
                 message: "Date is required!",
               },
             ]}
-            style={{ width: "40%", margin: "0 5px 0 5px", textAlign: "center" }}
+            style={{ width: "40%", marginRight: "10px", textAlign: "center" }}
             onChange={(date) => setSelectedDate(date)}
           />
           <Button type="primary" onClick={handleSave} disabled={isbutdis}>
@@ -112,12 +108,12 @@ const ClosingDate = () => {
         }}
         cancelButtonProps={{ style: { background: "#f5222d", color: "white" } }}
       >
-        <Mod>
-          <p style={{ fontWeight: "bold", fontSize: "18px" }}>
+        <div style={{ textAlign: "center" }}>
+          <p style={{ fontWeight: "400", fontSize: "14px" }}>
             Do you want to close the stock for the selected date?<br></br>
             This will update the Opening Stock for tomorrow
           </p>
-        </Mod>
+        </div>
       </Modal>
       <Modal
         title="Closing Date Error"
@@ -129,12 +125,12 @@ const ClosingDate = () => {
         }}
         cancelButtonProps={{ style: { background: "#f5222d", color: "white" } }}
       >
-        <Mod>
-          <p style={{ fontWeight: "bold", fontSize: "18px", color: "red" }}>
-            Please enter the unused date!<br></br> The date has already been
+        <div style={{ textAlign: "center" }}>
+          <p style={{ fontWeight: "400", fontSize: "14px", color: "red" }}>
+            Please enter the unused date.<br></br> The date has already been
             used!
           </p>
-        </Mod>
+        </div>
       </Modal>
 
       <RemainingProduction />
@@ -177,8 +173,8 @@ const Top = styled.div`
 const ClosingHead = styled.div`
   overflow: hidden;
   font-weight: bold;
-  font-size: 30px;
-  min-height: 40px;
+  font-size: 16px;
+  /* min-height: 40px; */
   justify-content: center;
   ${"" /* text-align: center; */}
   max-width: 100%;

@@ -184,8 +184,8 @@ const AddedAndParty = () => {
                 <TextArea rows={6} />
               </Form.Item>
 
-              <Form.Item style={{ margin: "20px 205px" }}>
-                <Button type="primary" htmlType="submit">
+              <Form.Item style={{ margin: "20px 105px" }}>
+                <Button type="primary" htmlType="submit" style={{ width: 200 }}>
                   Save Chalani
                 </Button>
               </Form.Item>

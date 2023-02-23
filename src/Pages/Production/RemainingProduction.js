@@ -108,25 +108,29 @@ export default function RemainingProduction({ title }) {
           style={{
             display: "flex",
             marginBottom: "10px",
-            justifyContent: "space-between",
+            justifyContent: "space-around",
+            marginLeft: "-4%",
           }}
         >
-          {" "}
-          <RangePicker
-            onChange={(value) => {
-              onDateRangeChange(value);
-            }}
-          />
+          <div>
+            <RangePicker
+              onChange={(value) => {
+                onDateRangeChange(value);
+              }}
+            />
+          </div>
           <SearchBar onSearch={onSearch} />
+          <div>
+            <PrintComponent
+              addname={addname}
+              // remainingProduction={remainingProduction}
+              headers={headers}
+              forCSV
+              forPrint
+            />
+          </div>
         </div>
 
-        <PrintComponent
-          addname={addname}
-          // remainingProduction={remainingProduction}
-          headers={headers}
-          forCSV
-          forPrint
-        />
         <Table
           style={{ marginTop: "15px" }}
           columns={columns}

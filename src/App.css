@@ -18,12 +18,12 @@
 }
 
 .header {
-  font-size: 36px;
+  font-size: 26px;
 }
 
 .icons-style {
   font-size: 18px;
-  color: rgb(131, 137, 137)
+  color: rgb(131, 137, 137);
 }
 
 .icons-style:hover {
@@ -40,6 +40,6 @@
   transition: all 0.3s ease;
 }
 .hundred {
-  margin-left:80px;
-  transition: all 0.3s ease;}
-
+  margin-left: 80px;
+  transition: all 0.3s ease;
+}

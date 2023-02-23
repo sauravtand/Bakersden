@@ -12,7 +12,7 @@ import {
 const { Option } = Select;
 const AddProduct = (props) => {
   const [form] = Form.useForm();
-  const { onSubmit, items } = props;
+  const { onSubmit, items, heightForModal } = props;
   const [ProductList, setProductList] = useState();
   const [MaxCount, setMaxCount] = useState();
   const [ItemLists, setItemLists] = useState();
@@ -29,7 +29,7 @@ const AddProduct = (props) => {
     } else if (e.productionQuantity === 0) {
       message.error("Please fill the quantity in required range");
     } else {
-      message.error("Production Item not available!");
+      message.error("Production Quantity not enough!");
     }
   };
 
@@ -70,7 +70,7 @@ const AddProduct = (props) => {
   }, []);
 
   return (
-    <AddStyle>
+    <AddStyle style={{ height: heightForModal ? "395px" : "" }}>
       <h2>Add Products:</h2>
 
       <Form
@@ -149,7 +149,11 @@ const AddProduct = (props) => {
             span: 24,
           }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ width: heightForModal ? "100%" : 200 }}
+          >
             Add
           </Button>
         </Form.Item>
