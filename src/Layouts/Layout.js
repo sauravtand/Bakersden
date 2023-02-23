@@ -67,7 +67,9 @@ const MainLayout = () => {
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["5"]}>
             <SideBarTop>
-              <img src={Logo} />
+              <div>
+                <img src={Logo} />
+              </div>
             </SideBarTop>
             {sideBarDataNew?.map((e) => (
               <Menu.Item key={e.id} item={e.label}>
@@ -187,9 +189,11 @@ const MenuContainer = styled.div`
 const SideBarTop = styled.div`
   /* height: 100px; */
   height: auto;
-  width: 100%;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
   /* padding: 8px; */
-  position: relative;
+  /* position: relative; */
   /* margin-bottom: 8px; */
   img {
     width: 100%;

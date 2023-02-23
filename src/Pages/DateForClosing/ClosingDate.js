@@ -18,9 +18,9 @@ const ClosingDate = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [resDate, setResDate] = useState();
   let correct = resDate?.split("T")[0];
-  console.log(correct, "resDate");
+  // console.log(correct, "resDate");
   let newCorrect = selectedDate?.format("YYYY-MM-DD");
-  console.log(newCorrect, "newDate");
+  // console.log(newCorrect, "newDate");
 
   useEffect(() => {
     GetLastClosingDates((res) => {
@@ -51,8 +51,8 @@ const ClosingDate = () => {
     };
     setisbutdis(true);
     UpdateOpeningStockOfItem(data, (res) => {
-      console.log(res, "Response Data");
-      console.log(data, "Hello guys");
+      // console.log(res, "Response Data");
+      // console.log(data, "Hello guys");
       if (res.SuccessMsg) {
         message.success("Closing has been Successful!!");
         setisbutdis(true);

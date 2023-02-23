@@ -64,7 +64,7 @@ const ProductionEntryTab = (props) => {
     if (ProductList !== undefined) {
       ProductList.map((e) => {
         let newItemName = "";
-        ItemLists.forEach((res) => {
+        ItemLists?.forEach((res) => {
           if (res.itmId === e.ItemId) {
             newItemName = res.ItmName;
           }
