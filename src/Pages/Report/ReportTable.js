@@ -121,30 +121,32 @@ const ReportTable = (props) => {
   return (
     <>
       <Top>
-        {" "}
         <Header title="Stock Detail"></Header>
-        <Form {...layout}>
-          <Form.Item
-            label="Date"
-            style={{ fontWeight: "bold", alignItem: "left" }}
-          >
-            <div
-              style={{
-                display: "flex",
-                marginBottom: "10px",
-                justifyContent: "space-between",
-              }}
-            >
-              <DatePicker
-                onChange={(value) =>
-                  onDateRangeChange(value.format("YYYY-MM-DD"))
-                }
-              />{" "}
-              <SearchBar onSearch={onSearch} />
-            </div>
-          </Form.Item>
-          <PrintComponent addname={addname} headers={headers} forCSV forPrint />
-        </Form>
+        <div
+          style={{
+            display: "flex",
+            marginBottom: "10px",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>
+            <DatePicker
+              style={{ width: 300 }}
+              onChange={(value) =>
+                onDateRangeChange(value.format("YYYY-MM-DD"))
+              }
+            />
+          </div>
+          <SearchBar onSearch={onSearch} />
+          <div>
+            <PrintComponent
+              addname={addname}
+              headers={headers}
+              forCSV
+              forPrint
+            />
+          </div>
+        </div>
       </Top>
 
       <div>

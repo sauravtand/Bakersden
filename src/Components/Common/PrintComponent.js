@@ -249,7 +249,7 @@ const PrintComponent = ({
       {forPrint && (
         <Button
           type="primary"
-          style={{ marginLeft: "16px", float: "right" }}
+          style={{ marginLeft: "16px", float: "right", marginBottom: 15 }}
           onClick={() => {
             printHandle();
           }}

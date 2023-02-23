@@ -9,6 +9,7 @@ import {
   Table,
   Tag,
 } from "antd";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import DateTimeBAdge from "../../Components/Common/DateTimeBAdge";
@@ -17,6 +18,7 @@ import PrintComponent from "../../Components/Common/PrintComponent";
 import useToken from "../../Helpers/useToken";
 import {
   ApproveDeliveryChalani,
+  GetAvailableCountofProductForChalanis,
   GetChalanDetailByDate,
   GetChalanItemDetailsByChalansId,
   GetItemLists,
@@ -24,6 +26,8 @@ import {
   UpdateDeliveryChalani,
 } from "../../Services/appServices/ProductionService";
 import { generateUrlEncodedData } from "../../Services/utils/generateUrlEncodedData";
+import AddedProducts from "./AddedProducts";
+import AddProduct from "./AddProducts";
 ///
 const { RangePicker } = DatePicker;
 
@@ -46,8 +50,26 @@ const ChalaniTable = (props) => {
   // states for edits
 
   const [editingProduct, setEditingProduct] = useState();
+  const [editingChalani, setEditingChalani] = useState();
   const [deleteModalVisibility, setDeleteModalVisibility] = useState(false);
   const [isApproved, setIsApproved] = useState();
+  const [addProductModalVisibility, setAddProductModalVisibility] =
+    useState(false);
+  const [items, setItems] = useState();
+  const [reloadModalTableOnCRUD, setReloadModalTableOnCRUD] = useState(false);
+  const [maxCount, setMaxCount] = useState();
+
+  useEffect(() => {
+    console.log(editingProduct, "this change in editing product");
+    console.log(editingChalani, "this change in editingChalani ");
+    console.log(items, "items log");
+  }, [editingProduct, editingChalani, items]);
+
+  useEffect(() => {
+    setChalaniItemList();
+    setTempPartyDetails();
+    handlePreview(editingChalani);
+  }, [reloadModalTableOnCRUD]);
 
   useEffect(() => {
     // const date = new Date().toISOString();
@@ -103,12 +125,8 @@ const ChalaniTable = (props) => {
     console.log(val, "this is val");
     setTempPartyDetails(val);
 
-    setIsModalVisible(true);
-
-    GetChalanItemDetailsByChalansId(val.DCId, (res) => {
-      console.log(res, "vitra ko detail ho ");
-      if (res.chalandetails.length > 0) {
-        console.log(res.chalandetails, "Chalaini vitra ko ");
+    GetChalanItemDetailsByChalansId(val?.DCId, (res) => {
+      if (res?.chalandetails?.length > 0) {
         // setChalaniItemList(res.chalandetails);
 
         let tempArr = [];
@@ -140,6 +158,8 @@ const ChalaniTable = (props) => {
   };
 
   const handleCancel = () => {
+    setEditingProduct();
+    setEditingChalani();
     setIsModalVisible(false);
     setIsApproved();
   };
@@ -233,8 +253,10 @@ const ChalaniTable = (props) => {
             <CIcon
               onClick={() => {
                 setIsApproved(record.ApprovedBy);
+                setEditingChalani(record);
 
                 handlePreview(record);
+                setIsModalVisible(true);
               }}
             >
               <EditOutlined />
@@ -366,9 +388,14 @@ const ChalaniTable = (props) => {
     { label: "Remarks", key: "Remarks" },
   ];
 
+  useEffect(() => {
+    console.log(maxCount, "this max count");
+  }, [maxCount]);
+
   const onEditButtonClick = (e) => {
     setEditingProduct(e);
     setEditModalVisibility(!editModalVisibility);
+    GetItemMaxCount(e.ItemId);
   };
   const onDeleteModalClick = (e) => {
     setEditingProduct(e);
@@ -385,14 +412,23 @@ const ChalaniTable = (props) => {
       IsActive: true,
     };
     // console.log(ChalanItems, "data");
-    UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
-      if (res.SuccessMsg === true) {
-        message.info("Product edited successfully");
-        setEditingProduct();
-      } else {
-        message.warning("Error, saving data!");
-      }
-    });
+
+    if (editingProduct.Quantity > maxCount) {
+      message.warning("Product Quantity not enough!");
+    } else if (editingProduct.Quantity < 1) {
+      message.warning("Quantity cannot be zero!");
+    } else {
+      UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
+        if (res.SuccessMsg === true) {
+          message.info("Product edited successfully");
+          setReloadModalTableOnCRUD(!reloadModalTableOnCRUD);
+          setEditModalVisibility(!editModalVisibility);
+          setMaxCount();
+        } else {
+          message.warning("Error, saving data!");
+        }
+      });
+    }
   };
   const onDelete = () => {
     let ChalanItems = {
@@ -406,8 +442,9 @@ const ChalaniTable = (props) => {
     console.log(ChalanItems, "data");
     UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
       if (res.SuccessMsg === true) {
+        setReloadModalTableOnCRUD(!reloadModalTableOnCRUD);
+
         message.info("Product deleted successfully");
-        setEditingProduct();
       } else {
         message.warning("Error, saving data!");
       }
@@ -417,6 +454,63 @@ const ChalaniTable = (props) => {
   if (editingProduct) {
     var secondKey = Object.keys(editingProduct)[1];
   }
+  // Adding products in modal
+
+  const addItems = (item) => {
+    if (items === undefined) {
+      const newItems = [item];
+      setItems(newItems);
+    } else {
+      let tempArr = [...items];
+      const found = items.some((e) => e.productionName === item.productionName);
+      if (found) {
+        message.warning("item already added");
+      } else {
+        tempArr.push(item);
+      }
+      setItems(tempArr);
+    }
+  };
+  const removeProduct = (id) => {
+    const remove = [...items].filter((item) => item.productionName !== id);
+    setItems(remove);
+  };
+
+  const handleSaveDataOfAddProductModal = () => {
+    for (let i = 0; i < items.length; i++) {
+      let ChalanItems = {
+        CId: 0,
+        ChalaniNo: editingChalani.DCId,
+        ItemId: items[i].productionName,
+        Quantity: items[i].productionQuantity,
+        Remarks: "n/a",
+        IsActive: true,
+      };
+      UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
+        if (res.SuccessMsg === true) {
+          console.log(res);
+          message.success("Products added successfully.");
+          setItems();
+        } else {
+          message.warning("Error, saving data!");
+        }
+      });
+    }
+    setReloadModalTableOnCRUD(!reloadModalTableOnCRUD);
+    setAddProductModalVisibility(false);
+  };
+
+  const GetItemMaxCount = (e) => {
+    const data = {
+      fromdate: moment().format("YYYY-MM-DD"),
+      id: e,
+    };
+
+    GetAvailableCountofProductForChalanis(data, (res) => {
+      setMaxCount(res.AvailableQuantity[0].Column1);
+    });
+  };
+
   return (
     <div className="mainContainer">
       <Header title={"View Chalani"}></Header>
@@ -457,13 +551,31 @@ const ChalaniTable = (props) => {
       >
         {
           <>
-            <PrintComponent
-              modalHeaders={modalHeaders}
-              ChalaniItemList={ChalaniItemList}
-              forCSV
-              forPrint
-              tempPartyDetails={tempPartyDetails}
-            />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+              }}
+            >
+              {!isApproved && (
+                <Button
+                  style={{ marginRight: 13 }}
+                  onClick={() => setAddProductModalVisibility(true)}
+                >
+                  Add More Products
+                </Button>
+              )}
+              <div>
+                <PrintComponent
+                  modalHeaders={modalHeaders}
+                  ChalaniItemList={ChalaniItemList}
+                  forCSV
+                  forPrint
+                  tempPartyDetails={tempPartyDetails}
+                />
+              </div>
+            </div>
 
             <Table
               style={{ marginTop: "40px" }}
@@ -485,13 +597,12 @@ const ChalaniTable = (props) => {
         okText="Save"
         onOk={() => {
           onEditSave();
-          setEditModalVisibility(!editModalVisibility);
         }}
         width={300}
         visible={editModalVisibility}
         onCancel={() => {
           setEditModalVisibility(false);
-          setEditingProduct();
+          setMaxCount();
         }}
       >
         Name:{" "}
@@ -500,8 +611,12 @@ const ChalaniTable = (props) => {
           disabled
           value={editingProduct ? editingProduct[secondKey] : null}
         />
-        Quantity:{" "}
+        Quantity:
+        <span style={{ marginLeft: "8px", color: "red" }}>
+          {`${maxCount !== undefined ? `Max count : ${maxCount}` : ""}`}
+        </span>
         <InputNumber
+          min={0}
           style={{ width: "100%" }}
           value={editingProduct?.Quantity}
           onChange={(e) => {
@@ -521,10 +636,67 @@ const ChalaniTable = (props) => {
         visible={deleteModalVisibility}
         onCancel={() => {
           setDeleteModalVisibility(false);
-          setEditingProduct();
         }}
       >
         Are you sure you want to delete the product?
+      </Modal>
+      <Modal
+        okText="Yes"
+        onOk={() => {
+          setAddProductModalVisibility(!deleteModalVisibility);
+        }}
+        width={"75%"}
+        visible={addProductModalVisibility}
+        onCancel={() => {
+          setAddProductModalVisibility(false);
+        }}
+        footer={null}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <div style={{ width: "35%", marginRight: "15px" }}>
+            <AddProduct heightForModal={true} onSubmit={addItems} />
+          </div>
+          <div style={{ width: "60%", marginRight: "20px" }}>
+            <ProductsContainer>
+              <h2>Added Products:</h2>
+              <AddedProducts
+                heightForModal={true}
+                items={items}
+                removeProduct={removeProduct}
+              />
+            </ProductsContainer>
+          </div>
+        </div>
+
+        <div
+          style={{
+            width: "50%",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: "15px",
+          }}
+        >
+          <Button
+            type="primary"
+            style={{
+              width: "100%",
+              fontSize: 16,
+              fontWeight: "500",
+              // padding: "12px",
+              // textAlign: "center",
+              // display: "flex",
+              // alignItems: "center",
+            }}
+            onClick={() => handleSaveDataOfAddProductModal()}
+          >
+            Save
+          </Button>
+        </div>
       </Modal>
     </div>
   );
@@ -595,4 +767,15 @@ const ApproveIcon = styled.div`
     background-color: #1890ff;
     color: #fefefe;
   }
+`;
+
+const ProductsContainer = styled.div`
+  padding: 8px 16px;
+  height: 395px;
+  border: 2px solid "#c8cacb";
+  border-radius: 8px;
+  box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
+  -webkit-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
+  -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
+  background-color: #fefefe;
 `;
