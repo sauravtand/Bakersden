@@ -325,43 +325,60 @@ const ChalaniTable = (props) => {
       sorter: (a, b) => a.Quantity - b.Quantity,
     },
     {
+      title: "IsDeleted",
+      dataIndex: "IsActive",
+      key: "IsActive",
+      render: (record, text) => {
+        if (record) {
+          return <Tag color={"green"}>Not Deleted</Tag>;
+        } else {
+          return <Tag color={"volcano"}>Deleted</Tag>;
+        }
+      },
+    },
+    {
       title: "Remarks",
       dataIndex: "Remarks",
       key: "Remarks",
     },
+
     {
       title: "Action",
       key: "action",
       render: (_, record) => {
-        // console.log(record);
+        console.log(record);
+
         return (
           <>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <CIcon onClick={() => onEditButtonClick(record)}>
-                <EditOutlined />
-                <span>Edit</span>
-                {/* <Button >
-                <FcPrint style={{ marginRight: '5px', fontSize: '20px' }} /> Print
-              </Button> */}
-              </CIcon>
-              <CIconDelete
-                onClick={() => {
-                  onDeleteModalClick(record);
+            {record.IsActive && (
+              <div
+                style={{
+                  display: "flex",
+                  width: 125,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
                 }}
               >
-                <DeleteOutlined />
-                <span>Delete</span>
-                {/* <Button >
+                <CIcon onClick={() => onEditButtonClick(record)}>
+                  <EditOutlined />
+                  <span>Edit</span>
+                  {/* <Button >
                 <FcPrint style={{ marginRight: '5px', fontSize: '20px' }} /> Print
               </Button> */}
-              </CIconDelete>
-            </div>
+                </CIcon>
+                <CIconDelete
+                  onClick={() => {
+                    onDeleteModalClick(record);
+                  }}
+                >
+                  <DeleteOutlined />
+                  <span>Delete</span>
+                  {/* <Button >
+                <FcPrint style={{ marginRight: '5px', fontSize: '20px' }} /> Print
+              </Button> */}
+                </CIconDelete>
+              </div>
+            )}
           </>
         );
       },
@@ -543,7 +560,7 @@ const ChalaniTable = (props) => {
         />
       </div>
       <Modal
-        width={900}
+        width={950}
         title="Product List"
         visible={isModalVisible}
         onCancel={handleCancel}
