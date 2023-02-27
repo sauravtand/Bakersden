@@ -11,15 +11,17 @@ import {
 import useToken from "../../Helpers/useToken";
 const ClosingDate = () => {
   const { token } = useToken();
-  const [isbutdis, setisbutdis] = useState(false);
+  const [isbutdis, setisbutdis] = useState(true);
   const [visible, setVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [resDate, setResDate] = useState();
   let correct = resDate?.split("T")[0];
+  console.log(correct, "correct");
 
   let newCorrect = selectedDate?.format("YYYY-MM-DD");
+  console.log(newCorrect, "new");
 
   useEffect(() => {
     GetLastClosingDates((res) => {
@@ -78,6 +80,7 @@ const ClosingDate = () => {
           <ClosingHead> Enter Closing date</ClosingHead>
 
           <DatePicker
+            placeholder={`Closed Date is ${correct}`}
             name="Date"
             label="Date"
             id="Date"
@@ -87,7 +90,13 @@ const ClosingDate = () => {
                 message: "Date is required!",
               },
             ]}
-            style={{ width: "40%", marginRight: "10px", textAlign: "center" }}
+            style={{
+              width: "40%",
+              marginRight: "10px",
+              textAlign: "center",
+              fontWeight: "bold",
+            }}
+            value={selectedDate}
             onChange={(date) => setSelectedDate(date)}
           />
           <Button type="primary" onClick={handleSave} disabled={isbutdis}>
