@@ -42,8 +42,6 @@ const ItemsEntry = () => {
     };
 
     InsertUpdateItemDetail(data, (res) => {
-      // console.log(res);
-      // console.log(data);
       if (res?.SuccessMsg === true) {
         message.success("Item Added");
         setisbutdis(false);

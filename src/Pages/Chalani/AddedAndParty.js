@@ -24,12 +24,10 @@ const AddedAndParty = () => {
   const [BakeryDetail, setBakeryDetail] = useState();
   const [BakeryBranch, setBakeryBranch] = useState();
   const { token } = useToken();
-  // console.log("PartyDetail", PartyDetail)
 
   const handleSelected = (e) => {
-    // console.log("ee", e)
     const dataIndex = BakeryBranch.find((el) => el.BId === e);
-    // console.log("data index", dataIndex)
+
     setBakeryDetail(dataIndex);
   };
 
@@ -53,8 +51,6 @@ const AddedAndParty = () => {
         IsActive: true,
       };
 
-      // console.log(Party)
-      // return
       let chalaniNo = 0;
       UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
         chalaniNo = res.CreatedId;
@@ -105,7 +101,6 @@ const AddedAndParty = () => {
 
   useEffect(() => {
     GetBranchLists((res) => {
-      // console.log("res 222", res.BranchList);
       setBakeryBranch(res.BranchList);
     });
   }, []);

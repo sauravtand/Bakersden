@@ -1,15 +1,14 @@
 /**
  * @desc: api url
  */
-// const API_URL = `https://lunivacare.ddns.net/bakeryProduction/`;
+// const API_URL = `https://lunivacare.ddns.net/bakeryProduction/`;s
 const API_URL = `http://lunivacare.ddns.net/bakeryProductionUAT/`;
 
 /**
  * @desc: api base url with route
  *
  */
-// export const BASE_URL = `${API_URL}LunivaproductionApi/`;
-// export const BASE_URL = `${API_URL}LunivaproductionApi/`;
+
 export const BASE_URL = `${API_URL}LunivaproductionApi/`;
 
 export const GetItemList = "GetItemList";

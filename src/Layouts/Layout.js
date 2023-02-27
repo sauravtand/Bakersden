@@ -21,16 +21,12 @@ const MainLayout = () => {
   const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
-    // console.log(localStorageUserData, "hello fromlocal storage");
-
-    if (localStorageUserData.userrole == 1) {
+    if (localStorageUserData.userrole == "Admin") {
       setSideBarDataNew(RouteDataAdmin);
-    } else if (localStorageUserData.userrole === 2) {
-      setSideBarDataNew(RouteDataAdmin.slice(4, 5));
-    } else if (localStorageUserData.userrole === 8) {
-      setSideBarDataNew(RouteDataAdmin.slice(0, 3));
-    } else if (localStorageUserData.userrole === 3 || 4 || 5 || 6 || 7) {
+    } else if (localStorageUserData.userrole === "Normal") {
       setSideBarDataNew(RouteDataAdmin.slice(3, 5));
+    } else if (localStorageUserData.userrole === "Production") {
+      setSideBarDataNew(RouteDataAdmin.slice(0, 3));
     }
   }, []);
 

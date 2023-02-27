@@ -59,11 +59,7 @@ const ChalaniTable = (props) => {
   const [reloadModalTableOnCRUD, setReloadModalTableOnCRUD] = useState(false);
   const [maxCount, setMaxCount] = useState();
 
-  useEffect(() => {
-    console.log(editingProduct, "this change in editing product");
-    console.log(editingChalani, "this change in editingChalani ");
-    console.log(items, "items log");
-  }, [editingProduct, editingChalani, items]);
+  useEffect(() => {}, [editingProduct, editingChalani, items]);
 
   useEffect(() => {
     setChalaniItemList();
@@ -122,7 +118,6 @@ const ChalaniTable = (props) => {
   }
 
   const handlePreview = (val) => {
-    console.log(val, "this is val");
     setTempPartyDetails(val);
 
     GetChalanItemDetailsByChalansId(val?.DCId, (res) => {
@@ -172,8 +167,6 @@ const ChalaniTable = (props) => {
 
     ApproveDeliveryChalani(data, (res) => {
       if (res.SuccessMsg === true) {
-        // console.log("success");
-
         if (token) {
           let Party = {
             ApprovedBy: token.id,
@@ -247,7 +240,6 @@ const ChalaniTable = (props) => {
       title: "Action",
       key: "action",
       render: (_, record) => {
-        // console.log(record, "this log");
         return (
           <>
             <CIcon
@@ -278,10 +270,7 @@ const ChalaniTable = (props) => {
             <Button
               onClick={(e) => {
                 handleApprove(record);
-                // console.log("recod", record);
               }}
-              // disabled={record.DCId ? false : true}
-              // isApproved={isApproved}
               disabled={record.ApprovedBy !== 0 ? true : false}
               style={{
                 backgroundColor: record.ApprovedBy !== 0 ? "#067d01" : "",
@@ -346,8 +335,6 @@ const ChalaniTable = (props) => {
       title: "Action",
       key: "action",
       render: (_, record) => {
-        console.log(record);
-
         return (
           <>
             {record.IsActive && (
@@ -405,9 +392,7 @@ const ChalaniTable = (props) => {
     { label: "Remarks", key: "Remarks" },
   ];
 
-  useEffect(() => {
-    console.log(maxCount, "this max count");
-  }, [maxCount]);
+  useEffect(() => {}, [maxCount]);
 
   const onEditButtonClick = (e) => {
     setEditingProduct(e);
@@ -428,7 +413,6 @@ const ChalaniTable = (props) => {
       Remarks: editingProduct.Remarks,
       IsActive: true,
     };
-    // console.log(ChalanItems, "data");
 
     if (editingProduct.Quantity > maxCount) {
       message.warning("Product Quantity not enough!");
@@ -456,7 +440,7 @@ const ChalaniTable = (props) => {
       Remarks: editingProduct.Remarks,
       IsActive: false,
     };
-    console.log(ChalanItems, "data");
+
     UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
       if (res.SuccessMsg === true) {
         setReloadModalTableOnCRUD(!reloadModalTableOnCRUD);
@@ -505,7 +489,6 @@ const ChalaniTable = (props) => {
       };
       UpdateChalanItem(generateUrlEncodedData(ChalanItems), (res) => {
         if (res.SuccessMsg === true) {
-          console.log(res);
           message.success("Products added successfully.");
           setItems();
         } else {

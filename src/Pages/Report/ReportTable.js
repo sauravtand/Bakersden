@@ -21,16 +21,13 @@ const ReportTable = (props) => {
   const [itemList, setItemList] = useState();
 
   useEffect(() => {
-    // const date = new Date().toISOString();
     const date = {
       stockDate: new Date().toISOString(),
     };
     GetDayWiseProductionStockDetail(date, (res) => {
-      // console.log("hello", res);
       if (res?.Stock?.length > 0) {
         setProductList(res?.Stock);
       }
-      // console.log(ProductList, "i am ProductList");
     });
   }, []);
 
@@ -76,16 +73,13 @@ const ReportTable = (props) => {
   ];
 
   function onDateRangeChange(data) {
-    console.log(data, "this is real ");
     setProductList();
     let newData = {
       stockDate: data,
     };
     callService(newData);
-    // console.log(data);
   }
   function callService(data) {
-    // const date = new Date().toISOString();
     const date = {
       stockDate: data.stockDate,
     };

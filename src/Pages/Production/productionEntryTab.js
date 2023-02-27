@@ -19,11 +19,9 @@ const ProductionEntryTab = (props) => {
     }
   }, [reloadTable]);
   useEffect(() => {
-    // const date = new Date().toISOString();
     getTableData();
     GetItemLists((res) => {
-      // console.log("item list", res.ItemList);
-      setItemLists(res.ItemList);
+      setItemLists(res?.ItemList);
     });
   }, []);
 
@@ -39,25 +37,6 @@ const ProductionEntryTab = (props) => {
     });
   }
 
-  // useEffect(() => {
-
-  //   const newProductList = ProductList?.map((item) => {
-  //     // console.log(item, 'this is item');
-  //     let productName = ItemLists?.map((value) => {
-  //       if (value.itmId === item.ItemId) {
-
-  //         return value.ItmName;
-  //       }
-  //     });
-
-  //     console.log('this is product name', productName)
-
-  //   }
-
-  //   )
-  //   // console.log('this is the  new product list', newProductList);
-  // }, [ProductList, ItemLists])
-
   const addName = () => {
     let tempArr = [];
     let temp;
@@ -65,7 +44,7 @@ const ProductionEntryTab = (props) => {
       ProductList.map((e) => {
         let newItemName = "";
         ItemLists?.forEach((res) => {
-          if (res.itmId === e.ItemId) {
+          if (res?.itmId === e.ItemId) {
             newItemName = res.ItmName;
           }
         });
@@ -93,7 +72,7 @@ const ProductionEntryTab = (props) => {
         let a;
         if (ItemLists !== undefined) {
           a = ItemLists.map((res) => {
-            if (res.itmId === text) return res.ItmName;
+            if (res?.itmId === text) return res?.ItmName;
             else return "";
           });
         }

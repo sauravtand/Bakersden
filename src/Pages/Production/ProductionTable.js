@@ -21,36 +21,28 @@ const ProductionTable = () => {
 
   useEffect(() => {
     GetItemLists((res) => {
-      // console.log("item list", res.ItemList);
       if (res?.ItemList.length > 0) {
         setItemList(res?.ItemList);
-        // console.log(itemList);
       }
     });
   }, []);
 
   useEffect(() => {
-    // const date = new Date().toISOString();
     const date = {
       fromdate: new Date().toISOString(),
       todate: new Date().toISOString(),
     };
     GetProductionDetailsDate(date, (res) => {
-      // console.log("hello", res);
       if (res?.ItemList?.length > 0) {
         setProductList(res?.ItemList);
       }
     });
-    // addname();
-    // console.log("productList", ProductList);
   }, [editingProduct]);
 
   const addname = () => {
-    // setIsChanging(true);
     let tempArr = [];
     let temp;
     if (ProductList !== undefined) {
-      // console.log("hello wosdfsdfsd");
       ProductList.map((e, index) => {
         let newItemName = "";
         if (itemList) {
@@ -66,7 +58,6 @@ const ProductionTable = () => {
           ...e,
         };
         tempArr.push(temp);
-        // console.log("temp", tempArr);
       });
     }
     return tempArr;
@@ -222,7 +213,6 @@ const ProductionTable = () => {
       todate: data[1].format("YYYY-MM-DD"),
     };
     callService(newData);
-    // console.log(data);
   }
   function callService(data) {
     // const date = new Date().toISOString();

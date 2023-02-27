@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../../Components/Common/Header";
 import { useState } from "react";
-import styled from "styled-components";
 import { useEffect } from "react";
 import useToken from "../../Helpers/useToken";
 import { Checkbox } from "antd";
@@ -33,7 +32,7 @@ const InsertUsers = () => {
     }
     return Promise.resolve();
   };
-  const date = new Date().toISOString();
+
   const [isbutdis, setisbutdis] = useState(false);
   const [reloadTable, setreloadTable] = useState(false);
   const [userList, setUserList] = useState();
@@ -53,8 +52,6 @@ const InsertUsers = () => {
     };
 
     InsertUpdateUserDetail(data, (res) => {
-      console.log(res);
-      console.log(data);
       if (res?.SuccessMsg === true) {
         message.success("Users Added");
         setisbutdis(false);

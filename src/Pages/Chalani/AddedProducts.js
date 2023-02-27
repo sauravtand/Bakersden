@@ -5,13 +5,9 @@ import { GetItemLists } from "../../Services/appServices/ProductionService";
 const AddedProducts = ({ items, removeProduct }) => {
   const [itemList, setItemList] = useState();
   useEffect(() => {
-    // const date = new Date().toISOString();
-
     GetItemLists((res) => {
-      // console.log("item list", res.ItemList);
       if (res?.ItemList.length > 0) {
         setItemList(res.ItemList);
-        // console.log(itemList);
       }
     });
   }, []);

@@ -3,7 +3,7 @@ import React from "react";
 
 const DateTimeBAdge = ({ data }) => {
   let temp = data.split("T");
-  // console.log(temp)
+
   return (
     <>
       <Tag

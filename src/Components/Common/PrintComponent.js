@@ -18,14 +18,8 @@ const PrintComponent = ({
   tempPartyDetails,
   ItemLists,
 }) => {
-  // const [dataForCSV, setDataForCSV] = useState()
-  // console.log(ProductList, "from istem");
-
-  // const CSVdata = addname();
-  // setDataForCSV(CSVdata);
   if (addname) {
     var CSVdata = addname();
-    // console.log(CSVdata, "this csv");
   }
 
   const printHandle = () => {
@@ -157,7 +151,6 @@ const PrintComponent = ({
 
       if (headers) {
         headers.forEach((ele) => {
-          // console.log(ele.label, "elelelele");
           tableHeadHtml += `<th>${ele?.label}</th>`;
           columns.push(ele.key);
         });

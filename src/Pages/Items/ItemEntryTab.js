@@ -24,16 +24,14 @@ const ItemEntryTab = (props) => {
     }
   }, []);
   useEffect(() => {
-    // const date = new Date().toISOString();
     getTableData();
     GetItemLists((res) => {
-      // console.log("item list", res.ItemList);
       setItemLists(res.ItemList);
       if (res?.ItemList.length > 0) {
         setProductList(res?.ItemList);
       }
     });
-  }, []);
+  }, [reloadTable]);
 
   function getTableData() {
     const date = {
@@ -41,8 +39,7 @@ const ItemEntryTab = (props) => {
       todate: new Date().toISOString(),
     };
     GetProductionDetailsDate(date, (res) => {
-      // console.log(res);
-      if (res?.ItemList.length > 0) {
+      if (res.ItemList?.length > 0) {
         setProductList(res?.ItemList);
       }
     });
@@ -85,7 +82,6 @@ const ItemEntryTab = (props) => {
     };
 
     InsertUpdateItemDetail(data, (res) => {
-      // console.log(data, res, "update");
       if (res?.SuccessMsg === true) {
         <Alert message="The data is saved" type="success" showIcon />;
       } else {
@@ -126,7 +122,6 @@ const ItemEntryTab = (props) => {
       title: "Action",
       key: "action",
       render: (_, record) => {
-        // console.log(record, "YA YOU FOUND ME");
         return (
           <>
             <CIcon

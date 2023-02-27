@@ -12,14 +12,6 @@ import SearchBar from "../../Components/Common/SearchBar";
 import PrintComponent from "../../Components/Common/PrintComponent";
 
 const { Option } = Select;
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 20,
-  },
-};
 
 const UserEntryTab = (props) => {
   const { reloadTable, tableAfterReloaded } = props;
@@ -42,7 +34,7 @@ const UserEntryTab = (props) => {
         setuserList(res?.ItemList);
       }
     });
-  }, []);
+  }, [reloadTable]);
 
   function getTableData() {
     const date = {
@@ -124,7 +116,6 @@ const UserEntryTab = (props) => {
       title: "Action",
       key: "action",
       render: (_, record) => {
-        console.log(record, "i am here");
         return (
           <>
             <CIcon

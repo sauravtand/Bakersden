@@ -18,7 +18,6 @@ const AddProduct = (props) => {
   const [ItemLists, setItemLists] = useState();
   // const [form] = Form.useForm();
   const handleSubmit = (e) => {
-    // console.log(MaxCount, e);
     if (e.ProductionQuantity <= MaxCount && e.ProductionQuantity > 0) {
       onSubmit({
         key: e.ProductionName,
@@ -59,10 +58,6 @@ const AddProduct = (props) => {
         setProductList(res?.ItemList);
       }
     });
-
-    // GetBranchLists((res) => {
-    //   console.log('res', res.BranchList)
-    // })
 
     GetItemLists((res) => {
       setItemLists(res.ItemList);

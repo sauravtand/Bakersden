@@ -11,18 +11,14 @@ export default function RemainingProduction({ title }) {
   const [remainingProduction, setRemainingProduction] = useState();
 
   useEffect(() => {
-    // const date = new Date().toISOString();
     const date = {
       fromdate: new Date().toISOString().split("T")[0],
-      // fromdate: '2022-6-6',
+
       todate: new Date().toISOString().split("T")[0],
     };
     GetRemainingProductionGoodsByDatee(date, (res) => {
-      // console.log("hwllo world", res);
       if (res !== []) {
         setRemainingProduction(res?.RemainingQuantity);
-
-        // console.log(remainingProduction);
       }
     });
   }, []);
@@ -34,7 +30,6 @@ export default function RemainingProduction({ title }) {
       todate: data[1].format("YYYY-MM-DD"),
     };
     getTableData(newData);
-    // console.log(data);
   }
 
   function getTableData(date) {
@@ -42,7 +37,6 @@ export default function RemainingProduction({ title }) {
       if (res?.RemainingQuantity.length > 0) {
         setRemainingProduction(res?.RemainingQuantity);
       }
-      // console.log(res);
     });
   }
   // columns
