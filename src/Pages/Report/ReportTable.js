@@ -16,6 +16,7 @@ const tailLayout = {
 };
 
 const ReportTable = (props) => {
+  const { reloadTable, tableAfterReloaded } = props;
   const [date, setDate] = useState(null);
   const [ProductList, setProductList] = useState();
   const [itemList, setItemList] = useState();
@@ -26,10 +27,12 @@ const ReportTable = (props) => {
     };
     GetDayWiseProductionStockDetail(date, (res) => {
       if (res?.Stock?.length > 0) {
-        setProductList(res?.Stock);
+        const data = res?.Stock;
+        setProductList(data);
+        setItemList(data);
       }
     });
-  }, []);
+  }, [reloadTable]);
 
   const columns = [
     {
@@ -104,8 +107,10 @@ const ReportTable = (props) => {
     return ProductList;
   };
   function onSearch(value) {
-    if (value) {
-      const filteredData = ProductList.filter((item) =>
+    if (!value) {
+      setProductList(itemList);
+    } else {
+      const filteredData = itemList.filter((item) =>
         item.ItemName.toLowerCase().includes(value.toLowerCase())
       );
       setProductList(filteredData);

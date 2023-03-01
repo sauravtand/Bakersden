@@ -22,13 +22,17 @@ const ItemEntryTab = (props) => {
       getTableData();
       tableAfterReloaded(false);
     }
-  }, []);
+  }, [reloadTable]);
   useEffect(() => {
-    getTableData();
+    const date = {
+      fromdate: new Date().toISOString(),
+      todate: new Date().toISOString(),
+    };
+
     GetItemLists((res) => {
-      setItemLists(res.ItemList);
       if (res?.ItemList.length > 0) {
         setProductList(res?.ItemList);
+        setItemLists(res.ItemList);
       }
     });
   }, [reloadTable]);
@@ -154,8 +158,10 @@ const ItemEntryTab = (props) => {
     { label: "Units", key: "Units" },
   ];
   function onSearch(value) {
-    if (value) {
-      const filteredData = ProductList.filter((item) =>
+    if (!value) {
+      setProductList(ItemLists);
+    } else {
+      const filteredData = ItemLists.filter((item) =>
         item.Name.toLowerCase().includes(value.toLowerCase())
       );
       setProductList(filteredData);

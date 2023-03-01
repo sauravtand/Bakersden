@@ -31,7 +31,7 @@ const UserEntryTab = (props) => {
     GetListOfUser((res) => {
       setUserLists(res.UserList);
       if (res?.UserList.length > 0) {
-        setuserList(res?.ItemList);
+        setuserList(res?.UserList);
       }
     });
   }, [reloadTable]);
@@ -150,7 +150,9 @@ const UserEntryTab = (props) => {
     return UserLists;
   };
   function onSearch(value) {
-    if (value) {
+    if (!value) {
+      setUserLists(userList);
+    } else {
       const filteredData = UserLists.filter((item) =>
         item.UserName.toLowerCase().includes(value.toLowerCase())
       );

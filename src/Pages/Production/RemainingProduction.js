@@ -86,12 +86,15 @@ export default function RemainingProduction({ title }) {
   };
 
   function onSearch(value) {
-    if (value) {
-      const filteredData = remainingProduction.filter((item) =>
-        item.ItemName.toLowerCase().includes(value.toLowerCase())
-      );
-      setRemainingProduction(filteredData);
+    if (!value) {
+      getTableData();
+      // If the value is null, reset the table data to the original remaining production data
+      setRemainingProduction(remainingProduction);
     }
+    const filteredData = remainingProduction.filter((item) =>
+      item.ItemName.toLowerCase().includes(value.toLowerCase())
+    );
+    setRemainingProduction(filteredData);
   }
 
   return (
