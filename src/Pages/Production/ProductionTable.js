@@ -1,4 +1,4 @@
-import { Table, Tag, Modal, Input, DatePicker, Alert } from "antd";
+import { Table, Tag, Modal, Input, DatePicker, Alert, Button } from "antd";
 import { useEffect, useState } from "react";
 import Header from "../../Components/Common/Header";
 import {
@@ -10,7 +10,7 @@ import { EditOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import DateTimeBAdge from "../../Components/Common/DateTimeBAdge";
 import PrintComponent from "../../Components/Common/PrintComponent";
-
+import moment from "moment";
 // import { generateUrlEncodedData } from '../../Services/utils/generateUrlEncodedData';
 
 const ProductionTable = () => {
@@ -18,6 +18,7 @@ const ProductionTable = () => {
   const [ProductList, setProductList] = useState();
   const [editingProduct, setEditingProduct] = useState();
   const [itemList, setItemList] = useState();
+  const [dates, setDates] = useState([]);
 
   useEffect(() => {
     GetItemLists((res) => {
@@ -206,12 +207,22 @@ const ProductionTable = () => {
   const { RangePicker } = DatePicker;
   // handle change
 
-  function onDateRangeChange(data) {
+  // function onDateRangeChange(data) {
+  //   setProductList();
+  //   let newData = {
+  //     fromdate: data[0].format("YYYY-MM-DD"),
+  //     todate: data[1].format("YYYY-MM-DD"),
+  //   };
+  //   callService(newData);
+  // }
+  function loadData() {
     setProductList();
+    console.log(dates[0], dates[1]);
     let newData = {
-      fromdate: data[0].format("YYYY-MM-DD"),
-      todate: data[1].format("YYYY-MM-DD"),
+      fromdate: dates[0],
+      todate: dates[1],
     };
+
     callService(newData);
   }
   function callService(data) {
@@ -245,10 +256,17 @@ const ProductionTable = () => {
           forPrint
         />
         <RangePicker
-          onChange={(value) => {
-            onDateRangeChange(value);
+          onChange={(values) => {
+            setDates(
+              values.map((item) => {
+                return moment(item).format("YYYY-MM-DD");
+              })
+            );
           }}
         />
+        <Button type="primary" onClick={loadData}>
+          Load Data
+        </Button>
       </div>
 
       {/* End-of-Buttons */}

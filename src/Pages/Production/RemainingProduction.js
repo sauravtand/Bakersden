@@ -1,14 +1,16 @@
-import { Table, DatePicker } from "antd";
+import { Table, DatePicker, Button } from "antd";
 import React, { useEffect, useState } from "react";
 import Header from "../../Components/Common/Header";
 import { GetRemainingProductionGoodsByDatee } from "../../Services/appServices/ProductionService";
 import PrintComponent from "../../Components/Common/PrintComponent";
+import moment from "moment";
 import SearchBar from "../../Components/Common/SearchBar";
 
 const { RangePicker } = DatePicker;
 
 export default function RemainingProduction({ title }) {
   const [remainingProduction, setRemainingProduction] = useState();
+  const [dates, setDates] = useState([]);
 
   useEffect(() => {
     const date = {
@@ -23,13 +25,26 @@ export default function RemainingProduction({ title }) {
     });
   }, []);
 
-  function onDateRangeChange(data) {
+  // function onDateRangeChange(data) {
+  //   setRemainingProduction();
+  //   let newData = {
+  //     fromdate: data[0].format("YYYY-MM-DD"),
+  //     todate: data[1].format("YYYY-MM-DD"),
+  //   };
+  //   getTableData(newData);
+  // }
+
+  function loadData() {
     setRemainingProduction();
+    console.log(dates[0], dates[1]);
     let newData = {
-      fromdate: data[0].format("YYYY-MM-DD"),
-      todate: data[1].format("YYYY-MM-DD"),
+      fromdate: dates[0],
+      todate: dates[1],
     };
+
     getTableData(newData);
+
+    console.log(newData, "its new");
   }
 
   function getTableData(date) {
@@ -111,10 +126,17 @@ export default function RemainingProduction({ title }) {
         >
           <div>
             <RangePicker
-              onChange={(value) => {
-                onDateRangeChange(value);
+              onChange={(values) => {
+                setDates(
+                  values.map((item) => {
+                    return moment(item).format("YYYY-MM-DD");
+                  })
+                );
               }}
             />
+            <Button type="primary" onClick={loadData}>
+              Load Data
+            </Button>
           </div>
           <SearchBar onSearch={onSearch} />
           <div>

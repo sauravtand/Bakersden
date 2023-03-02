@@ -38,7 +38,7 @@ const ChalaniTable = (props) => {
   // const [editingProduct, setEditingProduct] = useState();
   const [ChalaniItemList, setChalaniItemList] = useState();
   // const [modalHeaders, setModalHeaders] = useState([]);
-
+  const [dates, setDates] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [tempPartyDetails, setTempPartyDetails] = useState();
   const [itemList, setItemList] = useState();
@@ -100,12 +100,22 @@ const ChalaniTable = (props) => {
     setReloadOnButtonClick(false);
   }, [reloadOnButtonClick]);
 
-  function onDateRangeChange(data) {
+  // function onDateRangeChange(data) {
+  //   setProductionList();
+  //   let newData = {
+  //     fromdate: data[0].format("YYYY-MM-DD"),
+  //     todate: data[1].format("YYYY-MM-DD"),
+  //   };
+  //   getTableData(newData);
+  // }
+  function loadData() {
     setProductionList();
+
     let newData = {
-      fromdate: data[0].format("YYYY-MM-DD"),
-      todate: data[1].format("YYYY-MM-DD"),
+      fromdate: dates[0],
+      todate: dates[1],
     };
+    console.log(newData, "woe");
     getTableData(newData);
   }
 
@@ -527,10 +537,17 @@ const ChalaniTable = (props) => {
           forPrint
         />
         <RangePicker
-          onChange={(value) => {
-            onDateRangeChange(value);
+          onChange={(values) => {
+            setDates(
+              values.map((item) => {
+                return moment(item).format("YYYY-MM-DD");
+              })
+            );
           }}
         />
+        <Button type="primary" onClick={loadData}>
+          Load Data
+        </Button>
       </div>
 
       <div>
