@@ -32,11 +32,18 @@ export const RouteDataAdmin = [
   },
   {
     id: 3,
-    label: "Remaining Production",
-    pathName: "/RemainingProduction",
-    icon: MdFilterAlt,
+    label: "Stock Report",
+    pathName: "/ReportTable",
+    icon: TableChartTwoToneIcon,
     key: 3,
   },
+  // {
+  //   id: 3,
+  //   label: "Remaining Production",
+  //   pathName: "/RemainingProduction",
+  //   icon: MdFilterAlt,
+  //   key: 3,
+  // },
   {
     id: 4,
     label: "Chalani Entry",
@@ -71,12 +78,5 @@ export const RouteDataAdmin = [
     pathName: "/ClosingDate",
     icon: RiCalendarTodoFill,
     key: 8,
-  },
-  {
-    id: 9,
-    label: "Stock Report",
-    pathName: "/ReportTable",
-    icon: TableChartTwoToneIcon,
-    key: 9,
   },
 ];

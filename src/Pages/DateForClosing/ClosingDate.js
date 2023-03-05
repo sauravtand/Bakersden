@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, DatePicker, Button, message, Modal } from "antd";
 import Header from "../../Components/Common/Header";
-import RemainingProduction from "../Production/RemainingProduction";
+import ReportTable from "../Report/ReportTable";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import {
@@ -139,7 +139,7 @@ const ClosingDate = () => {
         </div>
       </Modal>
 
-      <RemainingProduction />
+      <ReportTable />
     </Form>
   );
 };
