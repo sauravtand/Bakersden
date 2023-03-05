@@ -7,9 +7,11 @@ import {
   Switch,
   Col,
   message,
+  Modal,
 } from "antd";
 import {
   GetItemLists,
+  GetLastClosingDates,
   InsertUpdateDayWiseProductionDetail,
 } from "../../Services/appServices/ProductionService";
 import Header from "../../Components/Common/Header";
@@ -19,6 +21,8 @@ import ProductionEntryTab from "./productionEntryTab";
 import styled from "styled-components";
 import { useEffect } from "react";
 import useToken from "../../Helpers/useToken";
+import { useNavigate } from "react-router-dom";
+import ClosingDate from "../DateForClosing/ClosingDate";
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -35,6 +39,10 @@ const ProductionEntry = () => {
   const [isbutdis, setisbutdis] = useState(false);
   const [reloadTable, setreloadTable] = useState(false);
   const [ItemLists, setItemLists] = useState();
+  const [openningDate, setOpeningDate] = useState();
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConditionSatisfied, setIsConditionSatisfied] = useState(false);
 
   const { token } = useToken();
 
@@ -79,6 +87,19 @@ const ProductionEntry = () => {
   };
 
   useEffect(() => {
+    GetLastClosingDates((res) => {
+      setOpeningDate(res.GetLastClosingDate[0].OpeningDate);
+      console.log(res, "date response");
+      const isSatisfied = openningDate === null;
+      setIsConditionSatisfied(isSatisfied);
+      setIsModalOpen(true);
+      // navigate("/ClosingDate");
+      // if (isSatisfied) {
+      //   setIsConditionSatisfied(isSatisfied);
+      //   message.warn("Please include the closure date as it is not listed.");
+      //   navigate("/ClosingDate");
+      // }
+    });
     GetItemLists((res) => {
       setItemLists(res.ItemList);
     });
@@ -86,6 +107,19 @@ const ProductionEntry = () => {
 
   return (
     <>
+      {isConditionSatisfied && (
+        <Modal
+          // title="Modal Title"
+          visible={isModalOpen}
+          onCancel={() => setIsConditionSatisfied(false)}
+          width={1200}
+          style={{
+            top: 20,
+          }}
+        >
+          <ClosingDate />
+        </Modal>
+      )}
       <Header title={"Production Entry"}></Header>
       <div className="mainContainer">
         <Row>
