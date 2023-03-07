@@ -101,7 +101,7 @@ const ProductionEntry = () => {
 
       console.log(currentDate, "curerentdate");
 
-      const isSatisfied = openningDate === currentDate;
+      const isSatisfied = openningDate !== currentDate;
       if (isSatisfied) {
         setIsConditionSatisfied(isSatisfied);
         setIsModalOpen(true);
@@ -109,13 +109,6 @@ const ProductionEntry = () => {
       // setisbutdis(true);
       // } else {
       //   setisbutdis(false);
-      // }
-
-      // navigate("/ClosingDate");
-      // if (isSatisfied) {
-      //   setIsConditionSatisfied(isSatisfied);
-      //   message.warn("Please include the closure date as it is not listed.");
-      //   navigate("/ClosingDate");
       // }
     });
     GetItemLists((res) => {
