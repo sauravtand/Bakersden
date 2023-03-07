@@ -43,6 +43,11 @@ const ProductionEntry = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConditionSatisfied, setIsConditionSatisfied] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [disableClose, setDisableClose] = useState(false);
+
+  let newCorrect = selectedDate?.format("YYYY-MM-DD");
+  console.log(newCorrect, "newcorrectdate");
 
   const { token } = useToken();
 
@@ -90,9 +95,22 @@ const ProductionEntry = () => {
     GetLastClosingDates((res) => {
       setOpeningDate(res.GetLastClosingDate[0].OpeningDate);
       console.log(res, "date response");
-      const isSatisfied = openningDate === null;
-      setIsConditionSatisfied(isSatisfied);
-      setIsModalOpen(true);
+
+      console.log(newCorrect, "dateho");
+      const currentDate = new Date().toISOString().split("T")[0];
+
+      console.log(currentDate, "curerentdate");
+
+      const isSatisfied = openningDate === currentDate;
+      if (isSatisfied) {
+        setIsConditionSatisfied(isSatisfied);
+        setIsModalOpen(true);
+      }
+      // setisbutdis(true);
+      // } else {
+      //   setisbutdis(false);
+      // }
+
       // navigate("/ClosingDate");
       // if (isSatisfied) {
       //   setIsConditionSatisfied(isSatisfied);

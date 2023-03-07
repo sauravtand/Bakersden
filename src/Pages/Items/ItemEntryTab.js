@@ -142,6 +142,7 @@ const ItemEntryTab = (props) => {
     },
   ];
   const editProduct = (record) => {
+    console.log(record, "recordlist");
     setisEditing(true);
     setEditingProduct({ ...record });
   };
