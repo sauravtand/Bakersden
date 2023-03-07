@@ -144,6 +144,7 @@ const ItemEntryTab = (props) => {
   const editProduct = (record) => {
     setisEditing(true);
     setEditingProduct({ ...record });
+    reloadTable();
   };
   const resetEditing = () => {
     setisEditing(false);
@@ -200,6 +201,7 @@ const ItemEntryTab = (props) => {
             // handleEditing();
             resetEditing();
             onFinish();
+            reloadTable();
           }}
         >
           Id:
