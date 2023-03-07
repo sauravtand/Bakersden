@@ -41,16 +41,21 @@ const ProductionEntry = () => {
   const [ItemLists, setItemLists] = useState();
   const [openningDate, setOpeningDate] = useState();
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isConditionSatisfied, setIsConditionSatisfied] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState();
+  const [isConditionSatisfied, setIsConditionSatisfied] = useState();
   const [selectedDate, setSelectedDate] = useState(null);
-  const [disableClose, setDisableClose] = useState(false);
+  const [resDate, setResDate] = useState();
+  const [closabled, setClosable] = useState(false);
+  const [data, setData] = useState("");
 
-  let newCorrect = selectedDate?.format("YYYY-MM-DD");
-  console.log(newCorrect, "newcorrectdate");
+  let currentDate = new Date().toISOString().split("T")[0];
+
+  let correct = resDate?.split("T")[0];
 
   const { token } = useToken();
-
+  const handleModal = () => {
+    setIsModalOpen(false);
+  };
   const onFinish = (values) => {
     setisbutdis(true);
 
@@ -93,36 +98,32 @@ const ProductionEntry = () => {
 
   useEffect(() => {
     GetLastClosingDates((res) => {
-      setOpeningDate(res.GetLastClosingDate[0].OpeningDate);
-      console.log(res, "date response");
-
-      console.log(newCorrect, "dateho");
-      const currentDate = new Date().toISOString().split("T")[0];
-
-      console.log(currentDate, "curerentdate");
-
-      const isSatisfied = openningDate !== currentDate;
-      if (isSatisfied) {
-        setIsConditionSatisfied(isSatisfied);
-        setIsModalOpen(true);
-      }
-      // setisbutdis(true);
-      // } else {
-      //   setisbutdis(false);
-      // }
+      setResDate(res.GetLastClosingDate[0].OpeningDate);
     });
-    GetItemLists((res) => {
-      setItemLists(res.ItemList);
-    });
-  }, []);
+    const isSatisfied = correct != currentDate;
+
+    if (currentDate != correct) {
+      setIsConditionSatisfied(true);
+      setIsModalOpen(true);
+      setisbutdis(true);
+    } else {
+      setIsConditionSatisfied(false);
+      setisbutdis(false);
+    }
+  }, [currentDate, correct]);
+  const isDataEntered = data !== "";
 
   return (
     <>
       {isConditionSatisfied && (
         <Modal
-          // title="Modal Title"
+          title="The  modal was not closed yesterday"
           visible={isModalOpen}
           onCancel={() => setIsConditionSatisfied(false)}
+          onOk={handleModal}
+          okButtonProps={{ disabled: !isDataEntered }}
+          // footer={null}
+          closable={true}
           width={1200}
           style={{
             top: 20,

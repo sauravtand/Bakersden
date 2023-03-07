@@ -43,3 +43,14 @@
   margin-left: 80px;
   transition: all 0.3s ease;
 }
+
+.ant-modal-title {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 501;
+  font-size: 21px !important;
+  line-height: 22px;
+  color: red !important;
+  word-wrap: break-word;
+  text-align: center;
+}
