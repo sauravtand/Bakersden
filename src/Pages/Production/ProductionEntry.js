@@ -121,7 +121,7 @@ const ProductionEntry = () => {
           visible={isModalOpen}
           onCancel={() => setIsConditionSatisfied(false)}
           onOk={handleModal}
-          okButtonProps={{ disabled: !isDataEntered }}
+          // okButtonProps={{ disabled: !isDataEntered }}
           // footer={null}
           closable={true}
           width={1200}
