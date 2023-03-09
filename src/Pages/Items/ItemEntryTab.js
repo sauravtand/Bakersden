@@ -12,6 +12,7 @@ import PrintComponent from "../../Components/Common/PrintComponent";
 
 const ItemEntryTab = (props) => {
   const { reloadTable, tableAfterReloaded } = props;
+  console.log(props, "props");
   const [isEditing, setisEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState();
   const [ProductList, setProductList] = useState();
@@ -84,6 +85,14 @@ const ItemEntryTab = (props) => {
       itmDateAdded: editingProduct.itmDateAdded,
       Units: editingProduct.Units,
     };
+    const updatedProductList = ProductList.map((product) => {
+      if (product.itmId === editingProduct.itmId) {
+        return { ...product, ...editingProduct };
+      } else {
+        return product;
+      }
+    });
+    setProductList(updatedProductList);
 
     InsertUpdateItemDetail(data, (res) => {
       if (res?.SuccessMsg === true) {

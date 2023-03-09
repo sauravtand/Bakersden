@@ -22,16 +22,16 @@ const UserEntryTab = (props) => {
 
   useEffect(() => {
     if (reloadTable === true) {
-      // getTableData();
+      getTableData();
       tableAfterReloaded(false);
     }
   }, [reloadTable]);
   useEffect(() => {
     getTableData();
     GetListOfUser((res) => {
-      setUserLists(res.UserList);
       if (res?.UserList.length > 0) {
         setuserList(res?.UserList);
+        setUserLists(res.UserList);
       }
     });
   }, [reloadTable]);
@@ -59,6 +59,14 @@ const UserEntryTab = (props) => {
       IsActive: editingProduct.IsActive,
       UserRole: editingProduct.UserRole,
     };
+    const updatedProductList = UserLists.map((product) => {
+      if (product.Id === editingProduct.Id) {
+        return { ...product, ...editingProduct };
+      } else {
+        return product;
+      }
+    });
+    setUserLists(updatedProductList);
     InsertUpdateUserDetail(data, (res) => {
       if (res?.SuccessMsg === true) {
         <Alert message="The data is saved" type="success" showIcon />;

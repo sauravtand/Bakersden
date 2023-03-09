@@ -23,6 +23,7 @@ import { useEffect } from "react";
 import useToken from "../../Helpers/useToken";
 import { useNavigate } from "react-router-dom";
 import ClosingDate from "../DateForClosing/ClosingDate";
+import ClosingDateSpecific from "../DateForClosing/ClosingDateSpecific";
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -48,6 +49,7 @@ const ProductionEntry = () => {
   const [closabled, setClosable] = useState(false);
   const [data, setData] = useState("");
 
+  const [closeAllModal, setCloseAllModal] = useState(false);
   let currentDate = new Date().toISOString().split("T")[0];
 
   let correct = resDate?.split("T")[0];
@@ -104,6 +106,7 @@ const ProductionEntry = () => {
 
     if (currentDate != correct) {
       setIsConditionSatisfied(true);
+      setCloseAllModal(true);
       setIsModalOpen(true);
       setisbutdis(true);
     } else {
@@ -111,25 +114,28 @@ const ProductionEntry = () => {
       setisbutdis(false);
     }
   }, [currentDate, correct]);
-  const isDataEntered = data !== "";
 
   return (
     <>
       {isConditionSatisfied && (
         <Modal
-          title="The  modal was not closed yesterday"
-          visible={isModalOpen}
+          title=" Your previous stock wasn't closed. To continue, please enter the closing Date."
+          open={closeAllModal}
+          maskClosable={false}
           onCancel={() => setIsConditionSatisfied(false)}
           onOk={handleModal}
           // okButtonProps={{ disabled: !isDataEntered }}
-          // footer={null}
-          closable={true}
+          footer={null}
+          closable={false}
           width={1200}
-          style={{
-            top: 20,
-          }}
+          // style={{
+          //   top: 20,
+          // }}
         >
-          <ClosingDate />
+          <ClosingDateSpecific
+            setCloseAllModal={setCloseAllModal}
+            closeAllModal={closeAllModal}
+          />
         </Modal>
       )}
       <Header title={"Production Entry"}></Header>
