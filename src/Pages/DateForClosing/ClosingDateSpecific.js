@@ -17,10 +17,8 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [resDate, setResDate] = useState();
   let correct = resDate?.split("T")[0];
-  console.log(correct, "correct");
 
   let newCorrect = selectedDate?.format("YYYY-MM-DD");
-  console.log(newCorrect, "new");
   const initialValues = {
     Date: correct,
   };

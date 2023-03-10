@@ -36,7 +36,7 @@ export default function RemainingProduction({ title }) {
 
   function loadData() {
     setRemainingProduction();
-    console.log(dates[0], dates[1]);
+    // console.log(dates[0], dates[1]);
     let newData = {
       fromdate: dates[0],
       todate: dates[1],
@@ -44,7 +44,7 @@ export default function RemainingProduction({ title }) {
 
     getTableData(newData);
 
-    console.log(newData, "its new");
+    // console.log(newData, "its new");
   }
 
   function getTableData(date) {

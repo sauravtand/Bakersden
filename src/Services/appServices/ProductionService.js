@@ -44,7 +44,7 @@ export const InsertUpdateDayWiseProductionDetail = async (
 };
 
 export const GetProductionDetailsDate = async (data, successCallback) => {
-  console.log(data, "datajhomaa");
+  // console.log(data, "datajhomaa");
   try {
     const response = await fetch(
       `${GetProductionDetailsByDate}?fromdate=${data.fromdate}&todate=${data.todate}`

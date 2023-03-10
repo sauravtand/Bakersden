@@ -115,7 +115,6 @@ const ChalaniTable = (props) => {
       fromdate: dates[0],
       todate: dates[1],
     };
-    console.log(newData, "woe");
     getTableData(newData);
   }
 
@@ -205,7 +204,7 @@ const ChalaniTable = (props) => {
           });
         }
       } else {
-        console.log("Error!!!!!!!!!!!");
+        // console.log("Error!!!!!!!!!!!");
       }
     });
   };

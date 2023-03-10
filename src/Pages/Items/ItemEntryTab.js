@@ -12,7 +12,6 @@ import PrintComponent from "../../Components/Common/PrintComponent";
 
 const ItemEntryTab = (props) => {
   const { reloadTable, tableAfterReloaded } = props;
-  console.log(props, "props");
   const [isEditing, setisEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState();
   const [ProductList, setProductList] = useState();
@@ -151,7 +150,6 @@ const ItemEntryTab = (props) => {
     },
   ];
   const editProduct = (record) => {
-    console.log(record, "recordlist");
     setisEditing(true);
     setEditingProduct({ ...record });
     reloadTable();

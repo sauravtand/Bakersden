@@ -21,8 +21,7 @@ import ProductionEntryTab from "./productionEntryTab";
 import styled from "styled-components";
 import { useEffect } from "react";
 import useToken from "../../Helpers/useToken";
-import { useNavigate } from "react-router-dom";
-import ClosingDate from "../DateForClosing/ClosingDate";
+
 import ClosingDateSpecific from "../DateForClosing/ClosingDateSpecific";
 const { Option } = Select;
 const layout = {
@@ -40,14 +39,9 @@ const ProductionEntry = () => {
   const [isbutdis, setisbutdis] = useState(false);
   const [reloadTable, setreloadTable] = useState(false);
   const [ItemLists, setItemLists] = useState();
-  const [openningDate, setOpeningDate] = useState();
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState();
   const [isConditionSatisfied, setIsConditionSatisfied] = useState();
-  const [selectedDate, setSelectedDate] = useState(null);
   const [resDate, setResDate] = useState();
-  const [closabled, setClosable] = useState(false);
-  const [data, setData] = useState("");
 
   const [closeAllModal, setCloseAllModal] = useState(false);
   let currentDate = new Date().toISOString().split("T")[0];
@@ -102,7 +96,6 @@ const ProductionEntry = () => {
     GetLastClosingDates((res) => {
       setResDate(res.GetLastClosingDate[0].OpeningDate);
     });
-    const isSatisfied = correct != currentDate;
 
     if (currentDate != correct) {
       setIsConditionSatisfied(true);
