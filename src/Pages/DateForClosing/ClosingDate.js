@@ -83,6 +83,7 @@ const ClosingDate = () => {
             placeholder={`Closed Date is ${correct}`}
             name="Date"
             label="Date"
+            className="my-date-picker"
             id="Date"
             rules={[
               {

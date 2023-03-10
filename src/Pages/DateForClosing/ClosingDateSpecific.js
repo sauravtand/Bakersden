@@ -87,6 +87,7 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
             defaultValue={correct}
             placeholder={`Closed Date is ${correct}`}
             name="Date"
+            className="my-date-picker"
             label="Date"
             id="Date"
             rules={[

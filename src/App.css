@@ -54,3 +54,7 @@
   word-wrap: break-word;
   text-align: center;
 }
+.my-date-picker input::placeholder {
+  font-weight: bold !important;
+  color: #b41a1a !important;
+}
