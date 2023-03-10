@@ -172,16 +172,3 @@ const ItemsEntry = () => {
 };
 
 export default ItemsEntry;
-
-const ItemsEntryStyle = styled.div`
-  /* position: absolute; */
-  background-color: #fefefe;
-  padding: 10px;
-  border-radius: 8px;
-  overflow: hidden;
-  height: 500px;
-  margin-bottom: 8px;
-  box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
-  -webkit-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
-  -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
-`;

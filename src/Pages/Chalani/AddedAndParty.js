@@ -201,12 +201,6 @@ const AddedAndParty = () => {
 
 export default AddedAndParty;
 
-const Itemlist = styled.div`
-  margin-top: 2%;
-  width: 60%;
-  margin-left: 2%;
-`;
-
 const FormStyled = styled.div`
   padding: 8px 16px;
   border-left: 2px solid #c8cacb;

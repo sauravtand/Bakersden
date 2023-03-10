@@ -6,18 +6,8 @@ import styled from "styled-components";
 import PrintComponent from "../../Components/Common/PrintComponent";
 import SearchBar from "../../Components/Common/SearchBar";
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
-
 const ReportTable = (props) => {
   const { reloadTable, tableAfterReloaded } = props;
-  const [date, setDate] = useState(null);
   const [ProductList, setProductList] = useState();
   const [itemList, setItemList] = useState();
 

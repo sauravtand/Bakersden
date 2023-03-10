@@ -48,7 +48,7 @@ const UserEntryTab = (props) => {
     });
   }
 
-  const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
+  // const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
 
   const onFinish = (values) => {
     let data = {

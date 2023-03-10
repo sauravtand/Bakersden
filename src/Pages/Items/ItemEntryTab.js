@@ -73,8 +73,6 @@ const ItemEntryTab = (props) => {
     return tempArr;
   };
 
-  const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
-
   const onFinish = (values) => {
     let data = {
       itmID: editingProduct.itmId,

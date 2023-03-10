@@ -4,13 +4,11 @@ import {
   InputNumber,
   Row,
   Select,
-  Switch,
   Col,
   message,
   Modal,
 } from "antd";
 import {
-  GetItemLists,
   GetLastClosingDates,
   InsertUpdateDayWiseProductionDetail,
 } from "../../Services/appServices/ProductionService";
@@ -112,7 +110,7 @@ const ProductionEntry = () => {
     <>
       {isConditionSatisfied && (
         <Modal
-          title=" Your previous stock wasn't closed. To continue, please enter the closing Date."
+          title=" Your previous stock wasn't closed to continue, please enter the closing date."
           open={closeAllModal}
           maskClosable={false}
           onCancel={() => setIsConditionSatisfied(false)}

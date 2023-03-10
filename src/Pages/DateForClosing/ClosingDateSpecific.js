@@ -28,7 +28,6 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
     });
     if (correct >= newCorrect) {
       setisbutdis(true);
-      // alert("This date is already used for the Closing");
       setShowModal(true);
     } else {
       setisbutdis(false);

@@ -14,7 +14,6 @@ const ClosingDate = () => {
   const [isbutdis, setisbutdis] = useState(true);
   const [visible, setVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
   const [selectedDate, setSelectedDate] = useState(null);
   const [resDate, setResDate] = useState();
   let correct = resDate?.split("T")[0];
@@ -27,7 +26,6 @@ const ClosingDate = () => {
     });
     if (correct >= newCorrect) {
       setisbutdis(true);
-      // alert("This date is already used for the Closing");
       setShowModal(true);
     } else {
       setisbutdis(false);

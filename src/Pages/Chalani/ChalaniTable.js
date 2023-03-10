@@ -157,10 +157,6 @@ const ChalaniTable = (props) => {
     });
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
   const handleCancel = () => {
     setEditingProduct();
     setEditingChalani();
