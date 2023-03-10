@@ -16,6 +16,7 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [resDate, setResDate] = useState();
+  const [correctdate, setCorrectdate] = useState();
   let correct = resDate?.split("T")[0];
 
   let newCorrect = selectedDate?.format("YYYY-MM-DD");
@@ -23,6 +24,7 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
     Date: correct,
   };
   useEffect(() => {
+    setCorrectdate(correct);
     GetLastClosingDates((res) => {
       setResDate(res.GetLastClosingDate[0].OpeningDate);
     });
@@ -81,8 +83,8 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
           <ClosingHead> Enter Closing date</ClosingHead>
 
           <DatePicker
-            defaultValue={correct}
-            placeholder={`Closed Date is ${correct}`}
+            // defaultValue={correctdate}
+            placeholder={`Closed Date is ${correctdate}`}
             name="Date"
             className="my-date-picker"
             label="Date"

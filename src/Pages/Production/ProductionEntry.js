@@ -9,6 +9,7 @@ import {
   Modal,
 } from "antd";
 import {
+  GetItemLists,
   GetLastClosingDates,
   InsertUpdateDayWiseProductionDetail,
 } from "../../Services/appServices/ProductionService";
@@ -89,7 +90,11 @@ const ProductionEntry = () => {
   const tableAfterReloaded = (e) => {
     setreloadTable(false);
   };
-
+  useEffect(() => {
+    GetItemLists((res) => {
+      setItemLists(res.ItemList);
+    });
+  });
   useEffect(() => {
     GetLastClosingDates((res) => {
       setResDate(res.GetLastClosingDate[0].OpeningDate);
@@ -111,7 +116,7 @@ const ProductionEntry = () => {
       {isConditionSatisfied && (
         <Modal
           title=" Your previous stock wasn't closed to continue, please enter the closing date."
-          open={closeAllModal}
+          visible={closeAllModal}
           maskClosable={false}
           onCancel={() => setIsConditionSatisfied(false)}
           onOk={handleModal}
@@ -174,6 +179,12 @@ const ProductionEntry = () => {
                         {e.name}
                       </Option>
                     ))} */}
+                    {/* {ItemLists !== undefined &&
+                      ItemLists.map((e) => (
+                        <Option title={e.ItmName} value={e.itmId} key={e.itmId}>
+                          {e.ItmName}
+                        </Option>
+                      ))} */}
                     {ItemLists !== undefined &&
                       ItemLists.map((e) => (
                         <Option title={e.ItmName} value={e.itmId} key={e.itmId}>
