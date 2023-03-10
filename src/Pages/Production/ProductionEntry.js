@@ -124,13 +124,9 @@ const ProductionEntry = () => {
           maskClosable={false}
           onCancel={() => setIsConditionSatisfied(false)}
           onOk={handleModal}
-          // okButtonProps={{ disabled: !isDataEntered }}
           footer={null}
           closable={false}
           width={1200}
-          // style={{
-          //   top: 20,
-          // }}
         >
           <ClosingDateSpecific
             setCloseAllModal={setCloseAllModal}
