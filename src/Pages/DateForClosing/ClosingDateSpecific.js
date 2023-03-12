@@ -18,7 +18,7 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
   const [resDate, setResDate] = useState();
   const [correctdate, setCorrectdate] = useState();
   let correct = resDate?.split("T")[0];
-
+  let currentDate = new Date().toISOString().split("T")[0];
   let newCorrect = selectedDate?.format("YYYY-MM-DD");
   const initialValues = {
     Date: correct,
@@ -28,9 +28,11 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
     GetLastClosingDates((res) => {
       setResDate(res.GetLastClosingDate[0].OpeningDate);
     });
-    if (correct >= newCorrect) {
+    if (correct > newCorrect) {
       setisbutdis(true);
       setShowModal(true);
+    } else if (newCorrect > currentDate) {
+      setisbutdis(true);
     } else {
       setisbutdis(false);
     }
@@ -45,6 +47,8 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
       setShowModal(false);
     }
     setVisible(true);
+    setCorrectdate(currentDate);
+    console.log(correctdate, "hello hello");
   };
 
   const handleOk = () => {
@@ -64,6 +68,7 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
         setisbutdis(false);
       }
     });
+    window.location.reload();
   };
   const handleCancel = () => {
     setVisible(false);
@@ -85,7 +90,7 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
 
           <DatePicker
             // defaultValue={correctdate}
-            placeholder={`Closed Date is ${correctdate}`}
+            placeholder={`Please chooose ${correctdate} for yesterday's Closing`}
             name="Date"
             className="my-date-picker"
             label="Date"

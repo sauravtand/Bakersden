@@ -44,7 +44,7 @@ const ProductionEntry = () => {
 
   const [closeAllModal, setCloseAllModal] = useState(false);
   let currentDate = new Date().toISOString().split("T")[0];
-
+  // let currentDate = "2023-03-13";
   let correct = resDate?.split("T")[0];
 
   const { token } = useToken();
@@ -98,6 +98,7 @@ const ProductionEntry = () => {
   useEffect(() => {
     GetLastClosingDates((res) => {
       setResDate(res.GetLastClosingDate[0].OpeningDate);
+      console.log(res, "datafromservice");
     });
 
     if (currentDate != correct) {

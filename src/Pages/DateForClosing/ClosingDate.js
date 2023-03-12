@@ -17,16 +17,19 @@ const ClosingDate = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [resDate, setResDate] = useState();
   let correct = resDate?.split("T")[0];
-
+  let currentDate = new Date().toISOString().split("T")[0];
+  // let currentDate = "2023-03-13";
   let newCorrect = selectedDate?.format("YYYY-MM-DD");
 
   useEffect(() => {
     GetLastClosingDates((res) => {
       setResDate(res.GetLastClosingDate[0].OpeningDate);
     });
-    if (correct >= newCorrect) {
+    if (correct > newCorrect) {
       setisbutdis(true);
       setShowModal(true);
+    } else if (newCorrect > currentDate) {
+      setisbutdis(true);
     } else {
       setisbutdis(false);
     }
@@ -76,7 +79,7 @@ const ClosingDate = () => {
           <ClosingHead> Enter Closing date</ClosingHead>
 
           <DatePicker
-            placeholder={`Closed Date is ${correct}`}
+            placeholder={`Opening Date is ${correct}`}
             name="Date"
             label="Date"
             className="my-date-picker"
