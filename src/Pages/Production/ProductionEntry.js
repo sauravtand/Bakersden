@@ -104,10 +104,8 @@ const ProductionEntry = () => {
       setIsConditionSatisfied(true);
       setCloseAllModal(true);
       setIsModalOpen(true);
-      setisbutdis(true);
     } else {
       setIsConditionSatisfied(false);
-      setisbutdis(false);
     }
   }, [currentDate, correct]);
 

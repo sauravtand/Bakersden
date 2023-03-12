@@ -57,6 +57,7 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
     UpdateOpeningStockOfItem(data, (res) => {
       if (res.SuccessMsg) {
         message.success("Closing has been Successful!!");
+        setCloseAllModal(closeAllModal);
         setisbutdis(true);
       } else {
         message.error("Error!");
