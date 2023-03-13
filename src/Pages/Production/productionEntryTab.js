@@ -45,6 +45,8 @@ const ProductionEntryTab = (props) => {
         let newItemName = "";
         ItemLists?.forEach((res) => {
           if (res?.itmId === e.ItemId) {
+        ItemLists?.forEach((res) => {
+          if (res.itmId === e.ItemId) {
             newItemName = res.ItmName;
           }
         });
