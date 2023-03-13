@@ -3,12 +3,17 @@ import { useState } from "react";
 
 const { Search } = Input;
 
-function DynamicSearchBar({ onSearch }) {
+function DynamicSearchBar({ onSearch, onClear }) {
   const [searchValue, setSearchValue] = useState("");
 
   function handleSearch(value) {
     setSearchValue(value);
     onSearch(value);
+  }
+
+  function handleClear() {
+    setSearchValue("");
+    onClear();
   }
 
   return (
@@ -19,6 +24,7 @@ function DynamicSearchBar({ onSearch }) {
       value={searchValue}
       onChange={(e) => setSearchValue(e.target.value)}
       onSearch={handleSearch}
+      onClear={handleClear}
       style={{ width: "30%" }}
     />
   );

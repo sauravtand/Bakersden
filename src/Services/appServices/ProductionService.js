@@ -44,6 +44,7 @@ export const InsertUpdateDayWiseProductionDetail = async (
 };
 
 export const GetProductionDetailsDate = async (data, successCallback) => {
+  // console.log(data, "datajhomaa");
   try {
     const response = await fetch(
       `${GetProductionDetailsByDate}?fromdate=${data.fromdate}&todate=${data.todate}`
@@ -58,26 +59,11 @@ export const GetProductionDetailsDate = async (data, successCallback) => {
   }
 };
 
-// export const InsertChalanWithItemDetail = async (data, successCallback) => {
-//     console.log('new');
-//     try {
-//         console.log('fgf', data);
-//         const response = await storeJson(`${InsertChalanWithItemDetails}`,data)
-//         if (response?.status === 200) {
-//             successCallback(response?.data)
-//         } else {
-//             successCallback([])
-//         }
-//     } catch (error) {
-//         successCallback([])
-//     }
-// }
 export const InsertChalanDetailsWithSeparateItemsDetail = async (
   data,
   successCallback
 ) => {
   try {
-    // console.log("fgf", data);
     const response = await seperateStoreJson(
       `${InsertChalanDetailsWithSeparateItemsDetails}`,
       data
@@ -226,7 +212,6 @@ export const ApproveDeliveryChalani = async (data, successCallback) => {
     );
     if (response?.status === 200) {
       successCallback(response?.data);
-      console.log(response?.data, "response.data");
     } else {
       successCallback([]);
     }

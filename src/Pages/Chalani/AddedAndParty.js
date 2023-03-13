@@ -24,12 +24,10 @@ const AddedAndParty = () => {
   const [BakeryDetail, setBakeryDetail] = useState();
   const [BakeryBranch, setBakeryBranch] = useState();
   const { token } = useToken();
-  // console.log("PartyDetail", PartyDetail)
 
   const handleSelected = (e) => {
-    // console.log("ee", e)
     const dataIndex = BakeryBranch.find((el) => el.BId === e);
-    // console.log("data index", dataIndex)
+
     setBakeryDetail(dataIndex);
   };
 
@@ -53,8 +51,6 @@ const AddedAndParty = () => {
         IsActive: true,
       };
 
-      // console.log(Party)
-      // return
       let chalaniNo = 0;
       UpdateDeliveryChalani(generateUrlEncodedData(Party), (res) => {
         chalaniNo = res.CreatedId;
@@ -105,7 +101,6 @@ const AddedAndParty = () => {
 
   useEffect(() => {
     GetBranchLists((res) => {
-      // console.log("res 222", res.BranchList);
       setBakeryBranch(res.BranchList);
     });
   }, []);
@@ -184,8 +179,8 @@ const AddedAndParty = () => {
                 <TextArea rows={6} />
               </Form.Item>
 
-              <Form.Item style={{ margin: "20px 205px" }}>
-                <Button type="primary" htmlType="submit">
+              <Form.Item style={{ margin: "20px 105px" }}>
+                <Button type="primary" htmlType="submit" style={{ width: 200 }}>
                   Save Chalani
                 </Button>
               </Form.Item>
@@ -205,12 +200,6 @@ const AddedAndParty = () => {
 };
 
 export default AddedAndParty;
-
-const Itemlist = styled.div`
-  margin-top: 2%;
-  width: 60%;
-  margin-left: 2%;
-`;
 
 const FormStyled = styled.div`
   padding: 8px 16px;

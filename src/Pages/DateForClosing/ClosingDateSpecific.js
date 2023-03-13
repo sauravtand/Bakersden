@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, DatePicker, Button, message, Modal } from "antd";
 import Header from "../../Components/Common/Header";
-import ReportTable from "../Report/ReportTable";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import {
@@ -9,34 +8,35 @@ import {
   GetLastClosingDates,
 } from "../../Services/appServices/ProductionService";
 import useToken from "../../Helpers/useToken";
-const ClosingDate = () => {
+const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
   const { token } = useToken();
+  const [form] = Form.useForm();
   const [isbutdis, setisbutdis] = useState(true);
   const [visible, setVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [resDate, setResDate] = useState();
+  const [correctdate, setCorrectdate] = useState();
   let correct = resDate?.split("T")[0];
   let currentDate = new Date().toISOString().split("T")[0];
-
   // let currentDate = "2023-03-22";
 
   let newCorrect = selectedDate?.format("YYYY-MM-DD");
-
+  const initialValues = {
+    Date: correct,
+  };
+  let previousDate = new Date(new Date(currentDate) - 86400000)
+    .toISOString()
+    .split("T")[0];
+  console.log(previousDate, "its previous");
   useEffect(() => {
+    setCorrectdate(correct);
     GetLastClosingDates((res) => {
       setResDate(res.GetLastClosingDate[0].OpeningDate);
     });
-    // if (correct > newCorrect) {
-    //   setisbutdis(true);
-    //   setShowModal(true);
-    // } else if (newCorrect > currentDate) {
-    //   setisbutdis(true);
-    // } else if (newCorrect <= currentDate) {
-    //   setisbutdis(false);
-    // }
-    if (correct == newCorrect && newCorrect == currentDate) {
+    if (newCorrect == previousDate) {
       setisbutdis(false);
+      setCloseAllModal(true);
     } else {
       setisbutdis(true);
     }
@@ -46,6 +46,9 @@ const ClosingDate = () => {
     if (!selectedDate) {
       message.error("Please select a date.");
       return;
+    } else {
+      setCloseAllModal(!closeAllModal);
+      setShowModal(false);
     }
     setVisible(true);
   };
@@ -57,15 +60,19 @@ const ClosingDate = () => {
       userId: token.id,
     };
     setisbutdis(true);
+
     UpdateOpeningStockOfItem(data, (res) => {
       if (res.SuccessMsg) {
         message.success("Closing has been Successful!!");
+        setCloseAllModal(closeAllModal);
         setisbutdis(true);
       } else {
         message.error("Error!");
         setisbutdis(false);
       }
     });
+    setCloseAllModal(closeAllModal);
+    window.location.reload();
   };
   const handleCancel = () => {
     setVisible(false);
@@ -78,7 +85,7 @@ const ClosingDate = () => {
     setShowModal(false);
   };
   return (
-    <Form layout="vertical">
+    <Form form={form} initialValues={initialValues} layout="vertical">
       <Header title="Closing Date For the Stock"></Header>
 
       <Closing>
@@ -86,10 +93,11 @@ const ClosingDate = () => {
           <ClosingHead> Enter Closing date</ClosingHead>
 
           <DatePicker
-            placeholder={`Opening Date is ${correct}`}
+            // defaultValue={correctdate}
+            placeholder={`Please chooose ${previousDate} for yesterday's Closing`}
             name="Date"
-            label="Date"
             className="my-date-picker"
+            label="Date"
             id="Date"
             rules={[
               {
@@ -145,12 +153,10 @@ const ClosingDate = () => {
           </p>
         </div>
       </Modal>
-
-      <ReportTable />
     </Form>
   );
 };
-export default ClosingDate;
+export default ClosingDateSpecific;
 const Closing = styled.div`
   background-color: #fefefe;
   padding: 10px;
@@ -167,22 +173,6 @@ const Closing = styled.div`
   -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
 `;
 
-const Top = styled.div`
-  background-color: #fefefe;
-  padding: 10px;
-  box-shadow: 1px 2px 2px #b0bccea6;
-  border-radius: 8px;
-  overflow: hidden;
-  min-height: 40px;
-  justify-content: center;
-  text-align: center;
-  max-width: 100%;
-  margin-bottom: 8px;
-  margin-left: 0;
-  box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
-  -webkit-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
-  -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
-`;
 const ClosingHead = styled.div`
   overflow: hidden;
   font-weight: bold;
@@ -193,19 +183,4 @@ const ClosingHead = styled.div`
   max-width: 100%;
   margin-bottom: 8px;
   margin-left: 0;
-`;
-
-const Mod = styled.div`
-  background-color: #fefefe;
-  padding: 10px;
-  box-shadow: 1px 2px 2px #b0bccea6;
-  border-radius: 8px;
-  overflow: hidden;
-  min-height: 40px;
-  justify-content: center;
-  text-align: center;
-  max-width: 100%;
-  box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
-  -webkit-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
-  -moz-box-shadow: -1px 1px 6px 2px rgba(186, 186, 186, 0.75);
 `;

@@ -9,7 +9,6 @@ import { getLoginApi } from "../../Services/appServices/loginService";
 import { useDispatch } from "react-redux";
 import { storeUserData } from "../../Services/store/slices/profileSlice";
 import AddedAndParty from "../Chalani/AddedAndParty";
-// import {useToken} from '../../Helpers/usetoken';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -27,13 +26,12 @@ const Login = () => {
       getLoginApi(data, (res) => {
         if (res.length !== 0) {
           let UserDetails = res?.UserDetails;
-          if (UserDetails[0]?.Id > 0) {
-            // console.log("hello", res, UserDetails[0]?.Id);
 
+          if (UserDetails[0]?.Id > 0) {
             let temp = {
               id: UserDetails[0]?.Id,
               userName: UserDetails[0]?.UserName,
-              userrole: UserDetails[0]?.Id,
+              userrole: UserDetails[0]?.UserRole,
             };
             setToken(temp);
             localStorage.setItem("userData", JSON.stringify(temp));
@@ -41,7 +39,7 @@ const Login = () => {
             let navpage;
 
             navigate(
-              temp.id === 1 || temp.id === 8
+              temp.userrole === "Admin" || temp.id === "Production"
                 ? "/ProductionEntry"
                 : "/ChalaniTable"
             );

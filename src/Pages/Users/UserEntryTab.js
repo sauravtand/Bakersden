@@ -12,14 +12,6 @@ import SearchBar from "../../Components/Common/SearchBar";
 import PrintComponent from "../../Components/Common/PrintComponent";
 
 const { Option } = Select;
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 20,
-  },
-};
 
 const UserEntryTab = (props) => {
   const { reloadTable, tableAfterReloaded } = props;
@@ -30,19 +22,19 @@ const UserEntryTab = (props) => {
 
   useEffect(() => {
     if (reloadTable === true) {
-      // getTableData();
+      getTableData();
       tableAfterReloaded(false);
     }
   }, [reloadTable]);
   useEffect(() => {
     getTableData();
     GetListOfUser((res) => {
-      setUserLists(res.UserList);
       if (res?.UserList.length > 0) {
-        setuserList(res?.ItemList);
+        setuserList(res?.UserList);
+        setUserLists(res.UserList);
       }
     });
-  }, []);
+  }, [reloadTable]);
 
   function getTableData() {
     const date = {
@@ -56,7 +48,7 @@ const UserEntryTab = (props) => {
     });
   }
 
-  const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
+  // const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
 
   const onFinish = (values) => {
     let data = {
@@ -67,6 +59,14 @@ const UserEntryTab = (props) => {
       IsActive: editingProduct.IsActive,
       UserRole: editingProduct.UserRole,
     };
+    const updatedProductList = UserLists.map((product) => {
+      if (product.Id === editingProduct.Id) {
+        return { ...product, ...editingProduct };
+      } else {
+        return product;
+      }
+    });
+    setUserLists(updatedProductList);
     InsertUpdateUserDetail(data, (res) => {
       if (res?.SuccessMsg === true) {
         <Alert message="The data is saved" type="success" showIcon />;
@@ -124,7 +124,6 @@ const UserEntryTab = (props) => {
       title: "Action",
       key: "action",
       render: (_, record) => {
-        console.log(record, "i am here");
         return (
           <>
             <CIcon
@@ -159,7 +158,9 @@ const UserEntryTab = (props) => {
     return UserLists;
   };
   function onSearch(value) {
-    if (value) {
+    if (!value) {
+      setUserLists(userList);
+    } else {
       const filteredData = UserLists.filter((item) =>
         item.UserName.toLowerCase().includes(value.toLowerCase())
       );

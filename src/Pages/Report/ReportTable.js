@@ -6,13 +6,8 @@ import styled from "styled-components";
 import PrintComponent from "../../Components/Common/PrintComponent";
 import SearchBar from "../../Components/Common/SearchBar";
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-
 const ReportTable = (props) => {
-  const [date, setDate] = useState(null);
+  const { reloadTable, tableAfterReloaded } = props;
   const [ProductList, setProductList] = useState();
   const [itemList, setItemList] = useState();
 
@@ -22,10 +17,12 @@ const ReportTable = (props) => {
     };
     GetDayWiseProductionStockDetail(date, (res) => {
       if (res?.Stock?.length > 0) {
-        setProductList(res?.Stock);
+        const data = res?.Stock;
+        setProductList(data);
+        setItemList(data);
       }
     });
-  }, []);
+  }, [reloadTable]);
 
   const columns = [
     {
@@ -69,7 +66,6 @@ const ReportTable = (props) => {
   ];
 
   function onDateRangeChange(data) {
-    console.log(data, "this is real ");
     setProductList();
     let newData = {
       stockDate: data,
@@ -101,8 +97,10 @@ const ReportTable = (props) => {
     return ProductList;
   };
   function onSearch(value) {
-    if (value) {
-      const filteredData = ProductList.filter((item) =>
+    if (!value) {
+      setProductList(itemList);
+    } else {
+      const filteredData = itemList.filter((item) =>
         item.ItemName.toLowerCase().includes(value.toLowerCase())
       );
       setProductList(filteredData);
@@ -112,30 +110,32 @@ const ReportTable = (props) => {
   return (
     <>
       <Top>
-        {" "}
         <Header title="Stock Detail"></Header>
-        <Form {...layout}>
-          <Form.Item
-            label="Date"
-            style={{ fontWeight: "bold", alignItem: "left" }}
-          >
-            <div
-              style={{
-                display: "flex",
-                marginBottom: "10px",
-                justifyContent: "space-between",
-              }}
-            >
-              <DatePicker
-                onChange={(value) =>
-                  onDateRangeChange(value.format("YYYY-MM-DD"))
-                }
-              />{" "}
-              <SearchBar onSearch={onSearch} />
-            </div>
-          </Form.Item>
-          <PrintComponent addname={addname} headers={headers} forCSV forPrint />
-        </Form>
+        <div
+          style={{
+            display: "flex",
+            marginBottom: "10px",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>
+            <DatePicker
+              style={{ width: 300 }}
+              onChange={(value) =>
+                onDateRangeChange(value.format("YYYY-MM-DD"))
+              }
+            />
+          </div>
+          <SearchBar onSearch={onSearch} />
+          <div>
+            <PrintComponent
+              addname={addname}
+              headers={headers}
+              forCSV
+              forPrint
+            />
+          </div>
+        </div>
       </Top>
 
       <div>

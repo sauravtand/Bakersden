@@ -21,16 +21,12 @@ const MainLayout = () => {
   const localStorageUserData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
-    // console.log(localStorageUserData, "hello fromlocal storage");
-
-    if (localStorageUserData.userrole == 1) {
+    if (localStorageUserData.userrole == "Admin") {
       setSideBarDataNew(RouteDataAdmin);
-    } else if (localStorageUserData.userrole === 2) {
-      setSideBarDataNew(RouteDataAdmin.slice(4, 5));
-    } else if (localStorageUserData.userrole === 8) {
-      setSideBarDataNew(RouteDataAdmin.slice(0, 3));
-    } else if (localStorageUserData.userrole === 3 || 4 || 5 || 6 || 7) {
+    } else if (localStorageUserData.userrole === "Normal") {
       setSideBarDataNew(RouteDataAdmin.slice(3, 5));
+    } else if (localStorageUserData.userrole === "Production") {
+      setSideBarDataNew(RouteDataAdmin.slice(0, 3));
     }
   }, []);
 
@@ -67,7 +63,9 @@ const MainLayout = () => {
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["5"]}>
             <SideBarTop>
-              <img src={Logo} />
+              <div>
+                <img src={Logo} />
+              </div>
             </SideBarTop>
             {sideBarDataNew?.map((e) => (
               <Menu.Item key={e.id} item={e.label}>
@@ -187,9 +185,11 @@ const MenuContainer = styled.div`
 const SideBarTop = styled.div`
   /* height: 100px; */
   height: auto;
-  width: 100%;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
   /* padding: 8px; */
-  position: relative;
+  /* position: relative; */
   /* margin-bottom: 8px; */
   img {
     width: 100%;

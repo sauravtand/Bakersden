@@ -13,7 +13,7 @@ export const getLoginApi = (data, sucessCallback) => {
         sucessCallback([]);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 };

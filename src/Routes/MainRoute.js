@@ -14,31 +14,22 @@ import useToken from "../Helpers/useToken";
 const MainRoute = () => {
   const { token } = useToken();
 
-  console.log(token, "tokentoken");
-  // console.log(userData);
   return (
     <Routes>
-      {/* <Route exact path="/Login" element={<Login />}></Route> */}
-
-      {(token?.userrole === 1 || token?.userrole === 8) && (
+      {(token?.userrole === "Admin" || token?.userrole === "Production") && (
         <Route exact path="/ProductionEntry" element={<ProductionEntry />} />
       )}
 
-      {(token?.userrole === 1 || token?.userrole === 8) && (
+      {(token?.userrole === "Admin" || token?.userrole === "Production") && (
         <Route exact path="/ProductionTable" element={<ProductionTable />} />
       )}
-      {(token?.userrole === 1 ||
-        token?.userrole === 3 ||
-        token?.userrole === 4 ||
-        token?.userrole === 5 ||
-        token?.userrole === 6 ||
-        token?.userrole === 7) && (
+      {(token?.userrole === "Admin" || token?.userrole === "Normal") && (
         <Route exact path="/AddedAndParty" element={<AddedAndParty />} />
       )}
 
       <Route path="/ChalaniTable" element={<ChalaniTable />} />
 
-      {(token?.userrole === 1 || token?.userrole === 8) && (
+      {(token?.userrole === "Admin" || token?.userrole === "Production") && (
         <Route
           exact
           path="/RemainingProduction"

@@ -4,12 +4,13 @@ import {
   InputNumber,
   Row,
   Select,
-  Switch,
   Col,
   message,
+  Modal,
 } from "antd";
 import {
   GetItemLists,
+  GetLastClosingDates,
   InsertUpdateDayWiseProductionDetail,
 } from "../../Services/appServices/ProductionService";
 import Header from "../../Components/Common/Header";
@@ -19,6 +20,8 @@ import ProductionEntryTab from "./productionEntryTab";
 import styled from "styled-components";
 import { useEffect } from "react";
 import useToken from "../../Helpers/useToken";
+
+import ClosingDateSpecific from "../DateForClosing/ClosingDateSpecific";
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -35,9 +38,19 @@ const ProductionEntry = () => {
   const [isbutdis, setisbutdis] = useState(false);
   const [reloadTable, setreloadTable] = useState(false);
   const [ItemLists, setItemLists] = useState();
+  const [isModalOpen, setIsModalOpen] = useState();
+  const [isConditionSatisfied, setIsConditionSatisfied] = useState();
+  const [resDate, setResDate] = useState();
+
+  const [closeAllModal, setCloseAllModal] = useState(false);
+  let currentDate = new Date().toISOString().split("T")[0];
+  // let currentDate = "2023-03-22";
+  let correct = resDate?.split("T")[0];
 
   const { token } = useToken();
-
+  const handleModal = () => {
+    setIsModalOpen(false);
+  };
   const onFinish = (values) => {
     setisbutdis(true);
 
@@ -77,15 +90,46 @@ const ProductionEntry = () => {
   const tableAfterReloaded = (e) => {
     setreloadTable(false);
   };
-
   useEffect(() => {
     GetItemLists((res) => {
       setItemLists(res.ItemList);
     });
-  }, []);
+  });
+  useEffect(() => {
+    GetLastClosingDates((res) => {
+      setResDate(res.GetLastClosingDate[0].OpeningDate);
+      console.log(res, "datafromservice");
+    });
+
+    if (currentDate != correct) {
+      setIsConditionSatisfied(true);
+      setCloseAllModal(true);
+      setIsModalOpen(true);
+    } else {
+      setIsConditionSatisfied(false);
+      setIsModalOpen(false);
+    }
+  }, [currentDate, correct]);
 
   return (
     <>
+      {isConditionSatisfied && (
+        <Modal
+          title=" Your previous stock wasn't closed to continue, please enter the closing date."
+          visible={closeAllModal}
+          maskClosable={false}
+          onCancel={() => setIsConditionSatisfied(false)}
+          onOk={handleModal}
+          footer={null}
+          closable={false}
+          width={1200}
+        >
+          <ClosingDateSpecific
+            setCloseAllModal={setCloseAllModal}
+            closeAllModal={closeAllModal}
+          />
+        </Modal>
+      )}
       <Header title={"Production Entry"}></Header>
       <div className="mainContainer">
         <Row>
@@ -135,6 +179,12 @@ const ProductionEntry = () => {
                         {e.name}
                       </Option>
                     ))} */}
+                    {/* {ItemLists !== undefined &&
+                      ItemLists.map((e) => (
+                        <Option title={e.ItmName} value={e.itmId} key={e.itmId}>
+                          {e.ItmName}
+                        </Option>
+                      ))} */}
                     {ItemLists !== undefined &&
                       ItemLists.map((e) => (
                         <Option title={e.ItmName} value={e.itmId} key={e.itmId}>
