@@ -18,20 +18,27 @@ const ClosingDate = () => {
   const [resDate, setResDate] = useState();
   let correct = resDate?.split("T")[0];
   let currentDate = new Date().toISOString().split("T")[0];
-  // let currentDate = "2023-03-13";
+
+  // let currentDate = "2023-03-22";
+
   let newCorrect = selectedDate?.format("YYYY-MM-DD");
 
   useEffect(() => {
     GetLastClosingDates((res) => {
       setResDate(res.GetLastClosingDate[0].OpeningDate);
     });
-    if (correct > newCorrect) {
-      setisbutdis(true);
-      setShowModal(true);
-    } else if (newCorrect > currentDate) {
-      setisbutdis(true);
-    } else {
+    // if (correct > newCorrect) {
+    //   setisbutdis(true);
+    //   setShowModal(true);
+    // } else if (newCorrect > currentDate) {
+    //   setisbutdis(true);
+    // } else if (newCorrect <= currentDate) {
+    //   setisbutdis(false);
+    // }
+    if (correct == newCorrect && newCorrect == currentDate) {
       setisbutdis(false);
+    } else {
+      setisbutdis(true);
     }
   }, [newCorrect, correct]);
 

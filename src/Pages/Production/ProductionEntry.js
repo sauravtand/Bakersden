@@ -44,7 +44,7 @@ const ProductionEntry = () => {
 
   const [closeAllModal, setCloseAllModal] = useState(false);
   let currentDate = new Date().toISOString().split("T")[0];
-  // let currentDate = "2023-03-13";
+  // let currentDate = "2023-03-22";
   let correct = resDate?.split("T")[0];
 
   const { token } = useToken();
@@ -107,6 +107,7 @@ const ProductionEntry = () => {
       setIsModalOpen(true);
     } else {
       setIsConditionSatisfied(false);
+      setIsModalOpen(false);
     }
   }, [currentDate, correct]);
 

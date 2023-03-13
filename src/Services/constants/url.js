@@ -1,8 +1,8 @@
 /**
  * @desc: api url
  */
-// const API_URL = `https://lunivacare.ddns.net/bakeryProduction/`;
-const API_URL = `http://lunivacare.ddns.net/bakeryProductionUAT/`;
+const API_URL = `https://lunivacare.ddns.net/bakeryProduction/`;
+// const API_URL = `http://lunivacare.ddns.net/bakeryProductionUAT/`;
 
 /**
  * @desc: api base url with route

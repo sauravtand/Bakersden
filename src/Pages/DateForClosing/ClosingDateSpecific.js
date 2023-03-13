@@ -19,22 +19,26 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
   const [correctdate, setCorrectdate] = useState();
   let correct = resDate?.split("T")[0];
   let currentDate = new Date().toISOString().split("T")[0];
+  // let currentDate = "2023-03-22";
+
   let newCorrect = selectedDate?.format("YYYY-MM-DD");
   const initialValues = {
     Date: correct,
   };
+  let previousDate = new Date(new Date(currentDate) - 86400000)
+    .toISOString()
+    .split("T")[0];
+  console.log(previousDate, "its previous");
   useEffect(() => {
     setCorrectdate(correct);
     GetLastClosingDates((res) => {
       setResDate(res.GetLastClosingDate[0].OpeningDate);
     });
-    if (correct > newCorrect) {
-      setisbutdis(true);
-      setShowModal(true);
-    } else if (newCorrect > currentDate) {
-      setisbutdis(true);
-    } else {
+    if (newCorrect == previousDate) {
       setisbutdis(false);
+      setCloseAllModal(true);
+    } else {
+      setisbutdis(true);
     }
   }, [newCorrect, correct]);
 
@@ -47,8 +51,6 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
       setShowModal(false);
     }
     setVisible(true);
-    setCorrectdate(currentDate);
-    console.log(correctdate, "hello hello");
   };
 
   const handleOk = () => {
@@ -58,6 +60,7 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
       userId: token.id,
     };
     setisbutdis(true);
+
     UpdateOpeningStockOfItem(data, (res) => {
       if (res.SuccessMsg) {
         message.success("Closing has been Successful!!");
@@ -68,6 +71,7 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
         setisbutdis(false);
       }
     });
+    setCloseAllModal(closeAllModal);
     window.location.reload();
   };
   const handleCancel = () => {
@@ -90,7 +94,7 @@ const ClosingDateSpecific = ({ setCloseAllModal, closeAllModal }) => {
 
           <DatePicker
             // defaultValue={correctdate}
-            placeholder={`Please chooose ${correctdate} for yesterday's Closing`}
+            placeholder={`Please chooose ${previousDate} for yesterday's Closing`}
             name="Date"
             className="my-date-picker"
             label="Date"
